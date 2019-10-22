@@ -6,9 +6,20 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
+    // TODO: 22.10.19  create 'check if logged in' function
+
+    //SET TO FALSE IF YOU WANT TO TEST MAIN ACTIVITY
+    boolean loggedIn = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        if(loggedIn) {
+            setContentView(R.layout.activity_main);
+        }
+        else {
+            setContentView(R.layout.activity_login);
+        }
+
     }
 }
