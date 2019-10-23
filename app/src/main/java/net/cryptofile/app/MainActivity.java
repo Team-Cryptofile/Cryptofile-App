@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
         }
         else {
-            setContentView(R.layout.activity_login);
+            setContentView(R.layout.activity_settings);
         }
 
     }
