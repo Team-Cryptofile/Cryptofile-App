@@ -11,54 +11,60 @@
 9-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml
 10
 11    <application
-11-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:5:5-22:19
+11-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:6:5-27:19
 12        android:allowBackup="true"
-12-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:6:9-35
+12-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:7:9-35
 13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-13-->[androidx.core:core:1.0.1] /home/emival/.gradle/caches/transforms-2/files-2.1/46da25c3e2ae6308b2227b660caa604d/core-1.0.1/AndroidManifest.xml:22:18-86
+13-->[androidx.core:core:1.1.0-beta01] /home/emival/.gradle/caches/transforms-2/files-2.1/123ef6df21d4aa72d6964aca1838d96e/core-1.1.0-beta01/AndroidManifest.xml:22:18-86
 14        android:debuggable="true"
 15        android:icon="@mipmap/ic_launcher"
-15-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:7:9-43
+15-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:8:9-43
 16        android:label="@string/app_name"
-16-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:8:9-41
+16-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:9:9-41
 17        android:roundIcon="@mipmap/ic_launcher_round"
-17-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:9:9-54
+17-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:10:9-54
 18        android:supportsRtl="true"
-18-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:10:9-35
+18-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:11:9-35
 19        android:testOnly="true"
 20        android:theme="@style/AppTheme" >
-20-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:11:9-40
+20-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:12:9-40
 21        <activity
-21-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:12:9-14:69
-22            android:name="net.cryptofile.app.ui.login.LoginActivity"
-22-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:13:13-51
-23            android:label="@string/title_activity_login" />
-23-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:14:13-57
-24        <activity android:name="net.cryptofile.app.MainActivity" >
-24-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:15:9-21:20
-24-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:15:19-47
-25            <intent-filter>
-25-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:16:13-20:29
-26                <action android:name="android.intent.action.MAIN" />
-26-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:17:17-69
-26-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:17:25-66
-27
-28                <category android:name="android.intent.category.LAUNCHER" />
-28-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:19:17-77
-28-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:19:27-74
-29            </intent-filter>
-30        </activity>
-31
-32        <provider
-32-->[androidx.lifecycle:lifecycle-process:2.0.0] /home/emival/.gradle/caches/transforms-2/files-2.1/7309f8169174f11110ad56440ca8f929/lifecycle-process-2.0.0/AndroidManifest.xml:23:9-27:43
-33            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
-33-->[androidx.lifecycle:lifecycle-process:2.0.0] /home/emival/.gradle/caches/transforms-2/files-2.1/7309f8169174f11110ad56440ca8f929/lifecycle-process-2.0.0/AndroidManifest.xml:24:13-79
-34            android:authorities="net.cryptofile.app.lifecycle-process"
-34-->[androidx.lifecycle:lifecycle-process:2.0.0] /home/emival/.gradle/caches/transforms-2/files-2.1/7309f8169174f11110ad56440ca8f929/lifecycle-process-2.0.0/AndroidManifest.xml:25:13-69
-35            android:exported="false"
-35-->[androidx.lifecycle:lifecycle-process:2.0.0] /home/emival/.gradle/caches/transforms-2/files-2.1/7309f8169174f11110ad56440ca8f929/lifecycle-process-2.0.0/AndroidManifest.xml:26:13-37
-36            android:multiprocess="true" />
-36-->[androidx.lifecycle:lifecycle-process:2.0.0] /home/emival/.gradle/caches/transforms-2/files-2.1/7309f8169174f11110ad56440ca8f929/lifecycle-process-2.0.0/AndroidManifest.xml:27:13-40
-37    </application>
-38
-39</manifest>
+21-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:14:9-16:63
+22            android:name="net.cryptofile.app.SettingsActivity"
+22-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:15:13-45
+23            android:label="@string/title_activity_settings" />
+23-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:16:13-60
+24        <activity
+24-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:17:9-19:60
+25            android:name="net.cryptofile.app.ui.login.LoginActivity"
+25-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:18:13-51
+26            android:label="@string/title_activity_login" />
+26-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:19:13-57
+27        <activity android:name="net.cryptofile.app.MainActivity" >
+27-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:20:9-26:20
+27-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:20:19-47
+28            <intent-filter>
+28-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:21:13-25:29
+29                <action android:name="android.intent.action.MAIN" />
+29-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:22:17-69
+29-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:22:25-66
+30
+31                <category android:name="android.intent.category.LAUNCHER" />
+31-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:24:17-77
+31-->/home/emival/AndroidStudioProjects/Cryptofile-App/app/src/main/AndroidManifest.xml:24:27-74
+32            </intent-filter>
+33        </activity>
+34
+35        <provider
+35-->[androidx.lifecycle:lifecycle-process:2.0.0] /home/emival/.gradle/caches/transforms-2/files-2.1/7309f8169174f11110ad56440ca8f929/lifecycle-process-2.0.0/AndroidManifest.xml:23:9-27:43
+36            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+36-->[androidx.lifecycle:lifecycle-process:2.0.0] /home/emival/.gradle/caches/transforms-2/files-2.1/7309f8169174f11110ad56440ca8f929/lifecycle-process-2.0.0/AndroidManifest.xml:24:13-79
+37            android:authorities="net.cryptofile.app.lifecycle-process"
+37-->[androidx.lifecycle:lifecycle-process:2.0.0] /home/emival/.gradle/caches/transforms-2/files-2.1/7309f8169174f11110ad56440ca8f929/lifecycle-process-2.0.0/AndroidManifest.xml:25:13-69
+38            android:exported="false"
+38-->[androidx.lifecycle:lifecycle-process:2.0.0] /home/emival/.gradle/caches/transforms-2/files-2.1/7309f8169174f11110ad56440ca8f929/lifecycle-process-2.0.0/AndroidManifest.xml:26:13-37
+39            android:multiprocess="true" />
+39-->[androidx.lifecycle:lifecycle-process:2.0.0] /home/emival/.gradle/caches/transforms-2/files-2.1/7309f8169174f11110ad56440ca8f929/lifecycle-process-2.0.0/AndroidManifest.xml:27:13-40
+40    </application>
+41
+42</manifest>

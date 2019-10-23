@@ -20,6 +20,9 @@
         android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
+            android:name="net.cryptofile.app.SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
             android:name="net.cryptofile.app.ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name="net.cryptofile.app.MainActivity" >
