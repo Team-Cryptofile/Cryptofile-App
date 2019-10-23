@@ -7,8 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     // TODO: 22.10.19  create 'check if logged in' function
-
-    //SET TO FALSE IF YOU WANT TO TEST MAIN ACTIVITY
+    //SET TO EITHER TRUE OR FALSE FOR TESTING PURPOSES
     boolean loggedIn = true;
 
     @Override
@@ -18,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
         }
         else {
-            setContentView(R.layout.activity_settings);
+            setContentView(R.layout.activity_login);
         }
 
     }
