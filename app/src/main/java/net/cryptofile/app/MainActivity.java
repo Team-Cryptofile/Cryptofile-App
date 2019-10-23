@@ -1,15 +1,15 @@
 package net.cryptofile.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     // TODO: 22.10.19  create 'check if logged in' function
 
     //SET TO FALSE IF YOU WANT TO TEST MAIN ACTIVITY
-    boolean loggedIn = false;
+    boolean loggedIn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
