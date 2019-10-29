@@ -36,8 +36,10 @@
         tools:layout="@layout/fragment_share" />
 
     <fragment
-        android:id="@+id/nav_send"
-        android:name="net.cryptofile.app.ui.send.SendFragment"
-        android:label="@string/menu_send"
+        android:id="@+id/nav_settings"
+        android:name="net.cryptofile.app.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
         tools:layout="@layout/fragment_send" />
+
+
 </navigation>
