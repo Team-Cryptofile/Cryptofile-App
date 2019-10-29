@@ -5,10 +5,11 @@ import android.app.Application;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-import net.cryptofile.app.dummy.DummyContent;
+import net.cryptofile.app.data.model.File;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -17,8 +18,8 @@ import androidx.lifecycle.MutableLiveData;
 
 public class HomeViewModel extends AndroidViewModel {
 
-    MutableLiveData<List<DummyContent.DummyItem>> fileList;
-    MutableLiveData<DummyContent.DummyItem> selected = new MutableLiveData<>();
+    MutableLiveData<List<File>> fileList;
+    MutableLiveData<File> selected = new MutableLiveData<>();
 
     RequestQueue requestQueue;
 
@@ -27,7 +28,7 @@ public class HomeViewModel extends AndroidViewModel {
         requestQueue = Volley.newRequestQueue(context);
     }
 
-    LiveData<List<DummyContent.DummyItem>> getFileList() {
+    LiveData<List<File>> getFileList() {
         if(fileList == null) {
             fileList = new MutableLiveData<>();
             loadFileList();
@@ -36,20 +37,21 @@ public class HomeViewModel extends AndroidViewModel {
         return fileList;
     }
 
-    public LiveData<DummyContent.DummyItem> getSelected() {
+    public LiveData<File> getSelected() {
         return selected;
     }
 
     protected void loadFileList() {
         // TODO: 29.10.2019 Load file list from local database
-        List<DummyContent.DummyItem> fileList = new ArrayList<>();
-        DummyContent dummy = new DummyContent();
+        List<File> fileList = new ArrayList<>();
 
-        fileList.add(dummy.createDummyItem(1));
-        fileList.add(dummy.createDummyItem(2));
-        fileList.add(dummy.createDummyItem(3));
-        fileList.add(dummy.createDummyItem(4));
 
+        fileList.add(new File(UUID.randomUUID().toString(), "Title 1"));
+        fileList.add(new File(UUID.randomUUID().toString(), "Title 2"));
+        fileList.add(new File(UUID.randomUUID().toString(), "Title 3"));
+        fileList.add(new File(UUID.randomUUID().toString(), "Title 4"));
+
+        File.FILES.addAll(fileList);
         this.fileList.setValue(fileList);
     }
 
