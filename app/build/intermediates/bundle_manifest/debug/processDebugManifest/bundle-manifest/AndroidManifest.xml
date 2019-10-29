@@ -18,6 +18,8 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="net.cryptofile.app.KeyList.PrivateKey" />
+        <activity android:name="net.cryptofile.app.KeyList.PublicKey" />
         <activity
             android:name="net.cryptofile.app.ui.login.LoginActivity"
             android:label="@string/title_activity_login" />

@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import net.cryptofile.app.R;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
-import net.cryptofile.app.R;
 
 public class GalleryFragment extends Fragment {
 
@@ -32,4 +32,6 @@ public class GalleryFragment extends Fragment {
         });
         return root;
     }
+
+
 }
