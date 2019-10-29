@@ -8,26 +8,20 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="net.cryptofile.app.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="@string/menu_files"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="net.cryptofile.app.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_pubkey_list"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="net.cryptofile.app.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_prikey_list"
         tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
-        android:id="@+id/nav_tools"
-        android:name="net.cryptofile.app.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/nav_help"
@@ -39,7 +33,6 @@
         android:id="@+id/nav_settings"
         android:name="net.cryptofile.app.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_send" />
-
+        tools:layout="@layout/activity_settings" />
 
 </navigation>
