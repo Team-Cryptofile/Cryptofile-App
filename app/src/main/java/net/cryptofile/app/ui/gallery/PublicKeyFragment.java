@@ -14,17 +14,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-public class GalleryFragment extends Fragment {
+public class PublicKeyFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private PublicKeyViewModel publickeyViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(this, new Observer<String>() {
+        publickeyViewModel =
+                ViewModelProviders.of(this).get(PublicKeyViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_publickey, container, false);
+        final TextView textView = root.findViewById(R.id.text_publickey);
+        publickeyViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
