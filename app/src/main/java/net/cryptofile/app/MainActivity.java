@@ -4,12 +4,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import net.cryptofile.app.ui.home.HomeViewModel;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -18,6 +12,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import net.cryptofile.app.ui.home.HomeViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             // Passing each menu ID as a set of Ids because each
             // menu should be considered as top level destinations.
             mAppBarConfiguration = new AppBarConfiguration.Builder(
-                    R.id.nav_home, R.id.nav_publickey, R.id.nav_privatekey, R.id.nav_help, R.id.nav_settings, R.id.nav_logout)
+                    R.id.nav_files, R.id.nav_publickey, R.id.nav_privatekey, R.id.nav_help, R.id.nav_settings, R.id.nav_logout)
                     .setDrawerLayout(drawer)
                     .build();
             final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_login);
         }
 
-//        NavigationView nv = findViewById(R.id.nav_view)
-//      nv.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -80,46 +78,4 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
 
     }
-
-    /*
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        System.out.println("Got menu item " + menuItem);
-        switch (menuItem.getItemId()) {
-            case R.id.nav_logout:
-                System.out.println("Logout");
-
-                setContentView(R.layout.activity_login);
-
-
-                break;
-
-            case R.id.nav_home:
-                System.out.println("file");
-
-                setContentView(R.layout.fragment_file_list);
-
-                break;
-
-            case R.id.nav_publickey:
-
-
-                break;
-
-            case R.id.nav_settings:
-                System.out.println("Settings");
-                setContentView(R.layout.activity_settings);
-
-
-                break;
-
-            case R.id.nav_privatekey:
-                System.out.println("Private Key");
-                setContentView(R.layout.fragment_privatekey);
-
-                break;
-
-        }
-        return false;
-    }
-*/}
+}
