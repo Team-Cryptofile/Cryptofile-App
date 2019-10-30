@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             // Passing each menu ID as a set of Ids because each
             // menu should be considered as top level destinations.
             mAppBarConfiguration = new AppBarConfiguration.Builder(
-                    R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_help, R.id.nav_settings, R.id.nav_logout)
+                    R.id.nav_files, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_help, R.id.nav_settings, R.id.nav_logout)
                     .setDrawerLayout(drawer)
                     .build();
             final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_login);
         }
 
-//        NavigationView nv = findViewById(R.id.nav_view)
-//      nv.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -80,46 +79,4 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
 
     }
-
-    /*
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        System.out.println("Got menu item " + menuItem);
-        switch (menuItem.getItemId()) {
-            case R.id.nav_logout:
-                System.out.println("Logout");
-
-                setContentView(R.layout.activity_login);
-
-
-                break;
-
-            case R.id.nav_home:
-                System.out.println("file");
-
-                setContentView(R.layout.fragment_file_list);
-
-                break;
-
-            case R.id.nav_gallery:
-
-
-                break;
-
-            case R.id.nav_settings:
-                System.out.println("Settings");
-                setContentView(R.layout.activity_settings);
-
-
-                break;
-
-            case R.id.nav_slideshow:
-                System.out.println("Private Key");
-                setContentView(R.layout.fragment_slideshow);
-
-                break;
-
-        }
-        return false;
-    }
-*/}
+}

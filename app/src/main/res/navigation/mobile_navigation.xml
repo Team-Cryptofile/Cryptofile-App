@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_files">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_files"
         android:name="net.cryptofile.app.ui.home.HomeFragment"
         android:label="@string/files"
         tools:layout="@layout/fragment_file_list" >
@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/nav_logout"
-        android:name="net.cryptofile.app.ui.Logout.Logout"
+        android:name="net.cryptofile.app.ui.login.LogoutFragment"
         android:label="@string/logout"
         tools:layout="@layout/activity_login">
     </fragment>
