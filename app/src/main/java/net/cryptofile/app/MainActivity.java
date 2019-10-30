@@ -2,16 +2,8 @@ package net.cryptofile.app;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import net.cryptofile.app.ui.home.HomeViewModel;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -21,7 +13,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import net.cryptofile.app.ui.home.HomeViewModel;
+
+public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -64,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setContentView(R.layout.activity_login);
         }
 
-        NavigationView nv = findViewById(R.id.nav_view);
-        nv.setNavigationItemSelectedListener(this);
+//        NavigationView nv = findViewById(R.id.nav_view)
+//      nv.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -83,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    /*
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         System.out.println("Got menu item " + menuItem);
@@ -111,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 System.out.println("Settings");
                 setContentView(R.layout.activity_settings);
 
+
                 break;
 
             case R.id.nav_slideshow:
@@ -119,8 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
 
-
         }
         return false;
     }
-}
+*/}
