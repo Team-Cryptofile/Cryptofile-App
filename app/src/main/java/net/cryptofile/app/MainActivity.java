@@ -4,6 +4,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import net.cryptofile.app.ui.home.HomeViewModel;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -12,12 +18,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import net.cryptofile.app.ui.home.HomeViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             // Passing each menu ID as a set of Ids because each
             // menu should be considered as top level destinations.
             mAppBarConfiguration = new AppBarConfiguration.Builder(
-                    R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_help, R.id.nav_settings, R.id.nav_logout)
+                    R.id.nav_home, R.id.nav_publickey, R.id.nav_privatekey, R.id.nav_help, R.id.nav_settings, R.id.nav_logout)
                     .setDrawerLayout(drawer)
                     .build();
             final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
 
-            case R.id.nav_gallery:
+            case R.id.nav_publickey:
 
 
                 break;
@@ -113,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
 
-            case R.id.nav_slideshow:
+            case R.id.nav_privatekey:
                 System.out.println("Private Key");
-                setContentView(R.layout.fragment_slideshow);
+                setContentView(R.layout.fragment_privatekey);
 
                 break;
 

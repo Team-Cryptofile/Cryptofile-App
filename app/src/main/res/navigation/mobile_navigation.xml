@@ -17,16 +17,16 @@
             app:exitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="net.cryptofile.app.ui.gallery.GalleryFragment"
+        android:id="@+id/nav_publickey"
+        android:name="net.cryptofile.app.ui.gallery.PublicKeyFragment"
         android:label="@string/pubkey_list"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_publickey" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="net.cryptofile.app.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_privatekey"
+        android:name="net.cryptofile.app.ui.slideshow.privatekeyFragment"
         android:label="@string/prikey_list"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_privatekey" />
 
     <fragment
         android:id="@+id/nav_help"
