@@ -58,7 +58,7 @@ public class HomeViewModel extends AndroidViewModel {
         fileList.add(new File(UUID.randomUUID().toString(), "Title 6"));
 
         File.FILES.addAll(fileList);
-        this.fileList.setValue(fileList);
+        this.fileList.setValue(File.FILES);
     }
 
 }

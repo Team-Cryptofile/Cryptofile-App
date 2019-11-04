@@ -7,8 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
+@Entity @Data
+@NoArgsConstructor
 public class File {
 
     @PrimaryKey
@@ -36,29 +39,6 @@ public class File {
         this.title = title;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getFileType() {
-        return fileType;
-    }
-
-    public byte[] getFile() {
-        return file;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
 
     /**
      *  This is for making it easier to list files to show on filespage.

@@ -60,9 +60,10 @@ public class fileFragment extends Fragment {
 
         model.getSelected().observe(this, file -> {
             try {
-                id.setText(file.getId());
-                title.setText(file.getTitle());
-                fileType.setText(file.getFileType());
+                System.out.println(model.selected.getValue().getId());
+                id.setText(model.selected.getValue().getId());
+                title.setText(model.selected.getValue().getTitle());
+                fileType.setText(model.selected.getValue().getFileType());
             }catch (Exception e){
                 System.out.println(e);
             }
@@ -74,7 +75,7 @@ public class fileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_file_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_file_detail, container, false);
 
         id = view.findViewById(R.id.textViewFileId);
         title = view.findViewById(R.id.textViewFileTitle);
