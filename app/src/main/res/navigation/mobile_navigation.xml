@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@+id/fileDetailFragment"
-        android:name="net.cryptofile.app.ui.home.HomeFragment"
+        android:name="net.cryptofile.app.ui.home.fileFragment"
         android:label="fragment_file_detail"
         tools:layout="@layout/fragment_file_detail">
     </fragment>

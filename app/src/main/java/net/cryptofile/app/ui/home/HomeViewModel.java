@@ -41,6 +41,10 @@ public class HomeViewModel extends AndroidViewModel {
         return selected;
     }
 
+    public void setSelected(File selected) {
+        this.selected.setValue(selected);
+    }
+
     protected void loadFileList() {
         // TODO: 29.10.2019 Load file list from local database
         List<File> fileList = new ArrayList<>();
@@ -50,9 +54,11 @@ public class HomeViewModel extends AndroidViewModel {
         fileList.add(new File(UUID.randomUUID().toString(), "Title 2"));
         fileList.add(new File(UUID.randomUUID().toString(), "Title 3"));
         fileList.add(new File(UUID.randomUUID().toString(), "Title 4"));
+        fileList.add(new File(UUID.randomUUID().toString(), "Title 5"));
+        fileList.add(new File(UUID.randomUUID().toString(), "Title 6"));
 
         File.FILES.addAll(fileList);
-        this.fileList.setValue(fileList);
+        this.fileList.setValue(File.FILES);
     }
 
 }
