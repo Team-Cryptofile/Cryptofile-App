@@ -60,7 +60,6 @@ public class fileFragment extends Fragment {
 
         model.getSelected().observe(this, file -> {
             try {
-                System.out.println(model.selected.getValue().getId());
                 id.setText(model.selected.getValue().getId());
                 title.setText(model.selected.getValue().getTitle());
                 fileType.setText(model.selected.getValue().getFileType());
