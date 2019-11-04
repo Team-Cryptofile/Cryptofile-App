@@ -1,26 +1,25 @@
 package net.cryptofile.app.ui.home;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import net.cryptofile.app.R;
-import net.cryptofile.app.data.model.File;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.ViewModelProviders;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
+
 public class fileFragment extends Fragment {
+
+    TextView id;
+    TextView title;
+    TextView fileType;
+
+
+    /*
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -31,7 +30,7 @@ public class fileFragment extends Fragment {
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
-     */
+     * /
     public fileFragment() {
     }
 
@@ -45,13 +44,31 @@ public class fileFragment extends Fragment {
         return fragment;
     }
 
+    */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        HomeViewModel model = ViewModelProviders.of(this.getActivity()).get(HomeViewModel.class);
+        /*
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+         */
+
+        model.getSelected().observe(this, file -> {
+            try {
+                id.setText(file.getId());
+                title.setText(file.getTitle());
+                fileType.setText(file.getFileType());
+            }catch (Exception e){
+                System.out.println(e);
+            }
+
+        });
+
     }
 
     @Override
@@ -59,6 +76,11 @@ public class fileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_file_list, container, false);
 
+        id = view.findViewById(R.id.textViewFileId);
+        title = view.findViewById(R.id.textViewFileTitle);
+        fileType = view.findViewById(R.id.textViewFileType);
+
+        /*
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -70,10 +92,12 @@ public class fileFragment extends Fragment {
             }
             recyclerView.setAdapter(new MyfileRecyclerViewAdapter(File.FILES, mListener));
         }
+
+         */
         return view;
     }
 
-
+/*
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -100,9 +124,12 @@ public class fileFragment extends Fragment {
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
-     */
+     * /
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(File item);
     }
+
+ */
+
 }
