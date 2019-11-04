@@ -3,6 +3,13 @@ package net.cryptofile.app;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import net.cryptofile.app.ui.home.HomeViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,11 +20,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import net.cryptofile.app.ui.home.HomeViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,16 +27,21 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO: 22.10.19  create 'check if logged in' function
     //SET TO EITHER TRUE OR FALSE FOR TESTING PURPOSES
-    boolean loggedIn = true;
+    boolean loggedIn = false;
+    FloatingActionButton fab;
+    private Button loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         if(loggedIn) {
             setContentView(R.layout.activity_main);
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            FloatingActionButton fab = findViewById(R.id.fab);
+
+            fab = findViewById(R.id.icon);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -62,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_login);
         }
 
+        loginBtn = (Button) findViewById(R.id.login);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.activity_main);
+
+            }
+        });
+
     }
 
     @Override
@@ -78,4 +94,11 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
 
     }
+
+    //gets floating action button
+    public FloatingActionButton getFloatingActionButton() {
+        return fab;
+
+    }
+
 }
