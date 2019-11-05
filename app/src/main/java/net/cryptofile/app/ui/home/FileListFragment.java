@@ -13,14 +13,14 @@ import android.view.ViewGroup;
 
 import net.cryptofile.app.R;
 
-public class HomeFragment extends Fragment {
+public class FileListFragment extends Fragment {
 
-    //private HomeViewModel homeViewModel;
+    //private FileViewModel homeViewModel;
 
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         //homeViewModel =
-        //        ViewModelProviders.of(this).get(HomeViewModel.class);
+        //        ViewModelProviders.of(this).get(FileViewModel.class);
         //View root = inflater.inflate(R.layout.fragment_home, container, false);
         //final TextView textView = root.findViewById(R.id.text_home);
         //homeViewModel.getText().observe(this, new Observer<String>() {
@@ -31,11 +31,11 @@ public class HomeFragment extends Fragment {
         //});
         //return root;
 
-        final RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_file_list, container, false);
+        RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_file_list, container, false);
         view.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        HomeViewModel model = ViewModelProviders.of(this.getActivity()).get(HomeViewModel.class);
+        FileViewModel model = ViewModelProviders.of(this.getActivity()).get(FileViewModel.class);
         model.getFileList().observe(this, fileList ->
-                view.setAdapter(new MyfileRecyclerViewAdapter(fileList)));
+                view.setAdapter(new MyFileRecyclerViewAdapter(fileList)));
         return view;
     }
 }

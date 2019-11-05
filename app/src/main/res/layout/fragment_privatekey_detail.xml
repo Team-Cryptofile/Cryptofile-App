@@ -3,11 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.FileFragment">
-
+    tools:context=".ui.slideshow.PrivatekeyFragment">
 
     <View
         android:id="@+id/view"
@@ -20,26 +18,13 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-1dp" />
 
-    <TextView
-        android:id="@+id/textViewFileTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp" />
 
     <TextView
-        android:id="@+id/textViewFileId"
+        android:id="@+id/textViewPrivkeyId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewFileTitle"
         android:layout_alignParentEnd="true"
         android:singleLine="true"
-        android:textSize="@dimen/nav_header_vertical_spacing"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.047"
@@ -47,12 +32,13 @@
         tools:layout_editor_absoluteX="-16dp" />
 
     <TextView
-        android:id="@+id/textViewFileStatus"
+        android:id="@+id/textViewPrivkey_priv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewFileId"
+        android:layout_below="@id/textViewPrivkeyId"
         android:layout_alignParentEnd="true"
         android:singleLine="true"
+        android:textSize="5sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.136"
@@ -60,12 +46,13 @@
         tools:layout_editor_absoluteX="1dp" />
 
     <TextView
-        android:id="@+id/textViewFileType"
+        android:id="@+id/textViewPrivkey_pub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewFileStatus"
+        android:layout_below="@id/textViewPrivkey_priv"
         android:layout_alignParentEnd="true"
         android:singleLine="true"
+        android:textSize="5sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view"
         app:layout_constraintVertical_bias="0.084"

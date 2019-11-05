@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 
-public class fileFragment extends Fragment {
+public class FileFragment extends Fragment {
 
     TextView id;
     TextView title;
@@ -31,13 +31,13 @@ public class fileFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      * /
-    public fileFragment() {
+    public FileFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static fileFragment newInstance(int columnCount) {
-        fileFragment fragment = new fileFragment();
+    public static FileFragment newInstance(int columnCount) {
+        FileFragment fragment = new FileFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -50,7 +50,7 @@ public class fileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        HomeViewModel model = ViewModelProviders.of(this.getActivity()).get(HomeViewModel.class);
+        FileViewModel model = ViewModelProviders.of(this.getActivity()).get(FileViewModel.class);
         /*
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -64,7 +64,7 @@ public class fileFragment extends Fragment {
                 title.setText(model.selected.getValue().getTitle());
                 fileType.setText(model.selected.getValue().getFileType());
             }catch (Exception e){
-                System.out.println(e);
+                e.printStackTrace();
             }
 
         });
@@ -90,7 +90,7 @@ public class fileFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyfileRecyclerViewAdapter(File.FILES, mListener));
+            recyclerView.setAdapter(new MyFileRecyclerViewAdapter(File.FILES, mListener));
         }
 
          */
