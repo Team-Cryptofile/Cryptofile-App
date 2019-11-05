@@ -8,14 +8,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import net.cryptofile.app.data.GenerateKeys;
-import net.cryptofile.app.data.model.PrivateKey;
+import net.cryptofile.app.data.model.Privatekey;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,17 +22,17 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-public class PrivateKeyViewModel extends ViewModel {
-    MutableLiveData<List<PrivateKey>> privkeys;
+public class PrivatekeyViewModel extends ViewModel {
+    MutableLiveData<List<Privatekey>> privkeys;
     MutableLiveData<String> mText = new MutableLiveData<>();
 
-    public PrivateKeyViewModel() {
+    public PrivatekeyViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is privatekey fragment");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public LiveData<List<PrivateKey>> getPrivateKeys() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
+    public LiveData<List<Privatekey>> getPrivateKeys() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
         if (privkeys == null){
             privkeys = new MutableLiveData<>();
             loadPrivkeys();
@@ -43,7 +42,7 @@ public class PrivateKeyViewModel extends ViewModel {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void loadPrivkeys() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
-        List<PrivateKey> privateKeyList = new ArrayList<PrivateKey>();
+        List<Privatekey> privatekeyList = new ArrayList<Privatekey>();
         GenerateKeys keys = null;
         String pubkey = null;
         String privkey = null;
@@ -59,13 +58,13 @@ public class PrivateKeyViewModel extends ViewModel {
             e.printStackTrace();
         }
 
-        if (PrivateKey.isPair(privkey,pubkey)){
+        if (Privatekey.isPair(privkey,pubkey)){
             System.out.println("The keys is working!!!");
         }else{
             System.out.println("The keys does not work :(");
         }
 
-        privateKeyList.add(new PrivateKey(UUID.randomUUID().toString(), privkey, pubkey));
+        privatekeyList.add(new Privatekey(UUID.randomUUID().toString(), privkey, pubkey));
     }
 
     public MutableLiveData<String> getSelected() {

@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class PrivateKey {
+public class Privatekey {
 
     @PrimaryKey
     @NonNull
@@ -42,15 +42,15 @@ public class PrivateKey {
     @ColumnInfo(name = "pubkey")
     String pubkey;
 
-    public static final List<PrivateKey> KEYS = new ArrayList<PrivateKey>();
+    public static final List<Privatekey> KEYS = new ArrayList<Privatekey>();
 
-    public PrivateKey(@NonNull String id, String privkey, String pubkey) {
+    public Privatekey(@NonNull String id, String privkey, String pubkey) {
         this.id = id;
         this.privkey = privkey;
         this.pubkey = pubkey;
     }
 
-    private static void addItem(PrivateKey key) {
+    private static void addItem(Privatekey key) {
         KEYS.add(key);
     }
 

@@ -1,35 +1,26 @@
-package net.cryptofile.app.ui.slideshow;
+package net.cryptofile.app.ui.home;
 
-import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.cryptofile.app.R;
-import net.cryptofile.app.dummy.DummyContent;
-import net.cryptofile.app.dummy.DummyContent.DummyItem;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
-public class PrivateKeyFragment extends Fragment {
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
+
+public class FileFragment extends Fragment {
 
     TextView id;
+    TextView title;
+    TextView fileType;
+
 
     /*
+
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
@@ -40,38 +31,54 @@ public class PrivateKeyFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      * /
-    public PrivateKeyFragment() {
+    public FileFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static PrivateKeyFragment newInstance(int columnCount) {
-        PrivateKeyFragment fragment = new PrivateKeyFragment();
+    public static FileFragment newInstance(int columnCount) {
+        FileFragment fragment = new FileFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
 
-     */
+    */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PrivateKeyViewModel model = ViewModelProviders.of(this.getActivity()).get(PrivateKeyViewModel.class);
+        FileViewModel model = ViewModelProviders.of(this.getActivity()).get(FileViewModel.class);
+        /*
+        if (getArguments() != null) {
+            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+        }
 
-        model.getSelected().observe(this, prvkey -> {
-            id.setText(model.mText.getValue());
+         */
+
+        model.getSelected().observe(this, file -> {
+            try {
+                id.setText(model.selected.getValue().getId());
+                title.setText(model.selected.getValue().getTitle());
+                fileType.setText(model.selected.getValue().getFileType());
+            }catch (Exception e){
+                System.out.println(e);
+            }
+
         });
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_privatekey, container, false);
+        View view = inflater.inflate(R.layout.fragment_file_detail, container, false);
 
-        id = view.findViewById(R.id.privateKey_id);
+        id = view.findViewById(R.id.textViewFileId);
+        title = view.findViewById(R.id.textViewFileTitle);
+        fileType = view.findViewById(R.id.textViewFileType);
 
         /*
         // Set the adapter
@@ -83,7 +90,7 @@ public class PrivateKeyFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyPrivateKeyRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyFileRecyclerViewAdapter(File.FILES, mListener));
         }
 
          */
@@ -120,8 +127,9 @@ public class PrivateKeyFragment extends Fragment {
      * /
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(File item);
     }
 
  */
+
 }

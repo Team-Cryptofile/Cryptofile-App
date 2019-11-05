@@ -1,6 +1,10 @@
-package net.cryptofile.app.ui.home;
+package net.cryptofile.app.ui.slideshow;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,19 +12,17 @@ import android.widget.TextView;
 
 import net.cryptofile.app.R;
 
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-
-
-public class fileFragment extends Fragment {
+/**
+ * A fragment representing a list of Items.
+ * <p/>
+ * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * interface.
+ */
+public class PrivatekeyFragment extends Fragment {
 
     TextView id;
-    TextView title;
-    TextView fileType;
-
 
     /*
-
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
@@ -31,54 +33,38 @@ public class fileFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      * /
-    public fileFragment() {
+    public PrivatekeyFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static fileFragment newInstance(int columnCount) {
-        fileFragment fragment = new fileFragment();
+    public static PrivatekeyFragment newInstance(int columnCount) {
+        PrivatekeyFragment fragment = new PrivatekeyFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
 
-    */
+     */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        HomeViewModel model = ViewModelProviders.of(this.getActivity()).get(HomeViewModel.class);
-        /*
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
+        PrivatekeyViewModel model = ViewModelProviders.of(this.getActivity()).get(PrivatekeyViewModel.class);
 
-         */
-
-        model.getSelected().observe(this, file -> {
-            try {
-                id.setText(model.selected.getValue().getId());
-                title.setText(model.selected.getValue().getTitle());
-                fileType.setText(model.selected.getValue().getFileType());
-            }catch (Exception e){
-                System.out.println(e);
-            }
-
+        model.getSelected().observe(this, prvkey -> {
+            id.setText(model.mText.getValue());
         });
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_file_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_privatekey, container, false);
 
-        id = view.findViewById(R.id.textViewFileId);
-        title = view.findViewById(R.id.textViewFileTitle);
-        fileType = view.findViewById(R.id.textViewFileType);
+        id = view.findViewById(R.id.privateKey_id);
 
         /*
         // Set the adapter
@@ -90,7 +76,7 @@ public class fileFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyfileRecyclerViewAdapter(File.FILES, mListener));
+            recyclerView.setAdapter(new MyPrivateKeyRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
 
          */
@@ -127,9 +113,8 @@ public class fileFragment extends Fragment {
      * /
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(File item);
+        void onListFragmentInteraction(DummyItem item);
     }
 
  */
-
 }

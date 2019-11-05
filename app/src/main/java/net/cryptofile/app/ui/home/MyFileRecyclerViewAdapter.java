@@ -17,13 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  */
-public class MyfileRecyclerViewAdapter extends RecyclerView.Adapter<MyfileRecyclerViewAdapter.ViewHolder> {
+public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecyclerViewAdapter.ViewHolder> {
 
     private final List<File> mValues;
 
-    HomeViewModel model;
+    FileViewModel model;
 
-    public MyfileRecyclerViewAdapter(List<File> items) {
+    public MyFileRecyclerViewAdapter(List<File> items) {
         mValues = items;
     }
 
@@ -32,7 +32,7 @@ public class MyfileRecyclerViewAdapter extends RecyclerView.Adapter<MyfileRecycl
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_file, parent, false);
 
-        model = ViewModelProviders.of((FragmentActivity) parent.getContext()).get(HomeViewModel.class);
+        model = ViewModelProviders.of((FragmentActivity) parent.getContext()).get(FileViewModel.class);
         return new ViewHolder(view);
     }
 

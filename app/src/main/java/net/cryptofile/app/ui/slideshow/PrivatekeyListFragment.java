@@ -5,15 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import net.cryptofile.app.R;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,16 +23,16 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-public class PrivateKeyListFragment extends Fragment {
+public class PrivatekeyListFragment extends Fragment {
 
-    private PrivateKeyViewModel privatekeyViewModel;
+    private PrivatekeyViewModel privatekeyViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         RecyclerView root = (RecyclerView) inflater.inflate(R.layout.fragment_privatekey_list, container, false);
         root.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        PrivateKeyViewModel model = ViewModelProviders.of(this.getActivity()).get(PrivateKeyViewModel.class);
+        PrivatekeyViewModel model = ViewModelProviders.of(this.getActivity()).get(PrivatekeyViewModel.class);
         try {
             model.getPrivateKeys().observe(this, privkeys -> root.setAdapter(new MyPrivateKeyRecyclerViewAdapter(privkeys)));
         } catch (NoSuchPaddingException e) {
@@ -56,7 +53,7 @@ public class PrivateKeyListFragment extends Fragment {
 
         /*
         privatekeyViewModel =
-                ViewModelProviders.of(this).get(PrivateKeyViewModel.class);
+                ViewModelProviders.of(this).get(PrivatekeyViewModel.class);
         View root = inflater.inflate(R.layout.fragment_privatekey, container, false);
         final TextView textView = root.findViewById(R.id.text_privatekey);
         privatekeyViewModel.getText().observe(this, new Observer<String>() {

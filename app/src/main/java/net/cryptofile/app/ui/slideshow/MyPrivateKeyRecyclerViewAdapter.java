@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.cryptofile.app.R;
-import net.cryptofile.app.data.model.PrivateKey;
+import net.cryptofile.app.data.model.Privatekey;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ import java.util.List;
  */
 public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPrivateKeyRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PrivateKey> mValues;
+    private final List<Privatekey> mValues;
 
 
-    public MyPrivateKeyRecyclerViewAdapter(List<PrivateKey> items) {
+    public MyPrivateKeyRecyclerViewAdapter(List<Privatekey> items) {
         mValues = items;
     }
 
@@ -59,7 +59,7 @@ public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPriv
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public PrivateKey mItem;
+        public Privatekey mItem;
 
         public ViewHolder(View view) {
             super(view);

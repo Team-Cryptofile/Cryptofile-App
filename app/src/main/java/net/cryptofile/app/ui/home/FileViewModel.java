@@ -16,14 +16,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
-public class HomeViewModel extends AndroidViewModel {
+public class FileViewModel extends AndroidViewModel {
 
     MutableLiveData<List<File>> fileList;
     MutableLiveData<File> selected = new MutableLiveData<>();
 
     RequestQueue requestQueue;
 
-    public HomeViewModel(Application context) {
+    public FileViewModel(Application context) {
         super(context);
         requestQueue = Volley.newRequestQueue(context);
     }
