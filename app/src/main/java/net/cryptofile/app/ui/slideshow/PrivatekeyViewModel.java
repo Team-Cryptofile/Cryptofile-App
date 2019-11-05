@@ -40,7 +40,8 @@ public class PrivatekeyViewModel extends ViewModel {
 
 
     protected void loadPrivkeys() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
-        List<Privatekey> privatekeyList = new ArrayList<Privatekey>();
+        // TODO: 05.11.2019 Load privatekey list from local database
+        List<Privatekey> privatekeyList = new ArrayList<>();
         CryptoService keys = null;
         String pubkey = null;
         String privkey = null;
@@ -65,6 +66,7 @@ public class PrivatekeyViewModel extends ViewModel {
         }
 
         privatekeyList.add(new Privatekey(UUID.randomUUID().toString(), privkey, pubkey));
+        this.privkeys.setValue(privatekeyList);
     }
 
     public MutableLiveData<String> getSelected() {

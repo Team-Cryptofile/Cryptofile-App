@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.cryptofile.app.R;
@@ -18,6 +20,8 @@ public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPriv
 
     private final List<Privatekey> mValues;
 
+    PrivatekeyViewModel model;
+
 
     public MyPrivateKeyRecyclerViewAdapter(List<Privatekey> items) {
         mValues = items;
@@ -27,13 +31,15 @@ public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPriv
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_privatekey, parent, false);
+
+        model = ViewModelProviders.of((FragmentActivity) parent.getContext()).get(PrivatekeyViewModel.class);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId());
+        holder.mIdView.setText(String.format("%s", mValues.get(position).getId()));
         //holder.mContentView.setText(mValues.get(position).content);
 /*
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +70,8 @@ public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPriv
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = view.findViewById(R.id.privateKey_id);
+            mContentView = view.findViewById(R.id.content);
         }
 
         @Override
