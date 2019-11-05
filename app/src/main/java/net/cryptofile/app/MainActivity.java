@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO: 22.10.19  create 'check if logged in' function
     //SET TO EITHER TRUE OR FALSE FOR TESTING PURPOSES
-    boolean loggedIn = false;
+    boolean loggedIn = true;
     FloatingActionButton fab;
     private Button loginBtn;
 
@@ -67,17 +67,15 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             setContentView(R.layout.activity_login);
+            loginBtn = (Button) findViewById(R.id.login);
+            loginBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setContentView(R.layout.activity_main);
+
+                }
+            });
         }
-
-        loginBtn = (Button) findViewById(R.id.login);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setContentView(R.layout.activity_main);
-
-            }
-        });
-
     }
 
     @Override
