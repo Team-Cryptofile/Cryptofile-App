@@ -1,5 +1,10 @@
 package net.cryptofile.app.ui.slideshow;
 
+import android.app.Application;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 import net.cryptofile.app.data.CryptoService;
 import net.cryptofile.app.data.model.Privatekey;
 
@@ -16,17 +21,19 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class PrivatekeyViewModel extends ViewModel {
+public class PrivatekeyViewModel extends AndroidViewModel {
     MutableLiveData<List<Privatekey>> privkeys;
-    MutableLiveData<String> mText = new MutableLiveData<>();
+    MutableLiveData<Privatekey> selected = new MutableLiveData<>();
 
-    public PrivatekeyViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is privatekey fragment");
+    RequestQueue requestQueue;
+
+    public PrivatekeyViewModel(Application context) {
+        super(context);
+        requestQueue = Volley.newRequestQueue(context);
     }
 
 
@@ -71,7 +78,11 @@ public class PrivatekeyViewModel extends ViewModel {
         this.privkeys.setValue(privatekeyList);
     }
 
-    public MutableLiveData<String> getSelected() {
-        return mText;
+    public LiveData<Privatekey> getSelected() {
+        return selected;
+    }
+
+    void setSelected(Privatekey selected){
+        this.selected.setValue(selected);
     }
 }

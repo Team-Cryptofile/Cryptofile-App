@@ -10,6 +10,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import net.cryptofile.app.ui.home.FileViewModel;
+import net.cryptofile.app.ui.slideshow.PrivatekeyViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -59,11 +60,13 @@ public class MainActivity extends AppCompatActivity {
                     R.id.nav_files, R.id.nav_publickey, R.id.nav_privatekey, R.id.nav_help, R.id.nav_settings, R.id.nav_logout)
                     .setDrawerLayout(drawer)
                     .build();
-            final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
             NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
             NavigationUI.setupWithNavController(navigationView, navController);
             ViewModelProviders.of(this).get(FileViewModel.class).getSelected().observe(this, selected ->
                     navController.navigate(R.id.actionFileDetailFragment));
+            ViewModelProviders.of(this).get(PrivatekeyViewModel.class).getSelected().observe(this, selected ->
+                    navController.navigate(R.id.actionPrivkeyDetailFragment));
         }
         else {
             setContentView(R.layout.activity_login);

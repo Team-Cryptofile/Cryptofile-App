@@ -12,41 +12,12 @@ import android.widget.TextView;
 
 import net.cryptofile.app.R;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
+
 public class PrivatekeyFragment extends Fragment {
 
     TextView id;
-
-    /*
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     * /
-    public PrivatekeyFragment() {
-    }
-
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static PrivatekeyFragment newInstance(int columnCount) {
-        PrivatekeyFragment fragment = new PrivatekeyFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-     */
+    TextView privkey;
+    TextView pubkey;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,66 +26,27 @@ public class PrivatekeyFragment extends Fragment {
         PrivatekeyViewModel model = ViewModelProviders.of(this.getActivity()).get(PrivatekeyViewModel.class);
 
         model.getSelected().observe(this, prvkey -> {
-            id.setText(model.mText.getValue());
+            try {
+                id.setText(model.selected.getValue().getId());
+                privkey.setText(model.selected.getValue().getPrivkey());
+                pubkey.setText(model.selected.getValue().getPubkey());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_privatekey, container, false);
+        View view = inflater.inflate(R.layout.fragment_privatekey_detail, container, false);
 
-        id = view.findViewById(R.id.privateKey_id);
+        id = view.findViewById(R.id.textViewPrivkeyId);
+        privkey = view.findViewById(R.id.textViewPrivkey_priv);
+        pubkey = view.findViewById(R.id.textViewPrivkey_pub);
 
-        /*
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyPrivateKeyRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
-
-         */
         return view;
     }
 
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     * /
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
-    }
-
- */
 }

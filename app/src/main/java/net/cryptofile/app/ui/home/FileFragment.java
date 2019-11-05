@@ -64,7 +64,7 @@ public class FileFragment extends Fragment {
                 title.setText(model.selected.getValue().getTitle());
                 fileType.setText(model.selected.getValue().getFileType());
             }catch (Exception e){
-                System.out.println(e);
+                e.printStackTrace();
             }
 
         });

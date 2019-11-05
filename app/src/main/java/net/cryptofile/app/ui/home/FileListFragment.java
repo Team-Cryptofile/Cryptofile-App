@@ -31,7 +31,7 @@ public class FileListFragment extends Fragment {
         //});
         //return root;
 
-        final RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_file_list, container, false);
+        RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_file_list, container, false);
         view.setLayoutManager(new LinearLayoutManager(view.getContext()));
         FileViewModel model = ViewModelProviders.of(this.getActivity()).get(FileViewModel.class);
         model.getFileList().observe(this, fileList ->

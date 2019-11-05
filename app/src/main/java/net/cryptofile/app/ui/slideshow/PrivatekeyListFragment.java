@@ -15,29 +15,29 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PrivatekeyListFragment extends Fragment {
 
-    private PrivatekeyViewModel privatekeyViewModel;
+    //private PrivatekeyViewModel privatekeyViewModel;
 
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
+    public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         RecyclerView root = (RecyclerView) inflater.inflate(R.layout.fragment_privatekey_list, container, false);
         root.setLayoutManager(new LinearLayoutManager(root.getContext()));
         PrivatekeyViewModel model = ViewModelProviders.of(this.getActivity()).get(PrivatekeyViewModel.class);
         try {
-            model.getPrivateKeys().observe(this, privkeys -> root.setAdapter(new MyPrivateKeyRecyclerViewAdapter(privkeys)));
+            model.getPrivateKeys().observe(this, privkeys ->
+                    root.setAdapter(new MyPrivateKeyRecyclerViewAdapter(privkeys)));
         } catch (NoSuchPaddingException | InvalidKeySpecException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
-
 
         /*
         privatekeyViewModel =

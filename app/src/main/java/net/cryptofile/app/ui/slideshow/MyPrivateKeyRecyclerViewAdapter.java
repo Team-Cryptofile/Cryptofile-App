@@ -40,6 +40,8 @@ public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPriv
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(String.format("%s", mValues.get(position).getId()));
+        holder.mView.setOnClickListener(view -> model.setSelected(holder.mItem));
+        //holder.mPrivkeyView.setText(String.format("%s", mValues.get(position).getPrivkey()));
         //holder.mContentView.setText(mValues.get(position).content);
 /*
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -64,19 +66,21 @@ public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPriv
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
-        public final TextView mContentView;
+        //public final TextView mPrivkeyView;
+        //public final TextView mPubkeyView;
         public Privatekey mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = view.findViewById(R.id.privateKey_id);
-            mContentView = view.findViewById(R.id.content);
+            //mPrivkeyView = view.findViewById(R.id.privateKey_priv);
+            //mPubkeyView = view.findViewById(R.id.privateKey_pub);
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
+        //@Override
+        //public String toString() {
+        //    return super.toString() + " '" + mContentView.getText() + "'";
+        //}
     }
 }
