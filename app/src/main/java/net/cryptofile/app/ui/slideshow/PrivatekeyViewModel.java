@@ -46,26 +46,28 @@ public class PrivatekeyViewModel extends ViewModel {
         String pubkey = null;
         String privkey = null;
 
-        try {
-            keys = new CryptoService(1024);
-            keys.createKeys();
-            pubkey = Base64.getEncoder().encodeToString(keys.getPublicKey().getEncoded());
-            privkey = Base64.getEncoder().encodeToString(keys.getPrivateKey().getEncoded());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
-        }
+        for (int i = 0; i < 3; i++) {
+            try {
+                keys = new CryptoService(1024);
+                keys.createKeys();
+                pubkey = Base64.getEncoder().encodeToString(keys.getPublicKey().getEncoded());
+                privkey = Base64.getEncoder().encodeToString(keys.getPrivateKey().getEncoded());
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (NoSuchProviderException e) {
+                e.printStackTrace();
+            }
 
-        System.out.println("Public key: " + pubkey);
-        System.out.println("Private key: " + privkey);
-        if (CryptoService.isPair(privkey,pubkey)){
-            System.out.println("The keys is working!!!");
-        }else{
-            System.out.println("The keys does not work :(");
-        }
+            System.out.println("Public key: " + pubkey);
+            System.out.println("Private key: " + privkey);
+            if (CryptoService.isPair(privkey, pubkey)) {
+                System.out.println("The keys is working!!!");
+            } else {
+                System.out.println("The keys does not work :(");
+            }
 
-        privatekeyList.add(new Privatekey(UUID.randomUUID().toString(), privkey, pubkey));
+            privatekeyList.add(new Privatekey(UUID.randomUUID().toString(), privkey, pubkey));
+        }
         this.privkeys.setValue(privatekeyList);
     }
 
