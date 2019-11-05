@@ -60,7 +60,7 @@ public class PrivatekeyViewModel extends ViewModel {
         }
 
         if (CryptoService.isPair(privkey,pubkey)){
-            System.out.println("The keys is working!!! \\u001B[0m");
+            System.out.println("The keys is working!!!");
         }else{
             System.out.println("The keys does not work :(");
         }
