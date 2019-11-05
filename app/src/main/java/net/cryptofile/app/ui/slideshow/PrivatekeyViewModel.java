@@ -1,12 +1,5 @@
 package net.cryptofile.app.ui.slideshow;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import net.cryptofile.app.data.CryptoService;
 import net.cryptofile.app.data.model.Privatekey;
 
@@ -23,6 +16,10 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
 public class PrivatekeyViewModel extends ViewModel {
     MutableLiveData<List<Privatekey>> privkeys;
     MutableLiveData<String> mText = new MutableLiveData<>();
@@ -32,7 +29,7 @@ public class PrivatekeyViewModel extends ViewModel {
         mText.setValue("This is privatekey fragment");
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public LiveData<List<Privatekey>> getPrivateKeys() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
         if (privkeys == null){
             privkeys = new MutableLiveData<>();
@@ -41,7 +38,7 @@ public class PrivatekeyViewModel extends ViewModel {
         return privkeys;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     protected void loadPrivkeys() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
         List<Privatekey> privatekeyList = new ArrayList<Privatekey>();
         CryptoService keys = null;
@@ -59,6 +56,8 @@ public class PrivatekeyViewModel extends ViewModel {
             e.printStackTrace();
         }
 
+        System.out.println("Public key: " + pubkey);
+        System.out.println("Private key: " + privkey);
         if (CryptoService.isPair(privkey,pubkey)){
             System.out.println("The keys is working!!!");
         }else{

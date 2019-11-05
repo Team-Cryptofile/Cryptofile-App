@@ -1,7 +1,5 @@
 package net.cryptofile.app.data;
 
-import android.os.Build;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,8 +20,6 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-
-import androidx.annotation.RequiresApi;
 
 public class CryptoService {
 
@@ -60,7 +56,7 @@ public class CryptoService {
         fos.flush();
         fos.close();
     }
-
+/*
     public static void main(String[] args) {
         CryptoService gk;
         try {
@@ -75,10 +71,10 @@ public class CryptoService {
         }
 
     }
+*/
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public static boolean isPair(String privkey, String pubkey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         String testMessage = "Test message";
         System.out.println("Test message: " + testMessage);
@@ -100,7 +96,7 @@ public class CryptoService {
         return decryptedMessage.equals(testMessage);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public static PublicKey getPublicKey(String pubkey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] data = Base64.getDecoder().decode(pubkey);
         X509EncodedKeySpec spec = new X509EncodedKeySpec(data);
@@ -108,7 +104,7 @@ public class CryptoService {
         return factory.generatePublic(spec);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public static PrivateKey getPrivateKey(String privkey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] data = Base64.getDecoder().decode(privkey);
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(data);
