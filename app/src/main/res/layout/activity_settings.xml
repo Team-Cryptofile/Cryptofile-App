@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/deleteAccountButton"
+                android:layout_width="139dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="92dp"
+                android:text="@string/delete_account"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/chooseSaveFolder"
+                android:layout_width="139dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="164dp"
+                android:text="@string/choose_save_folder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</LinearLayout>
