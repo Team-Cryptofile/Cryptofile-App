@@ -3,7 +3,6 @@ package net.cryptofile.app;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     //SET TO EITHER TRUE OR FALSE FOR TESTING PURPOSES
     boolean loggedIn = true;
     FloatingActionButton fab;
-    private Button loginBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,16 +69,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             setContentView(R.layout.activity_login);
-            loginBtn = (Button) findViewById(R.id.login);
-            loginBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    setContentView(R.layout.activity_main);
 
-                }
-            });
         }
+
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -57,7 +57,7 @@
         android:id="@+id/nav_logout"
         android:name="net.cryptofile.app.ui.login.LogoutFragment"
         android:label="@string/logout"
-        tools:layout="@layout/activity_login">
+        tools:layout="@layout/activity_logout">
     </fragment>
 
     <fragment

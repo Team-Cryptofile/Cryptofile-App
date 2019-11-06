@@ -1,31 +1,40 @@
 package net.cryptofile.app.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import net.cryptofile.app.MainActivity;
 import net.cryptofile.app.R;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.annotation.NonNull;
 
 public class LogoutFragment extends Fragment {
 
 
-    public View onCreateView(LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+       /*  Hides toolbar from view
+
+       ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
+
+        Hides floating action bar from view
 
         FloatingActionButton floatingActionButton = ((MainActivity)getActivity()).getFloatingActionButton();
         floatingActionButton.hide();
+        */
 
 
-        return inflater.inflate(R.layout.activity_login, null, true);
+       startActivity(new Intent(this.getActivity(),LogoutActivity.class));
+
+
+        return inflater.inflate(R.layout.activity_logout, container, false);
+
+
 
 
     }
