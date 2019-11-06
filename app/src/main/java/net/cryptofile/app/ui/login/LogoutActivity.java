@@ -18,6 +18,7 @@ public class LogoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //View view = getLayoutInflater().inflate(R.layout.activity_logout, null, false);
         setContentView(R.layout.activity_logout);
 
         cancelBtn = (Button) findViewById(R.id.cancel);

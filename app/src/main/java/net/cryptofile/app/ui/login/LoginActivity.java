@@ -112,6 +112,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 //login button takes you right to main menu. Remove this for finished product.
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());

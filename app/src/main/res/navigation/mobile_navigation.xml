@@ -53,12 +53,12 @@
         tools:layout="@layout/fragment_file_detail">
     </fragment>
 
-    <fragment
+    <activity
         android:id="@+id/nav_logout"
-        android:name="net.cryptofile.app.ui.login.LogoutFragment"
+        android:name="net.cryptofile.app.ui.login.LogoutActivity"
         android:label="@string/logout"
         tools:layout="@layout/activity_logout">
-    </fragment>
+    </activity>
 
     <fragment
         android:id="@+id/privkeyDetailFragment"
