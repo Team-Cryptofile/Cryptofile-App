@@ -28,8 +28,12 @@ public class MainActivity extends AppCompatActivity {
     // TODO: 22.10.19  create 'check if logged in' function
     //SET TO EITHER TRUE OR FALSE FOR TESTING PURPOSES
     boolean loggedIn = true;
-    FloatingActionButton fab;
 
+    FloatingActionButton fab;
+    FloatingActionButton fabItem1;
+    FloatingActionButton fabItem2;
+
+    boolean isFABOpen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +46,18 @@ public class MainActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
 
             fab = findViewById(R.id.icon);
+            fabItem1 = findViewById(R.id.fab1);
+            fabItem2 = findViewById(R.id.fab2);
+
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    if(!isFABOpen){
+                        showFABMenu();
+                    }
+                    else{
+                        closeFABMenu();
+                    }
                 }
             });
 
@@ -96,6 +107,22 @@ public class MainActivity extends AppCompatActivity {
     public FloatingActionButton getFloatingActionButton() {
         return fab;
 
+    }
+
+    private void showFABMenu(){
+        isFABOpen=true;
+        fabItem1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
+        fabItem2.animate().translationY(-getResources().getDimension(R.dimen.standard_105));
+        fabItem1.show();
+        fabItem2.show();
+    }
+
+    private void closeFABMenu(){
+        isFABOpen=false;
+        fabItem1.animate().translationY(0);
+        fabItem2.animate().translationY(0);
+        fabItem1.hide();
+        fabItem2.hide();
     }
 
 }

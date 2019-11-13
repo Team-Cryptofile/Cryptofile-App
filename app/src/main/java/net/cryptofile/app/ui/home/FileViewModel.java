@@ -4,7 +4,9 @@ import android.app.Application;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import net.cryptofile.app.R;
 import net.cryptofile.app.data.model.File;
 
 import java.util.ArrayList;
@@ -59,6 +61,10 @@ public class FileViewModel extends AndroidViewModel {
 
         File.FILES.addAll(fileList);
         this.fileList.setValue(File.FILES);
+    }
+
+    private void loadFab() {
+        FloatingActionButton fab;
     }
 
 }

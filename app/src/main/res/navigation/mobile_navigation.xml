@@ -9,7 +9,7 @@
         android:id="@+id/nav_files"
         android:name="net.cryptofile.app.ui.home.FileListFragment"
         android:label="@string/files"
-        tools:layout="@layout/fragment_file_list" >
+        tools:layout="@layout/activity_main" >
         <action
             android:id="@+id/actionFileDetailFragment"
             app:destination="@id/fileDetailFragment"
