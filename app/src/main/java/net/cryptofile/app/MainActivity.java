@@ -1,6 +1,5 @@
 package net.cryptofile.app;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -18,8 +17,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
 import net.cryptofile.app.ui.home.FileViewModel;
-import net.cryptofile.app.ui.slideshow.PrivatekeyViewModel;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     boolean isFABOpen;
 
-    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
     }
 
 
@@ -110,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @SuppressLint("RestrictedApi")
     private void showFABMenu(){
         isFABOpen=true;
         downloadButton.animate().translationY(-getResources().getDimension(R.dimen.standard_90));
@@ -127,13 +123,13 @@ public class MainActivity extends AppCompatActivity {
         uploadButton.hide();
     }
 
-    //TODO 13.11.2019 Add a function to download files
+    //TODO 13.11.2019 Add functionality to download files
     private void downloadFile(View view) {
         Snackbar snackbar = Snackbar.make(view, "Function missing!", 2000);
         snackbar.show();
     }
 
-    //TODO 13.11.2019 Add a function to upload files
+    //TODO 13.11.2019 Add functionality to upload files
     private void uploadFile(View view) {
         Snackbar snackbar = Snackbar.make(view, "Function missing!", 2000);
         snackbar.show();

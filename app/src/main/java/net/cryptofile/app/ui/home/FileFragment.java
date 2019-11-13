@@ -90,7 +90,7 @@ public class FileFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyFileRecyclerViewAdapter(File.FILES, mListener));
+            recyclerView.setAdapter(new MyFileRecyclerViewAdapter(FileEntry.FILES, mListener));
         }
 
          */
@@ -127,7 +127,7 @@ public class FileFragment extends Fragment {
      * /
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(File item);
+        void onListFragmentInteraction(FileEntry item);
     }
 
  */

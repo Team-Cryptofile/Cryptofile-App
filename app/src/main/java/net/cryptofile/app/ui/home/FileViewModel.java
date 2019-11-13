@@ -2,20 +2,20 @@ package net.cryptofile.app.ui.home;
 
 import android.app.Application;
 
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import net.cryptofile.app.R;
-import net.cryptofile.app.data.model.File;
+import net.cryptofile.app.data.model.FileEntry;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 
 public class FileViewModel extends AndroidViewModel {
@@ -43,12 +43,12 @@ public class FileViewModel extends AndroidViewModel {
         return selected;
     }
 
-    public void setSelected(File selected) {
+    public void setSelected(FileEntry selected) {
         this.selected.setValue(selected);
     }
 
     protected void loadFileList() {
-        // TODO: 29.10.2019 Load file list from local database
+        // TODO: 29.10.2019 Load file list from local storage
         List<File> fileList = new ArrayList<>();
 
 
@@ -59,8 +59,6 @@ public class FileViewModel extends AndroidViewModel {
         fileList.add(new File(UUID.randomUUID().toString(), "Title 5"));
         fileList.add(new File(UUID.randomUUID().toString(), "Title 6"));
 
-        File.FILES.addAll(fileList);
-        this.fileList.setValue(File.FILES);
     }
 
     private void loadFab() {

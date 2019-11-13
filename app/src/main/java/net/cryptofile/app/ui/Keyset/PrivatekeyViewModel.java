@@ -1,12 +1,16 @@
-package net.cryptofile.app.ui.slideshow;
+package net.cryptofile.app.ui.Keyset;
 
 import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 import net.cryptofile.app.data.CryptoService;
-import net.cryptofile.app.data.model.Privatekey;
+import net.cryptofile.app.data.model.Keyset;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -21,13 +25,9 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 public class PrivatekeyViewModel extends AndroidViewModel {
-    MutableLiveData<List<Privatekey>> privkeys;
-    MutableLiveData<Privatekey> selected = new MutableLiveData<>();
+    MutableLiveData<List<Keyset>> privkeys;
+    MutableLiveData<Keyset> selected = new MutableLiveData<>();
 
     RequestQueue requestQueue;
 
@@ -37,7 +37,7 @@ public class PrivatekeyViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<List<Privatekey>> getPrivateKeys() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
+    public LiveData<List<Keyset>> getPrivateKeys() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
         if (privkeys == null){
             privkeys = new MutableLiveData<>();
             loadPrivkeys();
@@ -48,7 +48,7 @@ public class PrivatekeyViewModel extends AndroidViewModel {
 
     protected void loadPrivkeys() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
         // TODO: 05.11.2019 Load privatekey list from local database
-        List<Privatekey> privatekeyList = new ArrayList<>();
+        List<Keyset> keysetList = new ArrayList<>();
         CryptoService keys = null;
         String pubkey = null;
         String privkey = null;
@@ -59,9 +59,7 @@ public class PrivatekeyViewModel extends AndroidViewModel {
                 keys.createKeys();
                 pubkey = Base64.getEncoder().encodeToString(keys.getPublicKey().getEncoded());
                 privkey = Base64.getEncoder().encodeToString(keys.getPrivateKey().getEncoded());
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (NoSuchProviderException e) {
+            } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
                 e.printStackTrace();
             }
 
@@ -73,16 +71,16 @@ public class PrivatekeyViewModel extends AndroidViewModel {
                 System.out.println("The keys does not work :(");
             }
 
-            privatekeyList.add(new Privatekey(UUID.randomUUID().toString(), privkey, pubkey));
+            keysetList.add(new Keyset(UUID.randomUUID().toString(), privkey, pubkey));
         }
-        this.privkeys.setValue(privatekeyList);
+        this.privkeys.setValue(keysetList);
     }
 
-    public LiveData<Privatekey> getSelected() {
+    public LiveData<Keyset> getSelected() {
         return selected;
     }
 
-    void setSelected(Privatekey selected){
+    void setSelected(Keyset selected){
         this.selected.setValue(selected);
     }
 }
