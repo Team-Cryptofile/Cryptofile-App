@@ -1,15 +1,9 @@
 package net.cryptofile.app;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import net.cryptofile.app.ui.home.FileViewModel;
-import net.cryptofile.app.ui.slideshow.PrivatekeyViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +14,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import net.cryptofile.app.ui.home.FileViewModel;
+import net.cryptofile.app.ui.slideshow.PrivatekeyViewModel;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,12 +30,13 @@ public class MainActivity extends AppCompatActivity {
     //SET TO EITHER TRUE OR FALSE FOR TESTING PURPOSES
     boolean loggedIn = true;
 
-    FloatingActionButton fab;
-    FloatingActionButton fabItem1;
-    FloatingActionButton fabItem2;
+    FloatingActionButton uploadButton;
+    FloatingActionButton downloadButton;
+    FloatingActionButton plusButton;
 
     boolean isFABOpen;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,21 +47,25 @@ public class MainActivity extends AppCompatActivity {
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
-            fab = findViewById(R.id.icon);
-            fabItem1 = findViewById(R.id.fab1);
-            fabItem2 = findViewById(R.id.fab2);
+            uploadButton = findViewById(R.id.upload_fab);
+            downloadButton = findViewById(R.id.download_fab);
+            plusButton = findViewById(R.id.plus_fab);
 
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(!isFABOpen){
-                        showFABMenu();
-                    }
-                    else{
-                        closeFABMenu();
-                    }
+            uploadButton.hide();
+            downloadButton.hide();
+
+            plusButton.setOnClickListener(view -> {
+                if(!isFABOpen){
+                    showFABMenu();
+                }
+                else{
+                    closeFABMenu();
                 }
             });
+
+            downloadButton.setOnClickListener(this::downloadFile);
+
+            uploadButton.setOnClickListener(this::uploadFile);
 
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             NavigationView navigationView = findViewById(R.id.nav_view);
@@ -103,26 +109,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //gets floating action button
-    public FloatingActionButton getFloatingActionButton() {
-        return fab;
 
-    }
-
+    @SuppressLint("RestrictedApi")
     private void showFABMenu(){
         isFABOpen=true;
-        fabItem1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
-        fabItem2.animate().translationY(-getResources().getDimension(R.dimen.standard_105));
-        fabItem1.show();
-        fabItem2.show();
+        downloadButton.animate().translationY(-getResources().getDimension(R.dimen.standard_90));
+        uploadButton.animate().translationY(-getResources().getDimension(R.dimen.standard_60));
+        downloadButton.show();
+        uploadButton.show();
     }
 
     private void closeFABMenu(){
         isFABOpen=false;
-        fabItem1.animate().translationY(0);
-        fabItem2.animate().translationY(0);
-        fabItem1.hide();
-        fabItem2.hide();
+        downloadButton.animate().translationY(0);
+        uploadButton.animate().translationY(0);
+        downloadButton.hide();
+        uploadButton.hide();
+    }
+
+    //TODO 13.11.2019 Add a function to download files
+    private void downloadFile(View view) {
+        Snackbar snackbar = Snackbar.make(view, "Function missing!", 2000);
+        snackbar.show();
+    }
+
+    //TODO 13.11.2019 Add a function to upload files
+    private void uploadFile(View view) {
+        Snackbar snackbar = Snackbar.make(view, "Function missing!", 2000);
+        snackbar.show();
     }
 
 }

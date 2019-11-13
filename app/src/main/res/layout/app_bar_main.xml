@@ -23,35 +23,37 @@
     <include layout="@layout/content_main" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="#00FFFFFF"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_add_white" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab1"
+        android:id="@+id/upload_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:backgroundTint="#2196F3"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/ic_file_upload_black_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/download_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:backgroundTint="#2196F3"
+        android:tint="#FFFFFF"
         app:fabSize="normal"
-        app:layout_anchor="@+id/icon"
+        app:layout_anchor="@+id/upload_fab"
         app:layout_anchorGravity="center"
         app:srcCompat="@drawable/ic_file_download_black_24dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/icon"
+        android:id="@+id/plus_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/fab_margin"
         android:backgroundTint="#2196F3"
-        app:srcCompat="@drawable/ic_file_upload_black_24dp" />
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_add_white" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
