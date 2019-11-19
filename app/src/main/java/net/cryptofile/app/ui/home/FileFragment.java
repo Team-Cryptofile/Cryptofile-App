@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.cryptofile.app.R;
+import net.cryptofile.app.data.model.FileEntry;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -60,7 +61,7 @@ public class FileFragment extends Fragment {
 
         model.getSelected().observe(this, file -> {
             try {
-                id.setText(model.selected.getValue().getId());
+                id.setText(file.);
                 title.setText(model.selected.getValue().getTitle());
                 fileType.setText(model.selected.getValue().getFileType());
             }catch (Exception e){
