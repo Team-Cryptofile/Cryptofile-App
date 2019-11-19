@@ -50,5 +50,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="titleString">Title</string>
+    <string name="select_file_button">Select File</string>
+    <string name="upload_file">Upload File</string>
+    <string name="selected_file">No file selected</string>
+    <string name="file_type_label">File type:</string>
+    <string name="detected_filetype">No filetype detected</string>
 
 </resources>
