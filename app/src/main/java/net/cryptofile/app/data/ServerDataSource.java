@@ -36,6 +36,9 @@ public class ServerDataSource {
             request.writeBytes("Content-Disposition: form-data; name=\"title\"\r\n\r\n");
             request.writeBytes(title + "\r\n");
 
+            request.writeBytes("------WebKitFormBoundary" + boundary + "--\r\n");
+            request.flush();
+
             if (c.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(c.getInputStream(), StandardCharsets.UTF_8));
                 String response = bufferedReader.readLine();

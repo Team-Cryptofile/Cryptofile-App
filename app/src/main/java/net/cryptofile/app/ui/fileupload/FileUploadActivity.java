@@ -106,6 +106,7 @@ public class FileUploadActivity extends AppCompatActivity {
                 try {
                     Result response = mainRepository.uploadFile(file, title, filetype);
                     String id = response.toString();
+                    System.out.println("Recieved ID: " + id);
                     return response;
                 } catch (Exception e) {
                     e.printStackTrace();
