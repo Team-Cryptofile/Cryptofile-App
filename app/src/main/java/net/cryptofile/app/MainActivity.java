@@ -1,8 +1,18 @@
 package net.cryptofile.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import net.cryptofile.app.data.InternalStorage;
+import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
+import net.cryptofile.app.ui.fileupload.FileUploadActivity;
+import net.cryptofile.app.ui.home.FileViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,14 +22,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import net.cryptofile.app.data.InternalStorage;
-import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
-import net.cryptofile.app.ui.home.FileViewModel;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -135,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO 13.11.2019 Add functionality to upload files
     private void uploadFile(View view) {
-        Snackbar snackbar = Snackbar.make(view, "Function missing!", 2000);
-        snackbar.show();
+        
+        startActivity(new Intent(this, FileUploadActivity.class));
     }
 
 }
