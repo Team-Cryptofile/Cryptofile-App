@@ -8,10 +8,7 @@
             android:id="@+id/nav_files"
             android:icon="@drawable/ic_folder_black_24dp"
             android:title="@string/files" />
-        <item
-            android:id="@+id/nav_publickey"
-            android:icon="@drawable/ic_keylist"
-            android:title="@string/pubkey_list" />
+
         <item
             android:id="@+id/nav_privatekey"
             android:icon="@drawable/ic_keylist"
