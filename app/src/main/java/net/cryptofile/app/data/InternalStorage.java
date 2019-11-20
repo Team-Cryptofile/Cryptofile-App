@@ -18,11 +18,11 @@ public class InternalStorage {
 
     public void createFile() {
 
-        String filePath = "Internal"
+        //String filePath = "Internal"
         File file = new File("Wiseness.txt");
         //String filePath = "/Internal storage/Android/data/net.cryptofile.app/files";
 
-        System.out.println(filePath);
+        //System.out.println(filePath);
 
         try {
             if(file.createNewFile()) {
