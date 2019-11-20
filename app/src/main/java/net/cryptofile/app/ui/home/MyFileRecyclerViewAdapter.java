@@ -6,24 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import net.cryptofile.app.R;
-import net.cryptofile.app.data.model.File;
-
-import java.util.List;
-
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
+
+import net.cryptofile.app.R;
+import net.cryptofile.app.data.model.FileEntry;
+import java.util.List;
 
 /**
  */
 public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecyclerViewAdapter.ViewHolder> {
 
-    private final List<File> mValues;
+    private final List<FileEntry> mValues;
 
     FileViewModel model;
 
-    public MyFileRecyclerViewAdapter(List<File> items) {
+    public MyFileRecyclerViewAdapter(List<FileEntry> items) {
         mValues = items;
     }
 
@@ -54,7 +53,7 @@ public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecycl
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public File mItem;
+        public FileEntry mItem;
 
         public ViewHolder(View view) {
             super(view);

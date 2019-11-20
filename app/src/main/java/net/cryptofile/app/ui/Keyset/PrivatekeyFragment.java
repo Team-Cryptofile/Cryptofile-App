@@ -1,23 +1,22 @@
-package net.cryptofile.app.ui.slideshow;
+package net.cryptofile.app.ui.Keyset;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import net.cryptofile.app.R;
 
 
 public class PrivatekeyFragment extends Fragment {
 
-    TextView id;
-    TextView privkey;
-    TextView pubkey;
+    private TextView id;
+    private TextView privKey;
+    private TextView pubkey;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,11 +24,11 @@ public class PrivatekeyFragment extends Fragment {
 
         PrivatekeyViewModel model = ViewModelProviders.of(this.getActivity()).get(PrivatekeyViewModel.class);
 
-        model.getSelected().observe(this, prvkey -> {
+        model.getSelected().observe(this, privkey -> {
             try {
                 id.setText(model.selected.getValue().getId());
-                privkey.setText(model.selected.getValue().getPrivkey());
-                pubkey.setText(model.selected.getValue().getPubkey());
+                privKey.setText(model.selected.getValue().getPrivKey());
+                pubkey.setText(model.selected.getValue().getPubKey());
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -43,7 +42,7 @@ public class PrivatekeyFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_privatekey_detail, container, false);
 
         id = view.findViewById(R.id.textViewPrivkeyId);
-        privkey = view.findViewById(R.id.textViewPrivkey_priv);
+        privKey = view.findViewById(R.id.textViewPrivkey_priv);
         pubkey = view.findViewById(R.id.textViewPrivkey_pub);
 
         return view;
