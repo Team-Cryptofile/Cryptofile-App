@@ -56,12 +56,11 @@ public class FileFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-
          */
 
         model.getSelected().observe(this, file -> {
             try {
-                id.setText(file.);
+                id.setText(model.selected.getValue().getId());
                 title.setText(model.selected.getValue().getTitle());
                 fileType.setText(model.selected.getValue().getFileType());
             }catch (Exception e){
