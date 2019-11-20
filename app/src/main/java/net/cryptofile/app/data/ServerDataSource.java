@@ -12,11 +12,11 @@ import java.util.UUID;
 
 public class ServerDataSource {
 
-    public Result uploadFile(byte[] file, String title, String filetype) throws Exception {
+    public Result uploadFile(byte[] file, String title, String filetype) {
         HttpURLConnection c = null;
 
         try {
-            URL url = new URL("http://www.cryptofile.net/add");
+            URL url = new URL("http://www.cryptofile.net:8080/add");
             String boundary = UUID.randomUUID().toString();
             c = (HttpURLConnection) url.openConnection();
 
