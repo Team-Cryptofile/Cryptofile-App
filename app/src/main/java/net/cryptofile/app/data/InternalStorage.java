@@ -1,7 +1,6 @@
 package net.cryptofile.app.data;
 
 
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,16 +8,21 @@ import java.io.IOException;
 
 public class InternalStorage {
 
+    private String fileName;
 
     //constructor
-    public InternalStorage() {
+    public InternalStorage(String fileName) {
 
+        this.fileName = fileName;
     }
 
-    private void createFile() {
+    public void createFile() {
 
-        // TODO Change this path
-        File file = new File("~/testFolder");
+        String filePath = "Internal"
+        File file = new File("Wiseness.txt");
+        //String filePath = "/Internal storage/Android/data/net.cryptofile.app/files";
+
+        System.out.println(filePath);
 
         try {
             if(file.createNewFile()) {

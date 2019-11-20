@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import net.cryptofile.app.data.InternalStorage;
 import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
 import net.cryptofile.app.ui.home.FileViewModel;
 
@@ -125,7 +126,10 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO 13.11.2019 Add functionality to download files
     private void downloadFile(View view) {
-        Snackbar snackbar = Snackbar.make(view, "Function missing!", 2000);
+        Snackbar snackbar = Snackbar.make(view, "File has been generated!", 2000);
+        String fileName = "FrodeErKul.txt";
+        InternalStorage internalStorage = new InternalStorage(fileName);
+        internalStorage.createFile();
         snackbar.show();
     }
 

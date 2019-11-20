@@ -12,7 +12,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.cryptofile.app.data.model.FileEntry;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,8 +19,8 @@ import java.util.UUID;
 
 public class FileViewModel extends AndroidViewModel {
 
-    MutableLiveData<List<File>> fileList;
-    MutableLiveData<File> selected = new MutableLiveData<>();
+    MutableLiveData<List<FileEntry>> fileList;
+    MutableLiveData<FileEntry> selected = new MutableLiveData<>();
 
     RequestQueue requestQueue;
 
@@ -30,7 +29,7 @@ public class FileViewModel extends AndroidViewModel {
         requestQueue = Volley.newRequestQueue(context);
     }
 
-    LiveData<List<File>> getFileList() {
+    LiveData<List<FileEntry>> getFileList() {
         if(fileList == null) {
             fileList = new MutableLiveData<>();
             loadFileList();
@@ -39,7 +38,7 @@ public class FileViewModel extends AndroidViewModel {
         return fileList;
     }
 
-    public LiveData<File> getSelected() {
+    public LiveData<FileEntry> getSelected() {
         return selected;
     }
 
@@ -49,15 +48,15 @@ public class FileViewModel extends AndroidViewModel {
 
     protected void loadFileList() {
         // TODO: 29.10.2019 Load file list from local storage
-        List<File> fileList = new ArrayList<>();
+        List<FileEntry> fileList = new ArrayList<>();
 
 
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 1"));
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 2"));
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 3"));
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 4"));
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 5"));
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 6"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 1"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 2"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 3"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 4"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 5"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 6"));
 
     }
 
