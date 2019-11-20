@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.cryptofile.app.R;
+import net.cryptofile.app.data.model.FileEntry;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -55,7 +56,6 @@ public class FileFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-
          */
 
         model.getSelected().observe(this, file -> {
@@ -90,7 +90,7 @@ public class FileFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyFileRecyclerViewAdapter(File.FILES, mListener));
+            recyclerView.setAdapter(new MyFileRecyclerViewAdapter(FileEntry.FILES, mListener));
         }
 
          */
@@ -127,7 +127,7 @@ public class FileFragment extends Fragment {
      * /
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(File item);
+        void onListFragmentInteraction(FileEntry item);
     }
 
  */

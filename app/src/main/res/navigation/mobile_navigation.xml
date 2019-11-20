@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/nav_privatekey"
-        android:name="net.cryptofile.app.ui.slideshow.PrivatekeyListFragment"
+        android:name="net.cryptofile.app.ui.Keyset.PrivatekeyListFragment"
         android:label="@string/prikey_list"
         tools:layout="@layout/fragment_privatekey" >
         <action
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/privkeyDetailFragment"
-        android:name="net.cryptofile.app.ui.slideshow.PrivatekeyFragment"
+        android:name="net.cryptofile.app.ui.Keyset.PrivatekeyFragment"
         android:label="PrivateKey detail"
         tools:layout="@layout/fragment_privatekey_detail">
     </fragment>

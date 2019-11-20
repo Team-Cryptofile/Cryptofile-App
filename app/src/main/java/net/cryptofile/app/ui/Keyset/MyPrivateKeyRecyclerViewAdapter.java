@@ -1,4 +1,4 @@
-package net.cryptofile.app.ui.slideshow;
+package net.cryptofile.app.ui.Keyset;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.cryptofile.app.R;
-import net.cryptofile.app.data.model.Privatekey;
+import net.cryptofile.app.data.model.Keyset;
 
 import java.util.List;
 
@@ -18,12 +18,12 @@ import java.util.List;
  */
 public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPrivateKeyRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Privatekey> mValues;
+    private final List<Keyset> mValues;
 
     PrivatekeyViewModel model;
 
 
-    public MyPrivateKeyRecyclerViewAdapter(List<Privatekey> items) {
+    public MyPrivateKeyRecyclerViewAdapter(List<Keyset> items) {
         mValues = items;
     }
 
@@ -68,7 +68,7 @@ public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPriv
         public final TextView mIdView;
         //public final TextView mPrivkeyView;
         //public final TextView mPubkeyView;
-        public Privatekey mItem;
+        public Keyset mItem;
 
         public ViewHolder(View view) {
             super(view);
