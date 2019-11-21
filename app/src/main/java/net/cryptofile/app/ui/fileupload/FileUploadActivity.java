@@ -33,6 +33,8 @@ public class FileUploadActivity extends AppCompatActivity {
     TextView detectedFiletypeText;
     TextView fileLocationText;
 
+    String returnedUuid;
+
     MainRepository mainRepository;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +107,11 @@ public class FileUploadActivity extends AppCompatActivity {
             protected Result doInBackground(Void... voids) {
                 try {
                     Result response = mainRepository.uploadFile(file, title, filetype);
-                    String id = response.toString();
-                    System.out.println("Recieved ID: " + id);
+                    System.out.println(response.toString());
+                    if (response instanceof Result.Success) {
+                        returnedUuid = ((Result.Success<String>) response).getData();
+                        System.out.println("Recieved ID: " + returnedUuid);
+                    }
                     return response;
                 } catch (Exception e) {
                     e.printStackTrace();
