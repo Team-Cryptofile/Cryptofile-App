@@ -1,4 +1,4 @@
-package net.cryptofile.app.ui.slideshow;
+package net.cryptofile.app.ui.Keyset;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,8 +17,6 @@ import javax.crypto.NoSuchPaddingException;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 

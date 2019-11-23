@@ -9,7 +9,7 @@
         android:id="@+id/nav_files"
         android:name="net.cryptofile.app.ui.home.FileListFragment"
         android:label="@string/files"
-        tools:layout="@layout/fragment_file_list" >
+        tools:layout="@layout/activity_main" >
         <action
             android:id="@+id/actionFileDetailFragment"
             app:destination="@id/fileDetailFragment"
@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/nav_privatekey"
-        android:name="net.cryptofile.app.ui.slideshow.PrivatekeyListFragment"
+        android:name="net.cryptofile.app.ui.Keyset.PrivatekeyListFragment"
         android:label="@string/prikey_list"
         tools:layout="@layout/fragment_privatekey" >
         <action
@@ -53,16 +53,16 @@
         tools:layout="@layout/fragment_file_detail">
     </fragment>
 
-    <fragment
+    <activity
         android:id="@+id/nav_logout"
-        android:name="net.cryptofile.app.ui.login.LogoutFragment"
+        android:name="net.cryptofile.app.ui.login.LogoutActivity"
         android:label="@string/logout"
-        tools:layout="@layout/activity_login">
-    </fragment>
+        tools:layout="@layout/activity_logout">
+    </activity>
 
     <fragment
         android:id="@+id/privkeyDetailFragment"
-        android:name="net.cryptofile.app.ui.slideshow.PrivatekeyFragment"
+        android:name="net.cryptofile.app.ui.Keyset.PrivatekeyFragment"
         android:label="PrivateKey detail"
         tools:layout="@layout/fragment_privatekey_detail">
     </fragment>

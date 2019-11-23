@@ -1,16 +1,18 @@
 package net.cryptofile.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import net.cryptofile.app.data.InternalStorage;
+import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
+import net.cryptofile.app.ui.fileupload.FileUploadActivity;
 import net.cryptofile.app.ui.home.FileViewModel;
-import net.cryptofile.app.ui.slideshow.PrivatekeyViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -29,8 +31,12 @@ public class MainActivity extends AppCompatActivity {
     // TODO: 22.10.19  create 'check if logged in' function
     //SET TO EITHER TRUE OR FALSE FOR TESTING PURPOSES
     boolean loggedIn = true;
-    FloatingActionButton fab;
-    private Button loginBtn;
+
+    FloatingActionButton uploadButton;
+    FloatingActionButton downloadButton;
+    FloatingActionButton plusButton;
+
+    boolean isFABOpen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +48,25 @@ public class MainActivity extends AppCompatActivity {
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
-            fab = findViewById(R.id.icon);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+            uploadButton = findViewById(R.id.upload_fab);
+            downloadButton = findViewById(R.id.download_fab);
+            plusButton = findViewById(R.id.plus_fab);
+
+            uploadButton.hide();
+            downloadButton.hide();
+
+            plusButton.setOnClickListener(view -> {
+                if(!isFABOpen){
+                    showFABMenu();
+                }
+                else{
+                    closeFABMenu();
                 }
             });
+
+            downloadButton.setOnClickListener(this::downloadFile);
+
+            uploadButton.setOnClickListener(this::uploadFile);
 
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             NavigationView navigationView = findViewById(R.id.nav_view);
@@ -70,16 +87,12 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             setContentView(R.layout.activity_login);
-            loginBtn = (Button) findViewById(R.id.login);
-            loginBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    setContentView(R.layout.activity_main);
 
-                }
-            });
         }
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,10 +109,36 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //gets floating action button
-    public FloatingActionButton getFloatingActionButton() {
-        return fab;
 
+    private void showFABMenu(){
+        isFABOpen=true;
+        downloadButton.animate().translationY(-getResources().getDimension(R.dimen.standard_90));
+        uploadButton.animate().translationY(-getResources().getDimension(R.dimen.standard_60));
+        downloadButton.show();
+        uploadButton.show();
+    }
+
+    private void closeFABMenu(){
+        isFABOpen=false;
+        downloadButton.animate().translationY(0);
+        uploadButton.animate().translationY(0);
+        downloadButton.hide();
+        uploadButton.hide();
+    }
+
+    //TODO 13.11.2019 Add functionality to download files
+    private void downloadFile(View view) {
+        Snackbar snackbar = Snackbar.make(view, "File has been generated!", 2000);
+        String fileName = "FrodeErKul.txt";
+        InternalStorage internalStorage = new InternalStorage(fileName);
+        internalStorage.createFile();
+        snackbar.show();
+    }
+
+    //TODO 13.11.2019 Add functionality to upload files
+    private void uploadFile(View view) {
+        
+        startActivity(new Intent(this, FileUploadActivity.class));
     }
 
 }

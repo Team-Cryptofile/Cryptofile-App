@@ -2,24 +2,25 @@ package net.cryptofile.app.ui.home;
 
 import android.app.Application;
 
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import net.cryptofile.app.data.model.File;
+import net.cryptofile.app.data.model.FileEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 
 public class FileViewModel extends AndroidViewModel {
 
-    MutableLiveData<List<File>> fileList;
-    MutableLiveData<File> selected = new MutableLiveData<>();
+    MutableLiveData<List<FileEntry>> fileList;
+    MutableLiveData<FileEntry> selected = new MutableLiveData<>();
 
     RequestQueue requestQueue;
 
@@ -28,7 +29,7 @@ public class FileViewModel extends AndroidViewModel {
         requestQueue = Volley.newRequestQueue(context);
     }
 
-    LiveData<List<File>> getFileList() {
+    LiveData<List<FileEntry>> getFileList() {
         if(fileList == null) {
             fileList = new MutableLiveData<>();
             loadFileList();
@@ -37,28 +38,30 @@ public class FileViewModel extends AndroidViewModel {
         return fileList;
     }
 
-    public LiveData<File> getSelected() {
+    public LiveData<FileEntry> getSelected() {
         return selected;
     }
 
-    public void setSelected(File selected) {
+    public void setSelected(FileEntry selected) {
         this.selected.setValue(selected);
     }
 
     protected void loadFileList() {
-        // TODO: 29.10.2019 Load file list from local database
-        List<File> fileList = new ArrayList<>();
+        // TODO: 29.10.2019 Load file list from local storage
+        List<FileEntry> fileList = new ArrayList<>();
 
 
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 1"));
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 2"));
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 3"));
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 4"));
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 5"));
-        fileList.add(new File(UUID.randomUUID().toString(), "Title 6"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 1"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 2"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 3"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 4"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 5"));
+        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 6"));
 
-        File.FILES.addAll(fileList);
-        this.fileList.setValue(File.FILES);
+    }
+
+    private void loadFab() {
+        FloatingActionButton fab;
     }
 
 }
