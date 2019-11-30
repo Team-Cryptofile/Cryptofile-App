@@ -1,18 +1,8 @@
 package net.cryptofile.app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import net.cryptofile.app.data.InternalStorage;
-import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
-import net.cryptofile.app.ui.fileupload.FileUploadActivity;
-import net.cryptofile.app.ui.home.FileViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +12,14 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import net.cryptofile.app.data.InternalStorage;
+import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
+import net.cryptofile.app.ui.home.FileViewModel;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -128,17 +126,49 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO 13.11.2019 Add functionality to download files
     private void downloadFile(View view) {
-        Snackbar snackbar = Snackbar.make(view, "File has been generated!", 2000);
-        String fileName = "FrodeErKul.txt";
-        InternalStorage internalStorage = new InternalStorage(fileName);
-        internalStorage.createFile();
-        snackbar.show();
+
+        //TODO remove commented block. Send API request to retrieve file with specific UUID.
+        /*try {
+            URL  = new URL("cryptofile.net" + uuid);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }*/
+
+
+        Context context = this;
+        File filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        String fileName = "test.txt";
+        File file = new File(filePath, fileName);
+
+        System.out.println(context.getFilesDir());
+
+        try {
+            if(!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedwriter = new BufferedWriter(fileWriter);
+            bufferedwriter.write("In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move.");
+            Snackbar snackbar = Snackbar.make(view, "File has been generated!", 2000);
+            snackbar.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     //TODO 13.11.2019 Add functionality to upload files
     private void uploadFile(View view) {
-        
-        startActivity(new Intent(this, FileUploadActivity.class));
+        Snackbar snackbar = Snackbar.make(view, "Function missing!", 2000);
+        snackbar.show();
+    }
+
+    private boolean loginCheck() {
+        //TODO send a request to restAPI server to confirm connection. Change return statement.
+        return false;
     }
 
 }
