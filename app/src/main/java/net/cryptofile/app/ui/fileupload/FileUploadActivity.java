@@ -6,11 +6,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import net.cryptofile.app.MainActivity;
 import net.cryptofile.app.R;
 import net.cryptofile.app.data.MainRepository;
 import net.cryptofile.app.data.Result;
@@ -24,7 +24,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class FileUploadActivity extends AppCompatActivity {
 
@@ -37,6 +38,7 @@ public class FileUploadActivity extends AppCompatActivity {
     String returnedUuid;
 
     MainRepository mainRepository;
+    Result response;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,10 @@ public class FileUploadActivity extends AppCompatActivity {
 
         submitBtn.setOnClickListener(v -> {
             submitFile(fileAsBytes, titleInput.getText().toString(), detectedFiletypeText.getText().toString());
+            if (response instanceof Result.Success) {
+                Toast.makeText(this, "File successfully uploaded", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, MainActivity.class));
+            }
         });
     }
 
@@ -110,7 +116,7 @@ public class FileUploadActivity extends AppCompatActivity {
             @Override
             protected Result doInBackground(Void... voids) {
                 try {
-                    Result response = mainRepository.uploadFile(file, title, filetype);
+                    response = mainRepository.uploadFile(file, title, filetype);
                     System.out.println(response.toString());
                     if (response instanceof Result.Success) {
                         returnedUuid = ((Result.Success<String>) response).getData();
