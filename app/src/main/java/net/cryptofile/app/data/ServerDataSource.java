@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.UUID;
 
 public class ServerDataSource {
@@ -29,7 +28,8 @@ public class ServerDataSource {
             // File
             request.writeBytes("------WebKitFormBoundary" + boundary + "\r\n");
             request.writeBytes("Content-Disposition: form-data; name=\"file\"\r\n\r\n");
-            request.writeBytes(Arrays.toString(file) + "\r\n");
+            request.write(file);
+            request.writeBytes( "\r\n");
 
             // Title
             request.writeBytes("------WebKitFormBoundary" + boundary + "\r\n");
