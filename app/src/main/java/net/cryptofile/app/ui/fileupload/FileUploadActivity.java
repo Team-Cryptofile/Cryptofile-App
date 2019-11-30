@@ -69,6 +69,8 @@ public class FileUploadActivity extends AppCompatActivity {
             if (response instanceof Result.Success) {
                 Toast.makeText(this, "File successfully uploaded", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this, MainActivity.class));
+            }else{
+                Toast.makeText(this, "Something went wrong, file failed to be uploaded!", Toast.LENGTH_LONG).show();
             }
         });
     }
