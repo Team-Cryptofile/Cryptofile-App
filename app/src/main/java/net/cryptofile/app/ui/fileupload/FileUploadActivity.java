@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -20,16 +19,18 @@ import net.cryptofile.app.data.ServerDataSource;
 import org.apache.tika.Tika;
 import org.apache.tika.io.IOUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import javax.sql.DataSource;
+import java.io.OutputStream;
+import java.nio.file.Files;
 
 public class FileUploadActivity extends AppCompatActivity {
 
     private static final int REQUEST_GET_SINGLE_FILE= 1;
 
-    byte[] fileAsBytes = null;
+    File fileAsBytes = null;
     TextView detectedFiletypeText;
     TextView fileLocationText;
 
@@ -82,11 +83,14 @@ public class FileUploadActivity extends AppCompatActivity {
 
                         detectedFiletypeText.setText(new Tika().detect(path));  // Detects filetype
 
-                        // TODO: 19.11.2019 Encrypt file here
-
-
-                        fileAsBytes = IOUtils.toByteArray(inputStream);
+                        // TODO: 19.11.2019 Encrypt file
+                        // Write selected file to temporary file
+                        File tempFile = new File(this.getCacheDir() + "uploadfile.tmp");
+                        OutputStream outputStream = new FileOutputStream(tempFile);
+                        outputStream.write(IOUtils.toByteArray(inputStream));
                         inputStream.close();
+
+                        fileAsBytes = tempFile;
                         fileLocationText.setText(path.substring(path.lastIndexOf("/")+1));
                     }else {
                         System.out.println("Path is null!");
@@ -100,7 +104,7 @@ public class FileUploadActivity extends AppCompatActivity {
     }
 
 
-    public void submitFile(byte[] file, String title, String filetype) {
+    public void submitFile(File file, String title, String filetype) {
         new AsyncTask<Void, Void, Result>() {
 
             @Override

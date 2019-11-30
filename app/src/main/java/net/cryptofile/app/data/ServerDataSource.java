@@ -2,6 +2,8 @@ package net.cryptofile.app.data;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -11,7 +13,7 @@ import java.util.UUID;
 
 public class ServerDataSource {
 
-    public Result uploadFile(byte[] file, String title, String filetype) {
+    public Result uploadFile(File file, String title, String filetype) {
         HttpURLConnection c = null;
 
         try {
@@ -21,20 +23,37 @@ public class ServerDataSource {
 
             c.setDoOutput(true);
             c.setRequestMethod("POST");
-            c.setRequestProperty("Content-Type", "multipart/form-data;boundary=----WebKitFormBoundary" + boundary);
+            c.setRequestProperty("Content-Type", "multipart/form-data;charset=UTF-8;boundary=----WebKitFormBoundary" + boundary);
 
             DataOutputStream request = new DataOutputStream(c.getOutputStream());
 
-            // File
-            request.writeBytes("------WebKitFormBoundary" + boundary + "\r\n");
-            request.writeBytes("Content-Disposition: form-data; name=\"file\"\r\n\r\n");
-            request.write(file);
-            request.writeBytes( "\r\n");
-
             // Title
             request.writeBytes("------WebKitFormBoundary" + boundary + "\r\n");
-            request.writeBytes("Content-Disposition: form-data; name=\"title\"\r\n\r\n");
+            request.writeBytes("Content-Disposition: form-data; name=\"title\"\r\n");
+            request.writeBytes("Content-Type: text/plain\r\n\r\n");
             request.writeBytes(title + "\r\n");
+
+            // File
+            request.writeBytes("------WebKitFormBoundary" + boundary + "\r\n");
+            request.writeBytes("Content-Disposition: form-data; name=\"file\"; filename=\"binary\"\r\n");
+            request.writeBytes("Content-Type: application/octet-stream\r\n\r\n");
+
+
+            // Sending file as buffered bytes
+            FileInputStream fileInputStream = new FileInputStream(file);
+            int availableBytes = fileInputStream.available();
+            int maxBufferSize = 4 * 1024;
+            int bufferSize = Math.min(availableBytes, maxBufferSize);
+            byte[] buffer = new byte[bufferSize];
+            int readBytes = fileInputStream.read(buffer, 0, bufferSize);
+            while (readBytes > 0){
+                request.write(buffer, 0, bufferSize);
+                availableBytes = fileInputStream.available();
+                bufferSize = Math.min(availableBytes,maxBufferSize);
+                readBytes = fileInputStream.read(buffer, 0, bufferSize);
+            }
+
+            request.writeBytes( "\r\n");
 
             request.writeBytes("------WebKitFormBoundary" + boundary + "--\r\n");
             request.flush();
