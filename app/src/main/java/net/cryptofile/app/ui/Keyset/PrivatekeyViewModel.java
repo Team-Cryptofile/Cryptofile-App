@@ -12,18 +12,11 @@ import com.android.volley.toolbox.Volley;
 import net.cryptofile.app.data.CryptoService;
 import net.cryptofile.app.data.model.Keyset;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 
 public class PrivatekeyViewModel extends AndroidViewModel {
     MutableLiveData<List<Keyset>> privkeys;
@@ -37,7 +30,7 @@ public class PrivatekeyViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<List<Keyset>> getPrivateKeys() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
+    public LiveData<List<Keyset>> getPrivateKeys() throws Exception {
         if (privkeys == null){
             privkeys = new MutableLiveData<>();
             loadPrivkeys();
@@ -46,33 +39,28 @@ public class PrivatekeyViewModel extends AndroidViewModel {
     }
 
 
-    protected void loadPrivkeys() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidKeySpecException {
+    protected void loadPrivkeys() throws Exception {
         // TODO: 05.11.2019 Load privatekey list from local database
         List<Keyset> keysetList = new ArrayList<>();
         CryptoService keys = null;
-        String pubkey = null;
-        String privkey = null;
+        SecretKey key = null;
+
 
         for (int i = 0; i < 3; i++) {
             try {
-                keys = new CryptoService(1024);
-                keys.createKeys();
-                pubkey = Base64.getEncoder().encodeToString(keys.getPublicKey().getEncoded());
-                privkey = Base64.getEncoder().encodeToString(keys.getPrivateKey().getEncoded());
-            } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+                keys = new CryptoService();
+                key = keys.generateKey();
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            System.out.println("Public key: " + pubkey);
-            System.out.println("Private key: " + privkey);
-            if (CryptoService.isPair(privkey, pubkey)) {
-                System.out.println("The keys is working!!!");
-            } else {
-                System.out.println("The keys does not work :(");
-            }
+            System.out.println("Public key: " + key.getEncoded().toString());
 
-            keysetList.add(new Keyset(UUID.randomUUID().toString(), privkey, pubkey));
+
+            keysetList.add(new Keyset(UUID.randomUUID().toString(), key));
         }
+
         this.privkeys.setValue(keysetList);
     }
 

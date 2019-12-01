@@ -7,56 +7,56 @@
     android:layout_height="match_parent"
     tools:context=".ui.Keyset.PrivatekeyFragment">
 
+
     <View
         android:id="@+id/view"
         android:layout_width="412dp"
-        android:layout_height="164dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="80dp"
+        android:background="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp" />
-
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/textViewPrivkeyId"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047"
-        tools:ignore="MissingConstraints,SpUsage"
-        tools:layout_editor_absoluteX="-16dp" />
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        tools:ignore="MissingConstraints,SpUsage" />
 
     <TextView
         android:id="@+id/textViewPrivkey_priv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewPrivkeyId"
         android:layout_alignParentEnd="true"
-        android:singleLine="true"
-        android:textSize="5sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.136"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp" />
+        android:layout_marginTop="32dp"
+        android:singleLine="false"
+        android:textIsSelectable="true"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/copyKeyButton"
+        tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/textViewPrivkey_pub"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/copyKeyButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewPrivkey_priv"
-        android:layout_alignParentEnd="true"
-        android:singleLine="true"
-        android:textSize="5sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view"
-        app:layout_constraintVertical_bias="0.084"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-16dp" />
+        android:layout_marginTop="16dp"
+        android:text="@string/copy_key_to_clipboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

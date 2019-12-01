@@ -14,6 +14,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import net.cryptofile.app.MainActivity;
 import net.cryptofile.app.R;
+import net.cryptofile.app.data.CryptoService;
 import net.cryptofile.app.data.MainRepository;
 import net.cryptofile.app.data.Result;
 import net.cryptofile.app.data.ServerDataSource;
@@ -26,8 +27,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.NoSuchAlgorithmException;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import javax.crypto.SecretKey;
 
 public class FileUploadActivity extends AppCompatActivity {
 
@@ -40,6 +44,7 @@ public class FileUploadActivity extends AppCompatActivity {
 
     String returnedUuid;
 
+    CryptoService cryptoService;
     MainRepository mainRepository;
     Result response;
 
@@ -51,6 +56,7 @@ public class FileUploadActivity extends AppCompatActivity {
         setContentView(R.layout.file_upload_activity);
 
         mainRepository = new MainRepository(new ServerDataSource());
+        cryptoService = new CryptoService();
 
         final Button selectFilebutton = findViewById(R.id.selectUploadFilebutton);
         final TextInputEditText titleInput = findViewById(R.id.textInputEditText);
@@ -98,6 +104,8 @@ public class FileUploadActivity extends AppCompatActivity {
                         statusText.setText("Encrypting...");
                         progressBar.setVisibility(View.VISIBLE);
 
+                        SecretKey key = cryptoService.generateKey();
+
                         // TODO: 19.11.2019 Encrypt file
                         // Write selected file to temporary file
                         File tempFile = new File(this.getCacheDir() + "uploadfile.tmp");
@@ -116,7 +124,7 @@ public class FileUploadActivity extends AppCompatActivity {
 
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception  e) {
             e.printStackTrace();
         }
     }
