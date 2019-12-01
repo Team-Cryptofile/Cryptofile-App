@@ -1,27 +1,32 @@
 package net.cryptofile.app;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.View;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import net.cryptofile.app.data.InternalStorage;
-import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
-import net.cryptofile.app.ui.fileupload.FileUploadActivity;
-import net.cryptofile.app.ui.home.FileViewModel;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+
+import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
+import net.cryptofile.app.ui.fileupload.FileUploadActivity;
+import net.cryptofile.app.ui.home.FileViewModel;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             // Passing each menu ID as a set of Ids because each
             // menu should be considered as top level destinations.
             mAppBarConfiguration = new AppBarConfiguration.Builder(
-                    R.id.nav_files, R.id.nav_publickey, R.id.nav_privatekey, R.id.nav_help, R.id.nav_settings, R.id.nav_logout)
+                    R.id.nav_files, R.id.nav_privatekey, R.id.nav_help, R.id.nav_settings, R.id.nav_logout)
                     .setDrawerLayout(drawer)
                     .build();
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -89,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_login);
 
         }
-
+        String[] requiredPermissions = { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
+        ActivityCompat.requestPermissions(this, requiredPermissions, 0);
 
     }
 
@@ -126,19 +132,58 @@ public class MainActivity extends AppCompatActivity {
         uploadButton.hide();
     }
 
-    //TODO 13.11.2019 Add functionality to download files
+    //TODO 13.11.2019 Add functionality to download files from server
     private void downloadFile(View view) {
-        Snackbar snackbar = Snackbar.make(view, "File has been generated!", 2000);
-        String fileName = "FrodeErKul.txt";
-        InternalStorage internalStorage = new InternalStorage(fileName);
-        internalStorage.createFile();
-        snackbar.show();
+
+        //TODO remove commented block. Send API request to retrieve file with specific UUID.
+        /*try {
+            URL  = new URL("cryptofile.net" + uuid);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }*/
+
+        String fileName = "testName.txt";
+        String fileContents = "In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move.";
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(fileContents.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+/*
+        Context context = this;
+        File filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        String fileName = "test.txt";
+        File file = new File(filePath, fileName);
+
+        System.out.println(context.getFilesDir());
+
+        try {
+            if(!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedwriter = new BufferedWriter(fileWriter);
+            bufferedwriter.write("In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move.");
+            Snackbar snackbar = Snackbar.make(view, "File has been generated!", 2000);
+            snackbar.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+*/
     }
 
     //TODO 13.11.2019 Add functionality to upload files
     private void uploadFile(View view) {
-        
         startActivity(new Intent(this, FileUploadActivity.class));
+    }
+
+    private boolean loginCheck() {
+        //TODO send a request to restAPI server to confirm connection. Change return statement.
+        return false;
     }
 
 }
