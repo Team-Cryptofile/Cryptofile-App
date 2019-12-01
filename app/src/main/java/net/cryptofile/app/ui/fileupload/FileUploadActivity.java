@@ -36,6 +36,7 @@ public class FileUploadActivity extends AppCompatActivity {
     File fileAsBytes = null;
     TextView detectedFiletypeText;
     TextView fileLocationText;
+    Button submitBtn;
 
     String returnedUuid;
 
@@ -60,7 +61,7 @@ public class FileUploadActivity extends AppCompatActivity {
         final TextInputEditText titleInput = findViewById(R.id.textInputEditText);
         fileLocationText = findViewById(R.id.textViewFilelocation);
         detectedFiletypeText = findViewById(R.id.textViewDetectedFileType);
-        final Button submitBtn = findViewById(R.id.uploadSubmitBtn);statusText = findViewById(R.id.uploadStatusText);
+        submitBtn = findViewById(R.id.uploadSubmitBtn);statusText = findViewById(R.id.uploadStatusText);
         progressBar = findViewById(R.id.uploadProgressBar);
 
         progressBar.setVisibility(View.GONE);
@@ -75,6 +76,7 @@ public class FileUploadActivity extends AppCompatActivity {
         });
 
         submitBtn.setOnClickListener(v -> {
+            submitBtn.setEnabled(false);
             statusText.setText("Uploading...");
             progressBar.setVisibility(View.VISIBLE);
 
@@ -171,6 +173,7 @@ public class FileUploadActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity.class));
         }else{
             Toast.makeText(this, "Something went wrong, file failed to be uploaded!", Toast.LENGTH_LONG).show();
+            submitBtn.setEnabled(true);
         }
     }
 
