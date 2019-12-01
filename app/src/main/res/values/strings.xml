@@ -37,8 +37,7 @@
     <string name="aboutUs">About Us</string>
     <string name="files">Files</string>
     <string name="tools">Tools</string>
-    <string name="pubkey_list">Public keyset list</string>
-    <string name="prikey_list">Private keyset list</string>
+    <string name="prikey_list">Keys</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
