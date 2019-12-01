@@ -10,6 +10,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import net.cryptofile.app.MainActivity;
@@ -24,12 +26,8 @@ import org.apache.tika.io.IOUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.security.NoSuchAlgorithmException;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import javax.crypto.SecretKey;
 
@@ -44,9 +42,9 @@ public class FileUploadActivity extends AppCompatActivity {
 
     String returnedUuid;
 
-    CryptoService cryptoService;
     MainRepository mainRepository;
     Result response;
+    SecretKey key;
 
     TextView statusText;
     ProgressBar progressBar;
@@ -56,7 +54,6 @@ public class FileUploadActivity extends AppCompatActivity {
         setContentView(R.layout.file_upload_activity);
 
         mainRepository = new MainRepository(new ServerDataSource());
-        cryptoService = new CryptoService();
 
         final Button selectFilebutton = findViewById(R.id.selectUploadFilebutton);
         final TextInputEditText titleInput = findViewById(R.id.textInputEditText);
@@ -104,7 +101,7 @@ public class FileUploadActivity extends AppCompatActivity {
                         statusText.setText("Encrypting...");
                         progressBar.setVisibility(View.VISIBLE);
 
-                        SecretKey key = cryptoService.generateKey();
+                        key = CryptoService.generateKey();
 
                         // TODO: 19.11.2019 Encrypt file
                         // Write selected file to temporary file
@@ -157,21 +154,30 @@ public class FileUploadActivity extends AppCompatActivity {
                     statusText.setText("Uploaded");
                     progressBar.setVisibility(View.GONE);
 
-                    redirect();
+                    try {
+                        redirect();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     System.out.println("File not submitted");
 
                     statusText.setText("Upload failed");
                     progressBar.setVisibility(View.GONE);
 
-                    redirect();
+                    try {
+                        redirect();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }.execute();
     }
 
-    private void redirect(){
+    private void redirect() throws Exception {
         if (response instanceof Result.Success) {
+            CryptoService.storeKey(key, returnedUuid);
             Toast.makeText(this , "File successfully uploaded", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class));
         }else{

@@ -13,8 +13,9 @@ import net.cryptofile.app.data.CryptoService;
 import net.cryptofile.app.data.model.Keyset;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
-import java.util.UUID;
 
 import javax.crypto.SecretKey;
 
@@ -42,23 +43,21 @@ public class PrivatekeyViewModel extends AndroidViewModel {
     protected void loadPrivkeys() throws Exception {
         // TODO: 05.11.2019 Load privatekey list from local database
         List<Keyset> keysetList = new ArrayList<>();
-        CryptoService keys = null;
+        List<String> storedKeyList = CryptoService.getAllAliases();
         SecretKey key = null;
+        String id;
 
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < storedKeyList.size(); i++) {
             try {
-                keys = new CryptoService();
-                key = keys.generateKey();
+                id = storedKeyList.get(i);
+                key = CryptoService.getKey(id);
 
+                keysetList.add(new Keyset(id, key));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            System.out.println("Public key: " + key.getEncoded().toString());
-
-
-            keysetList.add(new Keyset(UUID.randomUUID().toString(), key));
+            System.out.println("Key: " + Base64.getEncoder().encodeToString(key.getEncoded()));
         }
 
         this.privkeys.setValue(keysetList);
