@@ -103,11 +103,13 @@ public class FileUploadActivity extends AppCompatActivity {
 
                         key = CryptoService.generateKey();
 
+                        byte[] encryptedBytes = CryptoService.encrypt(key, IOUtils.toByteArray(inputStream));
+
                         // TODO: 19.11.2019 Encrypt file
                         // Write selected file to temporary file
                         File tempFile = new File(this.getCacheDir() + "uploadfile.tmp");
                         OutputStream outputStream = new FileOutputStream(tempFile);
-                        outputStream.write(IOUtils.toByteArray(inputStream));
+                        outputStream.write(encryptedBytes);
                         inputStream.close();
 
                         statusText.setText("Encrypted");
