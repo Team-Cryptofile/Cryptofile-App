@@ -1,9 +1,11 @@
 package net.cryptofile.app.ui.home;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
@@ -41,6 +43,17 @@ public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecycl
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(String.format("%s",mValues.get(position).getId()));
         holder.mContentView.setText(String.format("%s",mValues.get(position).getTitle()));
+
+        try {
+            if (mValues.get(position).hasKey()){
+                holder.mImageView.setBackgroundColor(Color.parseColor("#4CAF50"));
+            } else {
+                holder.mImageView.setBackgroundColor(Color.parseColor("#C13D3D"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         holder.mView.setOnClickListener(v -> model.setSelected(holder.mItem));
     }
 
@@ -53,6 +66,7 @@ public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecycl
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public final ImageView mImageView;
         public FileEntry mItem;
 
         public ViewHolder(View view) {
@@ -60,6 +74,7 @@ public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecycl
             mView = view;
             mIdView = view.findViewById(R.id.item_number);
             mContentView = view.findViewById(R.id.content);
+            mImageView = view.findViewById(R.id.viewIconHaskey);
         }
 
         @Override

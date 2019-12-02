@@ -1,18 +1,18 @@
 package net.cryptofile.app.data.model;
 
-import java.io.File;
+import net.cryptofile.app.data.CryptoService;
 
 public class FileEntry {
 
     private String id = null;
     private String title = null;
     private String fileType = null;
-    private File file;
 
-    public FileEntry(String id, String title) {
+    public FileEntry(String id, String title, String fileType) {
 
         this.id = id;
         this.title = title;
+        this.fileType = fileType;
 
     }
 
@@ -26,6 +26,14 @@ public class FileEntry {
     }
 
     public String getFileType() {
-        return this.getFileType();
+        if (fileType != null){
+            return fileType;
+        } else {
+            return "";
+        }
+    }
+
+    public boolean hasKey() throws Exception {
+        return CryptoService.getKey(id) != null;
     }
 }

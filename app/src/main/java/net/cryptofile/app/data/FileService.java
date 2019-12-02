@@ -50,23 +50,28 @@ public class FileService {
     }
 
     public static void addFile(String id, String title) throws Exception {
-        FileEntry file = new FileEntry(id, title);
-        fileList.add(file);
+        FileEntry file = new FileEntry(id, title, null);                   // TODO: 02.12.2019 Change this when filetype is implemented
         storeFile(file);
     }
 
     public static List<FileEntry> getFileList() throws Exception {
         JSONObject json = new JSONObject(response);
         Iterator<String> iterator = json.keys();
+        List<FileEntry> reverseList = new ArrayList<>();
 
         while (iterator.hasNext()) {
             String uuid = iterator.next();
             System.out.println("Readed uuid from json: " + uuid +
                     "\nReaded title: " + json.getJSONArray(uuid).getJSONObject(0).get("title"));
 
-            FileEntry fileEntry = new FileEntry(uuid, json.getJSONArray(uuid).getJSONObject(0).get("title").toString());
-            fileList.add(fileEntry);
+            FileEntry fileEntry = new FileEntry(uuid, json.getJSONArray(uuid).getJSONObject(0).get("title").toString(), null); // TODO: 02.12.2019 Change this when filetype is implemented
+            reverseList.add(fileEntry);
         }
+        fileList.clear();
+        for (int i = reverseList.size(); i-- > 0; ) {
+            fileList.add(reverseList.get(i));
+        }
+
         return fileList;
     }
 
