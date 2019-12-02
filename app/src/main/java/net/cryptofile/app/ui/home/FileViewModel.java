@@ -10,6 +10,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import net.cryptofile.app.data.FileService;
 import net.cryptofile.app.data.model.FileEntry;
 
 import java.util.ArrayList;
@@ -47,17 +48,7 @@ public class FileViewModel extends AndroidViewModel {
     }
 
     protected void loadFileList() {
-        // TODO: 29.10.2019 Load file list from local storage
-        List<FileEntry> fileList = new ArrayList<>();
-
-
-        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 1"));
-        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 2"));
-        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 3"));
-        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 4"));
-        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 5"));
-        fileList.add(new FileEntry(UUID.randomUUID().toString(), "Title 6"));
-
+        this.fileList.setValue(FileService.getFileList());
     }
 
     private void loadFab() {

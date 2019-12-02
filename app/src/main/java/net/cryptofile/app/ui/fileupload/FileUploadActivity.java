@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import net.cryptofile.app.MainActivity;
 import net.cryptofile.app.R;
 import net.cryptofile.app.data.CryptoService;
+import net.cryptofile.app.data.FileService;
 import net.cryptofile.app.data.MainRepository;
 import net.cryptofile.app.data.Result;
 import net.cryptofile.app.data.ServerDataSource;
@@ -39,6 +40,7 @@ public class FileUploadActivity extends AppCompatActivity {
     TextView detectedFiletypeText;
     TextView fileLocationText;
     Button submitBtn;
+    TextInputEditText titleInput;
 
     String returnedUuid;
 
@@ -56,7 +58,7 @@ public class FileUploadActivity extends AppCompatActivity {
         mainRepository = new MainRepository(new ServerDataSource());
 
         final Button selectFilebutton = findViewById(R.id.selectUploadFilebutton);
-        final TextInputEditText titleInput = findViewById(R.id.textInputEditText);
+        titleInput = findViewById(R.id.textInputEditText);
         fileLocationText = findViewById(R.id.textViewFilelocation);
         detectedFiletypeText = findViewById(R.id.textViewDetectedFileType);
         submitBtn = findViewById(R.id.uploadSubmitBtn);statusText = findViewById(R.id.uploadStatusText);
@@ -180,6 +182,7 @@ public class FileUploadActivity extends AppCompatActivity {
     private void redirect() throws Exception {
         if (response instanceof Result.Success) {
             CryptoService.storeKey(key, returnedUuid);
+            FileService.addFile(returnedUuid, titleInput.getText().toString());
             Toast.makeText(this , "File successfully uploaded", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class));
         }else{
