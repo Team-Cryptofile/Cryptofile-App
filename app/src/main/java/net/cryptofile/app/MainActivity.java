@@ -3,7 +3,6 @@ package net.cryptofile.app;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.View;
 
@@ -27,6 +26,7 @@ import net.cryptofile.app.ui.home.FileViewModel;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -135,48 +135,30 @@ public class MainActivity extends AppCompatActivity {
     //TODO 13.11.2019 Add functionality to download files from server
     private void downloadFile(View view) {
 
-        //TODO remove commented block. Send API request to retrieve file with specific UUID.
-        /*try {
-            URL  = new URL("cryptofile.net" + uuid);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }*/
-
-        String fileName = "testName.txt";
-        String fileContents = "In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move.";
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
-
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            fos.write(fileContents.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-/*
-        Context context = this;
-        File filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        String fileName = "test.txt";
-        File file = new File(filePath, fileName);
-
-        System.out.println(context.getFilesDir());
-
         try {
-            if(!file.exists()) {
-                file.createNewFile();
-            }
+            String urlPath = "cryptofile.net:8080/get/";
+            String uuid = "000b0858-5160-420d-a484-3a322fc136bd";
+            java.net.URL url = new java.net.URL(urlPath + uuid);
+            InputStream in = url.openStream();
+            FileOutputStream fos = new FileOutputStream(new File(uuid));
 
-            FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter bufferedwriter = new BufferedWriter(fileWriter);
-            bufferedwriter.write("In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move.");
-            Snackbar snackbar = Snackbar.make(view, "File has been generated!", 2000);
-            snackbar.show();
+            System.out.println("reading from resource and writing to file...");
+            int length = -1;
+            byte[] buffer = new byte[1024];// buffer for portion of data from connection
+            while ((length = in.read(buffer)) > -1) {
+                fos.write(buffer, 0, length);
+            }
+            fos.close();
+            in.close();
+            System.out.println("File downloaded");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-*/
+
     }
 
-    //TODO 13.11.2019 Add functionality to upload files
+
     private void uploadFile(View view) {
         startActivity(new Intent(this, FileUploadActivity.class));
     }
