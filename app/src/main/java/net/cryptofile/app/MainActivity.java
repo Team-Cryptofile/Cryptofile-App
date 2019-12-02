@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
             try {
-                FileService.initialize();
+                FileService.readFromStoredFiles();
             } catch (Exception e) {
                 e.printStackTrace();
             }

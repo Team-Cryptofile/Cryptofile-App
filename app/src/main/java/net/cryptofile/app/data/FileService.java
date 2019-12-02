@@ -12,7 +12,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class FileService {
@@ -26,7 +25,7 @@ public class FileService {
     private static String response = null;
 
     
-    public static void initialize() throws Exception {
+    public static void readFromStoredFiles() throws Exception {
         File file = new File(storedFilelistFolder);
         if(!file.exists() | file.length() == 0){
             file.createNewFile();
@@ -63,20 +62,24 @@ public class FileService {
 
     private static void storeFile(FileEntry file) throws Exception {
         JSONObject json = new JSONObject(response);
-        JSONObject fileInJson = new JSONObject();
-        JSONArray fileList = new JSONArray();
+        boolean fileExists = json.has(file.getId());
 
-        fileInJson.put("UUID", file.getId());
-        fileInJson.put("title", file.getTitle());
-        fileInJson.put("type", "");
+        if (!fileExists) {
+            JSONArray fileList = new JSONArray();
+            JSONObject fileDetails = new JSONObject();
+            fileDetails.put("title", file.getTitle());
+            fileDetails.put("type", "");
+            fileList.put(fileDetails);
+            json.put(file.getId(), fileList);
 
-        fileList.put(fileInJson);
-        json.put("Files", fileList); // TODO: 02.12.2019 Make sure objects are added and not overwritten.
-
-        fileWriter = new FileWriter(new File(storedFilelistFolder).getAbsoluteFile());
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        bufferedWriter.write(fileInJson.toString());
-        bufferedWriter.close();
+            fileWriter = new FileWriter(new File(storedFilelistFolder).getAbsoluteFile());
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(json.toString());
+            bufferedWriter.close();
+            readFromStoredFiles();
+        } else {
+            System.out.println("File already exists");
+        }
     }
 
     private static void removeDuplicatesFromList(){
