@@ -56,5 +56,6 @@
     <string name="file_type_label">File type:</string>
     <string name="detected_filetype">No filetype detected</string>
     <string name="copy_key_to_clipboard">Copy key to clipboard</string>
+    <string name="generated_qr_code">Generated QR code</string>
 
 </resources>
