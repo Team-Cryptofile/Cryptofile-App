@@ -2,10 +2,6 @@ package net.cryptofile.app.ui.home;
 
 import android.app.Application;
 
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -13,9 +9,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import net.cryptofile.app.data.FileService;
 import net.cryptofile.app.data.model.FileEntry;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 
 public class FileViewModel extends AndroidViewModel {
@@ -30,7 +28,7 @@ public class FileViewModel extends AndroidViewModel {
         requestQueue = Volley.newRequestQueue(context);
     }
 
-    LiveData<List<FileEntry>> getFileList() {
+    LiveData<List<FileEntry>> getFileList() throws Exception {
         if(fileList == null) {
             fileList = new MutableLiveData<>();
             loadFileList();
@@ -47,7 +45,7 @@ public class FileViewModel extends AndroidViewModel {
         this.selected.setValue(selected);
     }
 
-    protected void loadFileList() {
+    protected void loadFileList() throws Exception {
         this.fileList.setValue(FileService.getFileList());
     }
 

@@ -11,8 +11,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FileService {
 
@@ -55,8 +55,18 @@ public class FileService {
         storeFile(file);
     }
 
-    public static List<FileEntry> getFileList(){
-        removeDuplicatesFromList();
+    public static List<FileEntry> getFileList() throws Exception {
+        JSONObject json = new JSONObject(response);
+        Iterator<String> iterator = json.keys();
+
+        while (iterator.hasNext()) {
+            String uuid = iterator.next();
+            System.out.println("Readed uuid from json: " + uuid +
+                    "\nReaded title: " + json.getJSONArray(uuid).getJSONObject(0).get("title"));
+
+            FileEntry fileEntry = new FileEntry(uuid, json.getJSONArray(uuid).getJSONObject(0).get("title").toString());
+            fileList.add(fileEntry);
+        }
         return fileList;
     }
 
@@ -74,7 +84,7 @@ public class FileService {
 
             fileWriter = new FileWriter(new File(storedFilelistFolder).getAbsoluteFile());
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(json.toString());
+            bufferedWriter.write(json.toString(2));
             bufferedWriter.close();
             readFromStoredFiles();
         } else {
@@ -82,8 +92,4 @@ public class FileService {
         }
     }
 
-    private static void removeDuplicatesFromList(){
-        List<FileEntry> unsortedList = fileList;
-        fileList = unsortedList.stream().distinct().collect(Collectors.toList());
-    }
 }
