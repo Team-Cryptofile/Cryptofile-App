@@ -21,16 +21,12 @@ import com.google.android.material.navigation.NavigationView;
 
 import net.cryptofile.app.data.FileService;
 import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
+import net.cryptofile.app.ui.fileDownload.DownloadDialog;
 import net.cryptofile.app.ui.fileupload.FileUploadActivity;
 import net.cryptofile.app.ui.home.FileViewModel;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DownloadDialog.DownloadDialogListener {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -76,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            downloadButton.setOnClickListener(this::downloadFile);
+            downloadButton.setOnClickListener(view -> openDownloadDialog());
 
             uploadButton.setOnClickListener(this::uploadFile);
 
@@ -140,30 +136,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO 13.11.2019 Add functionality to download files from server
-    private void downloadFile(View view) {
 
-        try {
-            String urlPath = "cryptofile.net:8080/get/";
-            String uuid = "000b0858-5160-420d-a484-3a322fc136bd";
-            java.net.URL url = new java.net.URL(urlPath + uuid);
-            InputStream in = url.openStream();
-            FileOutputStream fos = new FileOutputStream(new File(uuid));
-
-            System.out.println("reading from resource and writing to file...");
-            int length = -1;
-            byte[] buffer = new byte[1024];// buffer for portion of data from connection
-            while ((length = in.read(buffer)) > -1) {
-                fos.write(buffer, 0, length);
-            }
-            fos.close();
-            in.close();
-            System.out.println("File downloaded");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
     private void uploadFile(View view) {
@@ -175,4 +148,14 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    private void openDownloadDialog() {
+        DownloadDialog downloadDialog = new DownloadDialog();
+        downloadDialog.show(getSupportFragmentManager(), "download dialog");
+    }
+
+    @Override
+    public void applyText(String uuid) {
+        DownloadDialog downloadDialog = new DownloadDialog();
+        downloadDialog.downloadFile(uuid);
+    }
 }
