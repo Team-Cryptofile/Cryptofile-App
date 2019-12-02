@@ -12,13 +12,13 @@
     <View
         android:id="@+id/view"
         android:layout_width="412dp"
-        android:layout_height="164dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="80dp"
+        android:background="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/textViewFileTitle"
@@ -71,5 +71,15 @@
         app:layout_constraintVertical_bias="0.084"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-16dp" />
+
+    <Button
+        android:id="@+id/copyKeyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/copy_key_to_clipboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

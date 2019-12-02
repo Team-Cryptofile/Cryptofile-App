@@ -1,13 +1,21 @@
 package net.cryptofile.app.ui.home;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.cryptofile.app.R;
+import net.cryptofile.app.data.CryptoService;
 import net.cryptofile.app.data.model.FileEntry;
+
+import java.util.Base64;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -18,6 +26,7 @@ public class FileFragment extends Fragment {
     TextView id;
     TextView title;
     TextView fileType;
+    Button copyButton;
 
 
     /*
@@ -67,6 +76,18 @@ public class FileFragment extends Fragment {
                 e.printStackTrace();
             }
 
+            copyButton.setOnClickListener(v -> {
+                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = null; //(model.selected.getValue().getKey().getEncoded())));
+                try {
+                    clip = ClipData.newPlainText( "Cryptofile key", model.selected.getValue().getId() + ":" + Base64.getEncoder().encodeToString(CryptoService.getKey(model.selected.getValue().getId()).getEncoded()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getContext(), "Key copied to clipboard!", Toast.LENGTH_SHORT).show();
+            });
+
         });
 
     }
@@ -79,6 +100,8 @@ public class FileFragment extends Fragment {
         id = view.findViewById(R.id.textViewFileId);
         title = view.findViewById(R.id.textViewFileTitle);
         fileType = view.findViewById(R.id.textViewFileType);
+        copyButton = view.findViewById(R.id.copyKeyButton);
+
 
         /*
         // Set the adapter
