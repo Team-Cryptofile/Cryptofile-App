@@ -20,6 +20,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import net.cryptofile.app.data.FileService;
 import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
 import net.cryptofile.app.ui.fileupload.FileUploadActivity;
 import net.cryptofile.app.ui.home.FileViewModel;
@@ -68,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
                     closeFABMenu();
                 }
             });
+
+            try {
+                FileService.readFromStoredFiles();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             downloadButton.setOnClickListener(this::downloadFile);
 

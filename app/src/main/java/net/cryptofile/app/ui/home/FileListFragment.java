@@ -34,8 +34,12 @@ public class FileListFragment extends Fragment {
         RecyclerView view = (RecyclerView) inflater.inflate(R.layout.fragment_file_list, container, false);
         view.setLayoutManager(new LinearLayoutManager(view.getContext()));
         FileViewModel model = ViewModelProviders.of(this.getActivity()).get(FileViewModel.class);
-        model.getFileList().observe(this, fileList ->
-                view.setAdapter(new MyFileRecyclerViewAdapter(fileList)));
+        try {
+            model.getFileList().observe(this, fileList ->
+                    view.setAdapter(new MyFileRecyclerViewAdapter(fileList)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return view;
     }
 }

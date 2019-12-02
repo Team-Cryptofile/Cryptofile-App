@@ -4,17 +4,23 @@ import android.content.Context;
 import android.os.Environment;
 import android.security.keystore.KeyProperties;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
 
+import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.GCMParameterSpec;
 
 public class CryptoService {
     private static KeyStore keyStore;
@@ -42,7 +48,7 @@ public class CryptoService {
 
     public static SecretKey generateKey() throws Exception {
         final KeyGenerator keyGen = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES);
-        keyGen.init(4096);
+        keyGen.init(256);
         return keyGen.generateKey();
     }
 
@@ -73,6 +79,32 @@ public class CryptoService {
 
     public static ArrayList<String> getAllAliases() throws KeyStoreException {
         return Collections.list(keyStore.aliases());
+    }
+
+    public static byte[] encrypt(SecretKey key, byte[] fileBytes) throws Exception {
+        final Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+        byte[] iv = cipher.getIV();
+        byte[] encryptedFileBytes = cipher.doFinal(fileBytes);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(iv);
+        outputStream.write(":::::".getBytes(StandardCharsets.UTF_8));
+        outputStream.write(encryptedFileBytes);
+
+        return outputStream.toByteArray();
+    }
+
+    public static byte[] decrypt(SecretKey key, byte[] encryptedBytes) throws Exception {
+        String[] split = new String(encryptedBytes, StandardCharsets.UTF_8).split(new String(":::::".getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8), 1);
+        byte[] iv = split[0].getBytes(StandardCharsets.UTF_8);
+        byte[] encryptedFileBytes = split[1].getBytes(StandardCharsets.UTF_8);
+
+        final Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        final GCMParameterSpec spec = new GCMParameterSpec(128, iv);
+
+        cipher.init(Cipher.DECRYPT_MODE, key, spec);
+        return cipher.doFinal(encryptedFileBytes);
     }
 
 }
