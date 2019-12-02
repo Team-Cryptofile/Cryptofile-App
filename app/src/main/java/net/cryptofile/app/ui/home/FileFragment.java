@@ -3,13 +3,22 @@ package net.cryptofile.app.ui.home;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
 
 import net.cryptofile.app.R;
 import net.cryptofile.app.data.CryptoService;
@@ -20,6 +29,9 @@ import java.util.Base64;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.WHITE;
+
 
 public class FileFragment extends Fragment {
 
@@ -27,6 +39,8 @@ public class FileFragment extends Fragment {
     TextView title;
     TextView fileType;
     Button copyButton;
+    ImageView imageView;
+    String stringToSend = null;
 
 
     /*
@@ -76,11 +90,22 @@ public class FileFragment extends Fragment {
                 e.printStackTrace();
             }
 
+            try {
+                stringToSend = model.selected.getValue().getId() + ":" + Base64.getEncoder().encodeToString(CryptoService.getKey(model.selected.getValue().getId()).getEncoded());
+                Bitmap bitmap = encodeAsBitmap(stringToSend);
+                imageView.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             copyButton.setOnClickListener(v -> {
                 ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = null; //(model.selected.getValue().getKey().getEncoded())));
                 try {
-                    clip = ClipData.newPlainText( "Cryptofile key", model.selected.getValue().getId() + ":" + Base64.getEncoder().encodeToString(CryptoService.getKey(model.selected.getValue().getId()).getEncoded()));
+
+                    clip = ClipData.newPlainText( "Cryptofile key", stringToSend);
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -101,58 +126,35 @@ public class FileFragment extends Fragment {
         title = view.findViewById(R.id.textViewFileTitle);
         fileType = view.findViewById(R.id.textViewFileType);
         copyButton = view.findViewById(R.id.copyKeyButton);
+        imageView = view.findViewById(R.id.qrCode);
 
 
-        /*
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyFileRecyclerViewAdapter(FileEntry.FILES, mListener));
-        }
-
-         */
         return view;
     }
 
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+
+    Bitmap encodeAsBitmap(String str) throws WriterException {
+        BitMatrix result;
+
+        int width = Resources.getSystem().getDisplayMetrics().widthPixels - 50;
+        System.out.println("Image width: " + width);
+        try {
+            result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, width, width, null);
+        } catch (IllegalArgumentException iae) {
+            return null;
         }
+        int w = result.getWidth();
+        int h = result.getHeight();
+        int[] pixels = new int[w * h];
+        for (int y = 0; y < h; y++) {
+            int offset = y * w;
+            for (int x = 0; x < w; x++) {
+                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
+            }
+        }
+        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        bitmap.setPixels(pixels, 0, width, 0, 0, w, h);
+        return bitmap;
     }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     * /
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(FileEntry item);
-    }
-
- */
 
 }
