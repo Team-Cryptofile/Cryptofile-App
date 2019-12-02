@@ -1,5 +1,7 @@
 package net.cryptofile.app.data;
 
+import java.io.File;
+
 public class MainRepository {
 
     private static volatile ServerDataSource dataSource;
@@ -17,7 +19,7 @@ public class MainRepository {
         return instance;
     }
 
-    public Result uploadFile(byte[] file, String title, String filetype) throws Exception {
+    public Result uploadFile(File file, String title, String filetype) {
         Result result = dataSource.uploadFile(file, title, filetype);
         if (result instanceof Result.Success) {
             System.out.println("Succsessfully uploaded");
