@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
+import android.text.style.TabStopSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -18,6 +20,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public class DownloadDialog extends AppCompatDialogFragment {
 
@@ -61,19 +67,11 @@ public class DownloadDialog extends AppCompatDialogFragment {
         try {
             String urlPath = "cryptofile.net:8080/get/";
             if(uuid != null) {
-                java.net.URL url = new java.net.URL(urlPath + uuid);
+                URL url = new URL(urlPath + uuid);
                 InputStream in = url.openStream();
-                FileOutputStream fos = new FileOutputStream(new File(uuid));
-
-                System.out.println("reading from resource and writing to file...");
-                int length = -1;
-                byte[] buffer = new byte[1024];// buffer for portion of data from connection
-                while ((length = in.read(buffer)) > -1) {
-                    fos.write(buffer, 0, length);
-                }
-                fos.close();
+                //FileOutputStream fos = new FileOutputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
+                Files.copy(in, Paths.get(uuid), StandardCopyOption.REPLACE_EXISTING);
                 in.close();
-                System.out.println("File downloaded");
             }
 
 
