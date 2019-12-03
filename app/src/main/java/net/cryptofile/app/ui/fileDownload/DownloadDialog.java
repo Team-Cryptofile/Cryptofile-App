@@ -15,8 +15,10 @@ import net.cryptofile.app.data.FileService;
 
 import org.apache.tika.io.IOUtils;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
@@ -64,17 +66,12 @@ public class DownloadDialog extends AppCompatDialogFragment {
                     URL url = new URL(urlPath + uuidInput);
 
                     // Grabbing file title from server
-                    String title = "";
-                    URL urlTitle = new URL(urlPath + "title/" + uuidInput);
-                    HttpURLConnection c = (HttpURLConnection) urlTitle.openConnection();
-                    if (c.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                        title = c.getResponseMessage();
-                    } else {
-                        System.out.println("Could not get the title: " + c.getResponseMessage());
-                    }
-                    c.disconnect();
+                    String title = getDetailFromServer("title", uuidInput);
 
-                    FileService.addFile(uuidInput, title);
+                    // Grabbing file filetype from server
+                    String filetype = getDetailFromServer("filetype", uuidInput);
+
+                    FileService.addFile(uuidInput, title, filetype);
                 } else if (isUuidWithKey) { // This runs if there is a UUID and a key attached to it
                     CryptoService.saveKey(uuidInput);
 
@@ -83,25 +80,18 @@ public class DownloadDialog extends AppCompatDialogFragment {
 
 
                     // Grabbing file title from server
-                    String title = "";
-                    URL urlTitle = new URL(urlPath + "title/" + uuid);
-                    System.out.println("URL: " + urlTitle);
-                    HttpURLConnection c = (HttpURLConnection) urlTitle.openConnection();
-                    if (c.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                        title = c.getResponseMessage();
-                        System.out.println("Recieved title: " + title);
-                    } else {
-                        System.out.println("Could not get the title: " + c.getResponseMessage());
-                    }
-                    c.disconnect();
+                    String title = getDetailFromServer("title", uuid);
+
+                    // Grabbing file filetype from server
+                    String filetype = getDetailFromServer("filetype", uuid);
 
                     // Adds file to filelist
-                    FileService.addFile(uuid, title);
+                    FileService.addFile(uuid, title, filetype);
 
                     // Getting the file itself
                     URL url = new URL(urlPath + uuid);
                     InputStream in = url.openStream();
-                    Path filePath =  Paths.get(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), uuid);
+                    Path filePath =  Paths.get(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), uuid + "." + filetype);
 
                     byte[] decryptedBytes = CryptoService.decrypt(CryptoService.getKey(uuid), IOUtils.toByteArray(in));
                     ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(decryptedBytes);
@@ -133,5 +123,28 @@ public class DownloadDialog extends AppCompatDialogFragment {
 
     public interface DownloadDialogListener {
         void applyText(String uuid);
+    }
+
+    public String getDetailFromServer(String detail, String uuid) throws Exception {
+        String urlPath = "http://cryptofile.net:8080/get/";
+        String detailString = "";
+        URL urlFiletype = new URL(urlPath + detail + "/" + uuid);
+        System.out.println("URL: " + urlFiletype);
+        HttpURLConnection c = (HttpURLConnection) urlFiletype.openConnection();
+        c.setRequestMethod("GET");
+        if (c.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(c.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            detailString = content.toString();
+            System.out.println("Recieved " + detail + ": " + detailString);
+        } else {
+            System.out.println("Could not get the " + detail + ": " + c.getErrorStream());
+        }
+        c.disconnect();
+        return detailString;
     }
 }

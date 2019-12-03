@@ -49,8 +49,8 @@ public class FileService {
         bufferedReader.close();
     }
 
-    public static void addFile(String id, String title) throws Exception {
-        FileEntry file = new FileEntry(id, title, null);                   // TODO: 02.12.2019 Change this when filetype is implemented
+    public static void addFile(String id, String title, String filetype) throws Exception {
+        FileEntry file = new FileEntry(id, title, filetype);                   // TODO: 02.12.2019 Change this when filetype is implemented
         storeFile(file);
     }
 
@@ -83,7 +83,7 @@ public class FileService {
             JSONArray fileList = new JSONArray();
             JSONObject fileDetails = new JSONObject();
             fileDetails.put("title", file.getTitle());
-            fileDetails.put("type", "");
+            fileDetails.put("type", file.getFileType());
             fileList.put(fileDetails);
             json.put(file.getId(), fileList);
 

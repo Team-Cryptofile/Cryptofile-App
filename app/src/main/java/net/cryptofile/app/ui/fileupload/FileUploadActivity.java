@@ -39,7 +39,7 @@ public class FileUploadActivity extends AppCompatActivity {
     private static final int REQUEST_GET_SINGLE_FILE= 1;
 
     File fileAsBytes = null;
-    TextView detectedFiletypeText;
+    TextInputEditText detectedFiletypeText;
     TextView fileLocationText;
     Button submitBtn;
     TextInputEditText titleInput;
@@ -100,7 +100,10 @@ public class FileUploadActivity extends AppCompatActivity {
                     if (path != null) {
                         InputStream inputStream = getContentResolver().openInputStream(selectedFile);
 
-                        detectedFiletypeText.setText(new Tika().detect(path));  // Detects filetype
+                        String ft = new Tika().detect(path); // Detects filetype
+                        if(!(ft.isEmpty() || ft.matches("application/octet-stream"))) {
+                            detectedFiletypeText.setText(ft.split("/")[1]);
+                        }
 
                         statusText.setText("Encrypting...");
                         progressBar.setVisibility(View.VISIBLE);
@@ -189,7 +192,7 @@ public class FileUploadActivity extends AppCompatActivity {
     private void redirect() throws Exception {
         if (response instanceof Result.Success) {
             CryptoService.storeKey(key, returnedUuid);
-            FileService.addFile(returnedUuid, titleInput.getText().toString());
+            FileService.addFile(returnedUuid, titleInput.getText().toString(), detectedFiletypeText.getText().toString());
             Toast.makeText(this , "File successfully uploaded", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class));
         }else{
