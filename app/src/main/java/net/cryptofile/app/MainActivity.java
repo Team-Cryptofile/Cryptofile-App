@@ -135,8 +135,6 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
         uploadButton.hide();
     }
 
-    //TODO 13.11.2019 Add functionality to download files from server
-
 
 
     private void uploadFile(View view) {
@@ -156,6 +154,5 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
     @Override
     public void applyText(String uuid) {
         DownloadDialog downloadDialog = new DownloadDialog();
-        downloadDialog.downloadFile(uuid);
     }
 }
