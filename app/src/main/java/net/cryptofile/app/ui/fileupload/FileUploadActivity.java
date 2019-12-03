@@ -11,8 +11,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.textfield.TextInputEditText;
 
 import net.cryptofile.app.MainActivity;
@@ -30,8 +28,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 import javax.crypto.SecretKey;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class FileUploadActivity extends AppCompatActivity {
 
@@ -161,10 +162,14 @@ public class FileUploadActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
 
                     try {
+                        PrintWriter writer = new PrintWriter(file);
+                        writer.print("");
+                        writer.close();
                         redirect();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 } else {
                     System.out.println("File not submitted");
 
