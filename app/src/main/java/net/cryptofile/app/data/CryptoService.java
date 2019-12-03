@@ -1,117 +1,110 @@
 package net.cryptofile.app.data;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
+import android.content.Context;
+import android.os.Environment;
+import android.security.keystore.KeyProperties;
 
-import javax.crypto.BadPaddingException;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Collections;
+
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.GCMParameterSpec;
 
 public class CryptoService {
+    private static KeyStore keyStore;
+    private static char[] password = "password".toCharArray();
+    private static String keyLocation = "/data/data/net.cryptofile.app/cryptokeys.bks"; // getFilesdir don't work in static classes
+    private static String type = KeyStore.getDefaultType();
 
-    private KeyPairGenerator keyGen;
-    private KeyPair pair;
-    private PrivateKey privateKey;
-    private PublicKey publicKey;
-
-    public CryptoService(int keylength) throws NoSuchAlgorithmException, NoSuchProviderException {
-        this.keyGen = KeyPairGenerator.getInstance("RSA");
-        this.keyGen.initialize(keylength);
-    }
-
-    public void createKeys() {
-        this.pair = this.keyGen.generateKeyPair();
-        this.privateKey = pair.getPrivate();
-        this.publicKey = pair.getPublic();
-    }
-
-    public PrivateKey getPrivateKey() {
-        return this.privateKey;
-    }
-
-    public PublicKey getPublicKey() {
-        return this.publicKey;
-    }
-
-    public void writeToFile(String path, byte[] key) throws IOException {
-        File f = new File(path);
-        f.getParentFile().mkdirs();
-
-        FileOutputStream fos = new FileOutputStream(f);
-        fos.write(key);
-        fos.flush();
-        fos.close();
-    }
-/*
-    public static void main(String[] args) {
-        CryptoService gk;
+    static {
         try {
-            gk = new CryptoService(1024);
-            gk.createKeys();
-            gk.writeToFile("KeyPair/publicKey", gk.getPublicKey().getEncoded());
-            gk.writeToFile("KeyPair/privateKey", gk.getPrivateKey().getEncoded());
-        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-            System.err.println(e.getMessage());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+            if (!(new File(keyLocation).exists())){
+                keyStore = KeyStore.getInstance(type);
+                keyStore.load(null, null);
+                keyStore.store(new FileOutputStream(keyLocation),password);
+            }
+
+            keyStore = KeyStore.getInstance(type);
+            keyStore.load(new FileInputStream(keyLocation), password);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-    }
-*/
-
-
-
-    public static boolean isPair(String privkey, String pubkey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        String testMessage = "Test message";
-        System.out.println("Test message: " + testMessage);
-
-        PrivateKey privateKey = getPrivateKey(privkey);
-        PublicKey publicKey = getPublicKey(pubkey);
-
-        Cipher cipher = Cipher.getInstance("RSA");
-        cipher.init(Cipher.ENCRYPT_MODE, privateKey);
-        byte[] encryptedBytes = cipher.doFinal(testMessage.getBytes());
-        System.out.println("Encrypted message: " + encryptedBytes.toString());
-
-        Cipher cipher1 = Cipher.getInstance("RSA");
-        cipher1.init(Cipher.DECRYPT_MODE, publicKey);
-        byte[] decryptedBytes = cipher1.doFinal(encryptedBytes);
-        String decryptedMessage = new String(decryptedBytes);
-        System.out.println("Decrypted message: " + decryptedMessage);
-
-        return decryptedMessage.equals(testMessage);
     }
 
 
-    public static PublicKey getPublicKey(String pubkey) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] data = Base64.getDecoder().decode(pubkey);
-        X509EncodedKeySpec spec = new X509EncodedKeySpec(data);
-        KeyFactory factory = KeyFactory.getInstance("RSA");
-        return factory.generatePublic(spec);
+    public static SecretKey generateKey() throws Exception {
+        final KeyGenerator keyGen = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES);
+        keyGen.init(256);
+        return keyGen.generateKey();
     }
 
+    public static void storeKey(SecretKey key, String uuid) throws Exception {
+        KeyStore.SecretKeyEntry secretKeyEntry = new KeyStore.SecretKeyEntry(key);
+        KeyStore.ProtectionParameter kspp = new KeyStore.PasswordProtection(password);
 
-    public static PrivateKey getPrivateKey(String privkey) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] data = Base64.getDecoder().decode(privkey);
-        PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(data);
-        KeyFactory factory = KeyFactory.getInstance("RSA");
-        return factory.generatePrivate(spec);
+        System.out.println("Default keystore: " + type);
+
+
+        keyStore.setEntry(uuid, secretKeyEntry, kspp);
+        keyStore.store(new FileOutputStream(keyLocation), password);
+
+
+        System.out.println("Stored key: " + Base64.getEncoder().encodeToString(getKey(uuid).getEncoded()));
     }
 
+    public static SecretKey getKey(String uuid) throws  Exception {
+        return (SecretKey) keyStore.getKey(uuid, password);
+    }
 
+    public static void saveKey(String uuidAndKey) throws Exception{
+        String[] splittedString = uuidAndKey.split(":", 1);
+        byte[] keyBytes = Base64.getDecoder().decode(splittedString[1].getBytes());
+
+        keyStore.setKeyEntry(splittedString[0], keyBytes, null);
+    }
+
+    public static ArrayList<String> getAllAliases() throws KeyStoreException {
+        return Collections.list(keyStore.aliases());
+    }
+
+    public static byte[] encrypt(SecretKey key, byte[] fileBytes) throws Exception {
+        final Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+        byte[] iv = cipher.getIV();
+        byte[] encryptedFileBytes = cipher.doFinal(fileBytes);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        outputStream.write(iv);
+        outputStream.write(":::::".getBytes(StandardCharsets.UTF_8));
+        outputStream.write(encryptedFileBytes);
+
+        return outputStream.toByteArray();
+    }
+
+    public static byte[] decrypt(SecretKey key, byte[] encryptedBytes) throws Exception {
+        String[] split = new String(encryptedBytes, StandardCharsets.UTF_8).split(new String(":::::".getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8), 1);
+        byte[] iv = split[0].getBytes(StandardCharsets.UTF_8);
+        byte[] encryptedFileBytes = split[1].getBytes(StandardCharsets.UTF_8);
+
+        final Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        final GCMParameterSpec spec = new GCMParameterSpec(128, iv);
+
+        cipher.init(Cipher.DECRYPT_MODE, key, spec);
+        return cipher.doFinal(encryptedFileBytes);
+    }
 
 }

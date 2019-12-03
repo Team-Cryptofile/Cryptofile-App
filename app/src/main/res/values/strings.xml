@@ -37,8 +37,7 @@
     <string name="aboutUs">About Us</string>
     <string name="files">Files</string>
     <string name="tools">Tools</string>
-    <string name="pubkey_list">Public keyset list</string>
-    <string name="prikey_list">Private keyset list</string>
+    <string name="prikey_list">Keys</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -50,5 +49,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="titleString">Title</string>
+    <string name="select_file_button">Select File</string>
+    <string name="upload_file">Upload File</string>
+    <string name="selected_file">No file selected</string>
+    <string name="file_type_label">File type:</string>
+    <string name="detected_filetype">No filetype detected</string>
+    <string name="copy_key_to_clipboard">Copy key to clipboard</string>
+    <string name="generated_qr_code">Generated QR code</string>
 
 </resources>

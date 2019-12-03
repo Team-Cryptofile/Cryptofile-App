@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fileupload.FileUploadActivity">
+
+
+    <Button
+        android:id="@+id/selectUploadFilebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="219dp"
+        android:layout_marginBottom="501dp"
+        android:text="@string/select_file_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.236"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputEditText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputEditText"
+        android:layout_width="317dp"
+        android:layout_height="44dp"
+        android:hint="@string/titleString"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.125" />
+
+    <TextView
+        android:id="@+id/textViewFilelocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:text="@string/selected_file"
+        app:layout_constraintBottom_toBottomOf="@+id/selectUploadFilebutton"
+        app:layout_constraintStart_toStartOf="@+id/selectUploadFilebutton"
+        app:layout_constraintTop_toTopOf="@+id/selectUploadFilebutton" />
+
+    <TextView
+        android:id="@+id/textViewFiletypeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/file_type_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectUploadFilebutton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewDetectedFileType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/detected_filetype"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewFiletypeLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintStart_toEndOf="@+id/textViewFiletypeLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewFiletypeLabel"
+        app:layout_constraintVertical_bias="0.047" />
+
+    <Button
+        android:id="@+id/uploadSubmitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="51dp"
+        android:text="@string/upload_file"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDetectedFileType"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ProgressBar
+        android:id="@+id/uploadProgressBar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/uploadSubmitBtn"
+        app:layout_constraintStart_toStartOf="@+id/uploadSubmitBtn"
+        app:layout_constraintTop_toBottomOf="@+id/uploadSubmitBtn" />
+
+    <TextView
+        android:id="@+id/uploadStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/uploadProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/uploadProgressBar"
+        app:layout_constraintTop_toBottomOf="@+id/uploadProgressBar" />
+
+    <TextView
+        android:id="@+id/uploadPageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upload_file"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
