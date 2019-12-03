@@ -1,4 +1,4 @@
-package net.cryptofile.app.ui.home;
+package net.cryptofile.app.ui.files;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -22,12 +24,8 @@ import com.google.zxing.common.BitMatrix;
 
 import net.cryptofile.app.R;
 import net.cryptofile.app.data.CryptoService;
-import net.cryptofile.app.data.model.FileEntry;
 
 import java.util.Base64;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
@@ -127,8 +125,6 @@ public class FileFragment extends Fragment {
         fileType = view.findViewById(R.id.textViewFileType);
         copyButton = view.findViewById(R.id.copyKeyButton);
         imageView = view.findViewById(R.id.qrCode);
-
-
         return view;
     }
 

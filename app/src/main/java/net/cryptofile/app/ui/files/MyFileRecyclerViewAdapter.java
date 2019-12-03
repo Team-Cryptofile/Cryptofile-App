@@ -1,4 +1,4 @@
-package net.cryptofile.app.ui.home;
+package net.cryptofile.app.ui.files;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -22,7 +22,7 @@ public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecycl
 
     private final List<FileEntry> mValues;
 
-    FileViewModel model;
+    private FileViewModel model;
 
     public MyFileRecyclerViewAdapter(List<FileEntry> items) {
         mValues = items;

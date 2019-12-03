@@ -1,5 +1,6 @@
 package net.cryptofile.app.ui.fileupload;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -131,6 +132,7 @@ public class FileUploadActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     public void submitFile(File file, String title, String filetype) {
         new AsyncTask<Void, Void, Result>() {
 

@@ -23,7 +23,7 @@ import net.cryptofile.app.data.FileService;
 import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
 import net.cryptofile.app.ui.fileDownload.DownloadDialog;
 import net.cryptofile.app.ui.fileupload.FileUploadActivity;
-import net.cryptofile.app.ui.home.FileViewModel;
+import net.cryptofile.app.ui.files.FileViewModel;
 
 
 public class MainActivity extends AppCompatActivity implements DownloadDialog.DownloadDialogListener {
@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
     private void openDownloadDialog() {
         DownloadDialog downloadDialog = new DownloadDialog();
         downloadDialog.show(getSupportFragmentManager(), "download dialog");
+
     }
 
     @Override
