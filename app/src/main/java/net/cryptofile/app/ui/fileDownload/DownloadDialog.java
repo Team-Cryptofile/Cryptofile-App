@@ -9,31 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDialogFragment;
-
 import net.cryptofile.app.R;
 import net.cryptofile.app.data.CryptoService;
 import net.cryptofile.app.data.FileService;
-import net.cryptofile.app.data.Result;
 
 import org.apache.tika.io.IOUtils;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class DownloadDialog extends AppCompatDialogFragment {
 

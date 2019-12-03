@@ -9,17 +9,26 @@ import net.cryptofile.app.MainActivity;
 import net.cryptofile.app.R;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class LogoutActivity extends AppCompatActivity {
 
     private Button cancelBtn;
     private Button confirmBtn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
         //View view = getLayoutInflater().inflate(R.layout.activity_logout, null, false);
         setContentView(R.layout.activity_logout);
+
 
         cancelBtn = (Button) findViewById(R.id.cancel);
         confirmBtn = (Button) findViewById(R.id.confirm);

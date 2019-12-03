@@ -9,8 +9,8 @@ import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
-import java.security.PrivateKey;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 
@@ -70,7 +70,7 @@ public class CryptoService {
 
     public static void saveKey(String uuidAndKey) throws Exception{
         String[] splittedString = uuidAndKey.split(":", 2);
-        byte[] keyBytes = Base64.getDecoder().decode(splittedString[1].getBytes());
+        byte[] keyBytes = Base64.getDecoder().decode(splittedString[1].getBytes(StandardCharsets.UTF_8));
         SecretKey secretKey = new SecretKeySpec(keyBytes, 0, keyBytes.length, "AES");
         storeKey(secretKey, splittedString[0]);
     }
@@ -89,17 +89,14 @@ public class CryptoService {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         outputStream.write(iv);
-        outputStream.write(":::::".getBytes(StandardCharsets.UTF_8));
         outputStream.write(encryptedFileBytes);
 
         return outputStream.toByteArray();
     }
 
     public static byte[] decrypt(SecretKey key, byte[] encryptedBytes) throws Exception {
-        String[] split = new String(encryptedBytes,
-                StandardCharsets.UTF_8).split(new String(":::::".getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8), 2);
-        byte[] iv = split[0].getBytes(StandardCharsets.UTF_8);
-        byte[] encryptedFileBytes = split[1].getBytes(StandardCharsets.UTF_8);
+        byte[] iv = Arrays.copyOf(encryptedBytes, 12);
+        byte[] encryptedFileBytes = Arrays.copyOfRange(encryptedBytes, 12, encryptedBytes.length);
 
         System.out.println("IV decrypt: " + new String(iv, StandardCharsets.UTF_8));
 
