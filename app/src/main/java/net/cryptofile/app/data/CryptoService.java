@@ -101,7 +101,7 @@ public class CryptoService {
         byte[] encryptedFileBytes = split[1].getBytes(StandardCharsets.UTF_8);
 
         final Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-        final GCMParameterSpec spec = new GCMParameterSpec(128, iv);
+        final GCMParameterSpec spec = new GCMParameterSpec(256, iv);
 
         cipher.init(Cipher.DECRYPT_MODE, key, spec);
         return cipher.doFinal(encryptedFileBytes);
