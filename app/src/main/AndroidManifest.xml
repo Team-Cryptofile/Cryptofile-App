@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="net.cryptofile.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,10 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:configChanges="orientation|screenSize">
-        <activity android:name=".ui.fileupload.FileUploadActivity"
+        android:configChanges="orientation|screenSize"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".ui.fileupload.FileUploadActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.login.LogoutActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
