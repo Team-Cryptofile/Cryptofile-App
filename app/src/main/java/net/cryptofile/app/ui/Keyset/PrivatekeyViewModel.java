@@ -2,10 +2,6 @@ package net.cryptofile.app.ui.Keyset;
 
 import android.app.Application;
 
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
@@ -13,11 +9,14 @@ import net.cryptofile.app.data.CryptoService;
 import net.cryptofile.app.data.model.Keyset;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
 import javax.crypto.SecretKey;
+
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 public class PrivatekeyViewModel extends AndroidViewModel {
     MutableLiveData<List<Keyset>> privkeys;
@@ -70,4 +69,7 @@ public class PrivatekeyViewModel extends AndroidViewModel {
     void setSelected(Keyset selected){
         this.selected.setValue(selected);
     }
+
+
+
 }
