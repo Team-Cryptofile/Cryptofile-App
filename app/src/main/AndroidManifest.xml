@@ -16,6 +16,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:configChanges="orientation|screenSize"
+        android:installLocation="preferExternal"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.fileupload.FileUploadActivity"
