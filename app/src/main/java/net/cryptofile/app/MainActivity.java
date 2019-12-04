@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
 
 
     private void uploadFile(View view) {
+        closeFABMenu();
         startActivity(new Intent(this, FileUploadActivity.class));
     }
 
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
     }
 
     private void openDownloadDialog() {
+        closeFABMenu();
         DownloadDialog downloadDialog = new DownloadDialog();
         downloadDialog.show(getSupportFragmentManager(), "download dialog");
 
