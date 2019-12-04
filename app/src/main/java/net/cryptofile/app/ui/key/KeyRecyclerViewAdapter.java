@@ -1,4 +1,4 @@
-package net.cryptofile.app.ui.Keyset;
+package net.cryptofile.app.ui.key;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,21 +10,21 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.cryptofile.app.R;
-import net.cryptofile.app.data.model.Keyset;
+import net.cryptofile.app.data.model.KeyEntity;
 
 import java.util.List;
 
 /**
  *
  */
-public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPrivateKeyRecyclerViewAdapter.ViewHolder> {
+public class KeyRecyclerViewAdapter extends RecyclerView.Adapter<KeyRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Keyset> mValues;
+    private final List<KeyEntity> mValues;
 
-    PrivatekeyViewModel model;
+    private KeyViewModel model;
 
 
-    public MyPrivateKeyRecyclerViewAdapter(List<Keyset> items) {
+    KeyRecyclerViewAdapter(List<KeyEntity> items) {
         mValues = items;
     }
 
@@ -33,7 +33,7 @@ public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPriv
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_privatekey, parent, false);
 
-        model = ViewModelProviders.of((FragmentActivity) parent.getContext()).get(PrivatekeyViewModel.class);
+        model = ViewModelProviders.of((FragmentActivity) parent.getContext()).get(KeyViewModel.class);
         return new ViewHolder(view);
     }
 
@@ -69,7 +69,7 @@ public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPriv
         public final TextView mIdView;
         //public final TextView mPrivkeyView;
         //public final TextView mPubkeyView;
-        public Keyset mItem;
+        public KeyEntity mItem;
 
         public ViewHolder(View view) {
             super(view);

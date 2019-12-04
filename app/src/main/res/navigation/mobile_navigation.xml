@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_privatekey"
-        android:name="net.cryptofile.app.ui.Keyset.PrivatekeyListFragment"
+        android:name="net.cryptofile.app.ui.key.KeyListFragment"
         android:label="@string/prikey_list"
         tools:layout="@layout/fragment_privatekey" >
         <action
@@ -50,14 +50,14 @@
 
     <activity
         android:id="@+id/nav_logout"
-        android:name="net.cryptofile.app.ui.login.LogoutActivity"
+        android:name="net.cryptofile.app.ui.authentication.LogoutActivity"
         android:label="@string/logout"
         tools:layout="@layout/activity_logout">
     </activity>
 
     <fragment
         android:id="@+id/privkeyDetailFragment"
-        android:name="net.cryptofile.app.ui.Keyset.PrivatekeyFragment"
+        android:name="net.cryptofile.app.ui.key.KeyFragment"
         android:label="PrivateKey detail"
         tools:layout="@layout/fragment_privatekey_detail">
     </fragment>

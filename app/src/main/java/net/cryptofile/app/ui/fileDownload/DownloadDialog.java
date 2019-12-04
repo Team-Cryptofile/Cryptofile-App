@@ -27,6 +27,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 public class DownloadDialog extends AppCompatDialogFragment {
 
@@ -37,7 +38,7 @@ public class DownloadDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.blackText);
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_download_dialog, null);
 
         builder.setView(view)
@@ -56,7 +57,7 @@ public class DownloadDialog extends AppCompatDialogFragment {
     }
 
 
-    public void downloadFile(String uuidInput) {
+    private void downloadFile(String uuidInput) {
         boolean isOnlyUuid = uuidInput.matches("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
         boolean isUuidWithKey = uuidInput.matches("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}:.+=$");
         Thread thread = new Thread(() -> {

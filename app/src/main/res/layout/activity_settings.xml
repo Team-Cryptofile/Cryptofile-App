@@ -20,6 +20,7 @@
                 android:layout_height="58dp"
                 android:layout_marginTop="92dp"
                 android:text="@string/delete_account"
+                android:background="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -30,6 +31,7 @@
                 android:layout_height="58dp"
                 android:layout_marginTop="164dp"
                 android:text="@string/choose_save_folder"
+                android:background="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

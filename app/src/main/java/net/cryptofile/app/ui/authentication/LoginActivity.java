@@ -1,4 +1,4 @@
-package net.cryptofile.app.ui.login;
+package net.cryptofile.app.ui.authentication;
 
 import android.app.Activity;
 import android.content.Intent;

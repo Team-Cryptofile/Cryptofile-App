@@ -1,4 +1,4 @@
-package net.cryptofile.app.ui.login;
+package net.cryptofile.app.ui.authentication;
 
 /**
  * Class exposing authenticated user details to the UI.

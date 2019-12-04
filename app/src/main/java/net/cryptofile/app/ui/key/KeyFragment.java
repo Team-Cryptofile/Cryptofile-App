@@ -1,4 +1,4 @@
-package net.cryptofile.app.ui.Keyset;
+package net.cryptofile.app.ui.key;
 
 
 import android.content.ClipData;
@@ -20,7 +20,7 @@ import net.cryptofile.app.R;
 import java.util.Base64;
 
 
-public class PrivatekeyFragment extends Fragment {
+public class KeyFragment extends Fragment {
 
     private TextView id;
     private TextView privKey;
@@ -30,7 +30,7 @@ public class PrivatekeyFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PrivatekeyViewModel model = ViewModelProviders.of(this.getActivity()).get(PrivatekeyViewModel.class);
+        KeyViewModel model = ViewModelProviders.of(this.getActivity()).get(KeyViewModel.class);
 
         model.getSelected().observe(this, privkey -> {
             try {

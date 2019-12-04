@@ -58,5 +58,8 @@
     <string name="file_extension">File extension:</string>
     <string name="uuid">uuid</string>
     <string name="delete_file">Delete File</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="logout_question">Are you sure you would like to log out?</string>
 
 </resources>

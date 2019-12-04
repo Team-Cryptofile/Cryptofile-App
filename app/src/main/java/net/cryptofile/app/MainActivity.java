@@ -20,7 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import net.cryptofile.app.data.FileService;
-import net.cryptofile.app.ui.Keyset.PrivatekeyViewModel;
+import net.cryptofile.app.ui.key.KeyViewModel;
 import net.cryptofile.app.ui.fileDownload.DownloadDialog;
 import net.cryptofile.app.ui.fileupload.FileUploadActivity;
 import net.cryptofile.app.ui.files.FileViewModel;
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
             NavigationUI.setupWithNavController(navigationView, navController);
             ViewModelProviders.of(this).get(FileViewModel.class).getSelected().observe(this, selected ->
                     navController.navigate(R.id.actionFileDetailFragment));
-            ViewModelProviders.of(this).get(PrivatekeyViewModel.class).getSelected().observe(this, selected ->
+            ViewModelProviders.of(this).get(KeyViewModel.class).getSelected().observe(this, selected ->
                     navController.navigate(R.id.actionPrivkeyDetailFragment));
         } else {
             setContentView(R.layout.activity_login);

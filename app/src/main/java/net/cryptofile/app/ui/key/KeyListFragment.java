@@ -1,4 +1,4 @@
-package net.cryptofile.app.ui.Keyset;
+package net.cryptofile.app.ui.key;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,16 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.cryptofile.app.R;
 
-public class PrivatekeyListFragment extends Fragment {
+public class KeyListFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         RecyclerView root = (RecyclerView) inflater.inflate(R.layout.fragment_privatekey_list, container, false);
         root.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        PrivatekeyViewModel model = ViewModelProviders.of(this.getActivity()).get(PrivatekeyViewModel.class);
+        KeyViewModel model = ViewModelProviders.of(this.getActivity()).get(KeyViewModel.class);
         try {
             model.getPrivateKeys().observe(this, privkeys ->
-                    root.setAdapter(new MyPrivateKeyRecyclerViewAdapter(privkeys)));
+                    root.setAdapter(new KeyRecyclerViewAdapter(privkeys)));
         } catch (Exception e) {
             e.printStackTrace();
         }
