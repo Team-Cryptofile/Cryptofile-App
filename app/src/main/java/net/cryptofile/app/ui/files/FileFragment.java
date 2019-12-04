@@ -123,6 +123,7 @@ public class FileFragment extends Fragment {
                             case DialogInterface.BUTTON_POSITIVE:
                                 try {
                                     FileService.delete(model.selected.getValue().getId());
+                                    CryptoService.delete(model.selected.getValue().getId());
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
