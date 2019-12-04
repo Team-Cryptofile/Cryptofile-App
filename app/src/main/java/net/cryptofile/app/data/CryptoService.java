@@ -107,4 +107,8 @@ public class CryptoService {
         return cipher.doFinal(encryptedFileBytes);
     }
 
+    public static void delete(String uuid) throws Exception {
+        keyStore.deleteEntry(uuid);
+    }
+
 }
