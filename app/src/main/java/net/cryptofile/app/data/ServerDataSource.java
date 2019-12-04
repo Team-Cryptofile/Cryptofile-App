@@ -55,6 +55,12 @@ public class ServerDataSource {
 
             request.writeBytes( "\r\n");
 
+            // Filetype
+            request.writeBytes("------WebKitFormBoundary" + boundary + "\r\n");
+            request.writeBytes("Content-Disposition: form-data; name=\"filetype\"\r\n");
+            request.writeBytes("Content-Type: text/plain\r\n\r\n");
+            request.writeBytes(filetype + "\r\n");
+
             request.writeBytes("------WebKitFormBoundary" + boundary + "--\r\n");
             request.flush();
 

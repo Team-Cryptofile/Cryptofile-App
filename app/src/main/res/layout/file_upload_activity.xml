@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="24dp"
-        android:text="@string/file_type_label"
+        android:text="@string/file_extension"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -59,17 +59,16 @@
         app:layout_constraintTop_toBottomOf="@+id/selectUploadFilebutton"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textViewDetectedFileType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/detected_filetype"
+        android:layout_width="86dp"
+        android:layout_height="35dp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewFiletypeLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintHorizontal_bias="0.083"
         app:layout_constraintStart_toEndOf="@+id/textViewFiletypeLabel"
-        app:layout_constraintTop_toTopOf="@+id/textViewFiletypeLabel"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintTop_toTopOf="@+id/textViewFiletypeLabel" />
 
     <Button
         android:id="@+id/uploadSubmitBtn"
