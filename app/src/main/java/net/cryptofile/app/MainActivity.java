@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    // TODO: 22.10.19  create 'check if logged in' function
     //SET TO EITHER TRUE OR FALSE FOR TESTING PURPOSES
     boolean loggedIn = true;
 
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
         super.onCreate(savedInstanceState);
 
 
-        if(loggedIn) {
+        if (loggedIn) {
             setContentView(R.layout.activity_main);
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -58,10 +57,9 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
             downloadButton.hide();
 
             plusButton.setOnClickListener(view -> {
-                if(!isFABOpen){
+                if (!isFABOpen) {
                     showFABMenu();
-                }
-                else{
+                } else {
                     closeFABMenu();
                 }
             });
@@ -92,12 +90,11 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
                     navController.navigate(R.id.actionFileDetailFragment));
             ViewModelProviders.of(this).get(PrivatekeyViewModel.class).getSelected().observe(this, selected ->
                     navController.navigate(R.id.actionPrivkeyDetailFragment));
-        }
-        else {
+        } else {
             setContentView(R.layout.activity_login);
 
         }
-        String[] requiredPermissions = { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
+        String[] requiredPermissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         ActivityCompat.requestPermissions(this, requiredPermissions, 0);
 
     }
@@ -119,22 +116,21 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
     }
 
 
-    private void showFABMenu(){
-        isFABOpen=true;
+    private void showFABMenu() {
+        isFABOpen = true;
         downloadButton.animate().translationY(-getResources().getDimension(R.dimen.standard_90));
         uploadButton.animate().translationY(-getResources().getDimension(R.dimen.standard_60));
         downloadButton.show();
         uploadButton.show();
     }
 
-    private void closeFABMenu(){
-        isFABOpen=false;
+    private void closeFABMenu() {
+        isFABOpen = false;
         downloadButton.animate().translationY(0);
         uploadButton.animate().translationY(0);
         downloadButton.hide();
         uploadButton.hide();
     }
-
 
 
     private void uploadFile(View view) {

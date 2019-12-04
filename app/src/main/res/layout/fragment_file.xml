@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@drawable/listed_file"
+        android:backgroundTint="#3F9242"
         android:orientation="vertical"
         android:paddingBottom="8dp">
-
 
 
         <TextView
@@ -45,8 +45,8 @@
                 android:id="@+id/viewIconHaskey"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_haskey_foreground"
-                android:background="@color/colorAlert"/>
+                android:background="@color/colorAlert"
+                android:src="@drawable/ic_haskey_foreground" />
 
         </androidx.cardview.widget.CardView>
 

@@ -11,6 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import net.cryptofile.app.MainActivity;
@@ -32,11 +34,9 @@ import java.io.PrintWriter;
 
 import javax.crypto.SecretKey;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class FileUploadActivity extends AppCompatActivity {
 
-    private static final int REQUEST_GET_SINGLE_FILE= 1;
+    private static final int REQUEST_GET_SINGLE_FILE = 1;
 
     File fileAsBytes = null;
     TextInputEditText detectedFiletypeText;
@@ -63,11 +63,11 @@ public class FileUploadActivity extends AppCompatActivity {
         titleInput = findViewById(R.id.textInputEditText);
         fileLocationText = findViewById(R.id.textViewFilelocation);
         detectedFiletypeText = findViewById(R.id.textViewDetectedFileType);
-        submitBtn = findViewById(R.id.uploadSubmitBtn);statusText = findViewById(R.id.uploadStatusText);
+        submitBtn = findViewById(R.id.uploadSubmitBtn);
+        statusText = findViewById(R.id.uploadStatusText);
         progressBar = findViewById(R.id.uploadProgressBar);
 
         progressBar.setVisibility(View.GONE);
-
 
 
         selectFilebutton.setOnClickListener(v -> {
@@ -101,7 +101,7 @@ public class FileUploadActivity extends AppCompatActivity {
                         InputStream inputStream = getContentResolver().openInputStream(selectedFile);
 
                         String ft = new Tika().detect(path); // Detects filetype
-                        if(!(ft.isEmpty() || ft.matches("application/octet-stream"))) {
+                        if (!(ft.isEmpty() || ft.matches("application/octet-stream"))) {
                             detectedFiletypeText.setText(ft.split("/")[1]);
                         }
 
@@ -123,14 +123,14 @@ public class FileUploadActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
 
                         fileAsBytes = tempFile;
-                        fileLocationText.setText(path.substring(path.lastIndexOf("/")+1));
-                    }else {
+                        fileLocationText.setText(path.substring(path.lastIndexOf("/") + 1));
+                    } else {
                         System.out.println("Path is null!");
                     }
 
                 }
             }
-        } catch (Exception  e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -193,9 +193,9 @@ public class FileUploadActivity extends AppCompatActivity {
         if (response instanceof Result.Success) {
             CryptoService.storeKey(key, returnedUuid);
             FileService.addFile(returnedUuid, titleInput.getText().toString(), detectedFiletypeText.getText().toString());
-            Toast.makeText(this , "File successfully uploaded", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "File successfully uploaded", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class));
-        }else{
+        } else {
             Toast.makeText(this, "Something went wrong, file failed to be uploaded!", Toast.LENGTH_LONG).show();
             submitBtn.setEnabled(true);
         }

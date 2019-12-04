@@ -23,7 +23,6 @@ import java.util.Objects;
 
 public class FileListFragment extends Fragment {
 
-
     private static final String LOG_TAG = MainActivity.class.getName();
 
     @SuppressLint("StaticFieldLeak")
@@ -32,7 +31,7 @@ public class FileListFragment extends Fragment {
 
 
         SwipeRefreshLayout view = (SwipeRefreshLayout) inflater.inflate(R.layout.fragment_file_list, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         FileViewModel model = ViewModelProviders.of(Objects.requireNonNull(this.getActivity())).get(FileViewModel.class);
         try {
@@ -41,8 +40,6 @@ public class FileListFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
         view.setOnRefreshListener(
                 () -> {
@@ -56,19 +53,17 @@ public class FileListFragment extends Fragment {
 
                             try {
                                 FileService.getFileList();
+
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                             return null;
                         }
-
-
                     };
                     view.setRefreshing(false);
                 }
         );
-
-
         return view;
     }
 
