@@ -98,7 +98,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textColor="ffffff"
         app:layout_constraintEnd_toEndOf="@+id/uploadProgressBar"
         app:layout_constraintStart_toStartOf="@+id/uploadProgressBar"
         app:layout_constraintTop_toBottomOf="@+id/uploadProgressBar" />

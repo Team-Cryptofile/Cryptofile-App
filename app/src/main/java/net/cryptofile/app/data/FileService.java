@@ -97,4 +97,18 @@ public class FileService {
         }
     }
 
+    public static void delete(String uuid) throws Exception {
+        JSONObject json = new JSONObject(response);
+        if (json.has(uuid)) {
+            json.remove(uuid);
+
+            fileWriter = new FileWriter(new File(storedFilelistFolder).getAbsoluteFile());
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(json.toString(2));
+            bufferedWriter.close();
+            readFromStoredFiles();
+        } else {
+            System.out.println("This uuid does not exist!");
+        }
+    }
 }

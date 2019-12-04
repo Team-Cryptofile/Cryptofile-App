@@ -1,8 +1,10 @@
 package net.cryptofile.app.ui.files;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import com.google.zxing.common.BitMatrix;
 
 import net.cryptofile.app.R;
 import net.cryptofile.app.data.CryptoService;
+import net.cryptofile.app.data.FileService;
 
 import java.util.Base64;
 
@@ -37,6 +40,7 @@ public class FileFragment extends Fragment {
     TextView title;
     TextView fileType;
     Button copyButton;
+    Button deleteButton;
     ImageView imageView;
     String stringToSend = null;
 
@@ -111,6 +115,36 @@ public class FileFragment extends Fragment {
                 Toast.makeText(getContext(), "Key copied to clipboard!", Toast.LENGTH_SHORT).show();
             });
 
+            deleteButton.setOnClickListener(view -> {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                try {
+                                    FileService.delete(model.selected.getValue().getId());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                getActivity().finish();
+                                startActivity(getActivity().getIntent());
+                                dialogInterface.dismiss();
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                dialogInterface.cancel();
+                        }
+                    }
+
+
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                builder.setMessage("Are you sure you want to delete this file?")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            });
+
         });
 
     }
@@ -124,6 +158,7 @@ public class FileFragment extends Fragment {
         title = view.findViewById(R.id.textViewFileTitle);
         fileType = view.findViewById(R.id.textViewFileType);
         copyButton = view.findViewById(R.id.copyKeyButton);
+        deleteButton = view.findViewById(R.id.deleteFileButton);
         imageView = view.findViewById(R.id.qrCode);
         return view;
     }
