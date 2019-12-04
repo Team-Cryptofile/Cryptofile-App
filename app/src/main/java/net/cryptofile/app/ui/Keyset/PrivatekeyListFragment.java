@@ -22,7 +22,7 @@ public class PrivatekeyListFragment extends Fragment {
         try {
             model.getPrivateKeys().observe(this, privkeys ->
                     root.setAdapter(new MyPrivateKeyRecyclerViewAdapter(privkeys)));
-        } catch (Exception  e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

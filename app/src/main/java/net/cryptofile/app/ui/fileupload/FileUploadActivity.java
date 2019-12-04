@@ -61,7 +61,7 @@ public class FileUploadActivity extends AppCompatActivity {
         setContentView(R.layout.file_upload_activity);
 
         mainRepository = new MainRepository(new ServerDataSource());
-        TEMP_FILE_PATH  = getCacheDir() + "/uploadfile.tmp";
+        TEMP_FILE_PATH = getCacheDir() + "/uploadfile.tmp";
 
         final Button selectFilebutton = findViewById(R.id.selectUploadFilebutton);
         titleInput = findViewById(R.id.textInputEditText);
@@ -99,26 +99,27 @@ public class FileUploadActivity extends AppCompatActivity {
                 if (requestCode == REQUEST_GET_SINGLE_FILE) {
                     selectedFile = data.getData();
 
-                     filePath = selectedFile.getPath();
+                    filePath = selectedFile.getPath();
 
                     if (filePath != null) {
                         encryptFile();
-                    }else {
+                    } else {
                         System.out.println("Path is null!");
                     }
 
                 }
             }
-        } catch (Exception  e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
     @SuppressLint("StaticFieldLeak")
-    public void encryptFile(){
-        new AsyncTask<Void, Void, Void>(){
+    public void encryptFile() {
+        new AsyncTask<Void, Void, Void>() {
             File tempFile;
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -149,7 +150,7 @@ public class FileUploadActivity extends AppCompatActivity {
                     OutputStream outputStream = new FileOutputStream(tempFile);
                     outputStream.write(encryptedBytes);
                     inputStream.close();
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -163,7 +164,7 @@ public class FileUploadActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
 
                 fileAsBytes = tempFile;
-                fileLocationText.setText(filePath.substring(filePath.lastIndexOf("/")+1));
+                fileLocationText.setText(filePath.substring(filePath.lastIndexOf("/") + 1));
 
             }
         }.execute();

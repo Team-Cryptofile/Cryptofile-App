@@ -14,14 +14,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.cryptofile.app.MainActivity;
-import net.cryptofile.app.R;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import net.cryptofile.app.MainActivity;
+import net.cryptofile.app.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
     }
 }

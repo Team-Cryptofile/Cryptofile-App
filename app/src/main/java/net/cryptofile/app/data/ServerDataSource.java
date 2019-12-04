@@ -46,14 +46,14 @@ public class ServerDataSource {
             int bufferSize = Math.min(availableBytes, maxBufferSize);
             byte[] buffer = new byte[bufferSize];
             int readBytes = fileInputStream.read(buffer, 0, bufferSize);
-            while (readBytes > 0){
+            while (readBytes > 0) {
                 request.write(buffer, 0, bufferSize);
                 availableBytes = fileInputStream.available();
-                bufferSize = Math.min(availableBytes,maxBufferSize);
+                bufferSize = Math.min(availableBytes, maxBufferSize);
                 readBytes = fileInputStream.read(buffer, 0, bufferSize);
             }
 
-            request.writeBytes( "\r\n");
+            request.writeBytes("\r\n");
 
             // Filetype
             request.writeBytes("------WebKitFormBoundary" + boundary + "\r\n");
@@ -73,10 +73,10 @@ public class ServerDataSource {
             }
             return new Result.Error(new IOException("Error uploading file: " + c.getResponseMessage()));
         } catch (Exception e) {
-            System.err.println("Failed to call "+ e);
+            System.err.println("Failed to call " + e);
             return new Result.Error(new IOException("Error creating item", e));
         } finally {
-            if(c != null) c.disconnect();
+            if (c != null) c.disconnect();
         }
     }
 }

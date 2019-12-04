@@ -26,7 +26,7 @@ public class FileEntry {
     }
 
     public String getFileType() {
-        if (fileType != null){
+        if (fileType != null) {
             return fileType;
         } else {
             return "";

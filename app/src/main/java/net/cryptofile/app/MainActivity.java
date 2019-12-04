@@ -138,8 +138,9 @@ public class MainActivity extends AppCompatActivity implements DownloadDialog.Do
         startActivity(new Intent(this, FileUploadActivity.class));
     }
 
+    //TODO send a request to restAPI server to confirm connection. Change return statement.
     private boolean loginCheck() {
-        //TODO send a request to restAPI server to confirm connection. Change return statement.
+
         return false;
     }
 

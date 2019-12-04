@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.cryptofile.app.R;
 import net.cryptofile.app.data.model.FileEntry;
+
 import java.util.List;
 
 /**
+ *
  */
 public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecyclerViewAdapter.ViewHolder> {
 
@@ -41,11 +43,11 @@ public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(String.format("%s",mValues.get(position).getId()));
-        holder.mContentView.setText(String.format("%s",mValues.get(position).getTitle()));
+        holder.mIdView.setText(String.format("%s", mValues.get(position).getId()));
+        holder.mContentView.setText(String.format("%s", mValues.get(position).getTitle()));
 
         try {
-            if (mValues.get(position).hasKey()){
+            if (mValues.get(position).hasKey()) {
                 holder.mImageView.setBackgroundColor(Color.parseColor("#4CAF50"));
             } else {
                 holder.mImageView.setBackgroundColor(Color.parseColor("#C13D3D"));

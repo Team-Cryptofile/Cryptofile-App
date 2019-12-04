@@ -12,12 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import net.cryptofile.app.R;
 
 import java.util.Base64;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 
 public class PrivatekeyFragment extends Fragment {
@@ -36,13 +36,13 @@ public class PrivatekeyFragment extends Fragment {
             try {
                 id.setText(model.selected.getValue().getId());
                 privKey.setText(Base64.getEncoder().encodeToString((model.selected.getValue().getKey().getEncoded())));
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
             copyButton.setOnClickListener(v -> {
                 ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText( "Cryptofile key", model.selected.getValue().getId() + ":" + Base64.getEncoder().encodeToString((model.selected.getValue().getKey().getEncoded())));
+                ClipData clip = ClipData.newPlainText("Cryptofile key", model.selected.getValue().getId() + ":" + Base64.getEncoder().encodeToString((model.selected.getValue().getKey().getEncoded())));
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(getContext(), "Key copied to clipboard!", Toast.LENGTH_SHORT).show();
             });

@@ -8,13 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textColor">#ffffff</item>
-        <item name="android:textColorHint">#DDFFFFFF</item>
     </style>
 
-    <style name="darkBackground"
+    <style name="blackText"
         parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item
-            name="android:background">#333231</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

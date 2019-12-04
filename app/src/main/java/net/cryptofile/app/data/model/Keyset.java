@@ -14,7 +14,6 @@ public class Keyset {
     SecretKey key = null;
 
 
-
     public static final List<Keyset> KEYSETS = new ArrayList<>();
 
     public Keyset(@NonNull String id, SecretKey key) {

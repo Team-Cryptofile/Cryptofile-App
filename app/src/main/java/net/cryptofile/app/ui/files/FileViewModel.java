@@ -29,7 +29,7 @@ public class FileViewModel extends AndroidViewModel {
     }
 
     LiveData<List<FileEntry>> getFileList() throws Exception {
-        if(fileList == null) {
+        if (fileList == null) {
             fileList = new MutableLiveData<>();
             loadFileList();
         }

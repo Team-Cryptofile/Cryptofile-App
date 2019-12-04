@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,12 +19,15 @@ import net.cryptofile.app.MainActivity;
 import net.cryptofile.app.R;
 import net.cryptofile.app.data.FileService;
 import net.cryptofile.app.data.Result;
+import net.cryptofile.app.data.model.FileEntry;
 
+import java.util.List;
 import java.util.Objects;
 
 public class FileListFragment extends Fragment {
 
     private static final String LOG_TAG = MainActivity.class.getName();
+    MutableLiveData<List<FileEntry>> fileList;
 
     @SuppressLint("StaticFieldLeak")
     public View onCreateView(LayoutInflater inflater,
@@ -52,9 +56,7 @@ public class FileListFragment extends Fragment {
                         protected Result doInBackground(Void... voids) {
 
                             try {
-                                FileService.getFileList();
-
-
+                                loadFileList();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -67,7 +69,7 @@ public class FileListFragment extends Fragment {
         return view;
     }
 
-    private void refreshFileList() {
-
+    protected void loadFileList() throws Exception {
+        this.fileList.setValue(FileService.getFileList());
     }
 }

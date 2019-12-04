@@ -57,5 +57,6 @@
     <string name="generated_qr_code">Generated QR code</string>
     <string name="file_extension">File extension:</string>
     <string name="uuid">uuid</string>
+    <string name="delete_file">Delete File</string>
 
 </resources>

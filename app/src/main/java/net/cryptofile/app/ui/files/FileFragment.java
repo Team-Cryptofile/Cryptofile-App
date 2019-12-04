@@ -88,7 +88,7 @@ public class FileFragment extends Fragment {
                 id.setText(model.selected.getValue().getId());
                 title.setText(model.selected.getValue().getTitle());
                 fileType.setText(model.selected.getValue().getFileType());
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -105,7 +105,7 @@ public class FileFragment extends Fragment {
                 ClipData clip = null; //(model.selected.getValue().getKey().getEncoded())));
                 try {
 
-                    clip = ClipData.newPlainText( "Cryptofile key", stringToSend);
+                    clip = ClipData.newPlainText("Cryptofile key", stringToSend);
 
 
                 } catch (Exception e) {

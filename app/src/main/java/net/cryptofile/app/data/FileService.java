@@ -24,10 +24,10 @@ public class FileService {
     private static BufferedWriter bufferedWriter = null;
     private static String response = null;
 
-    
+
     public static void readFromStoredFiles() throws Exception {
         File file = new File(storedFilelistFolder);
-        if(!file.exists() | file.length() == 0){
+        if (!file.exists() | file.length() == 0) {
             file.createNewFile();
             fileWriter = new FileWriter(file.getAbsoluteFile());
             bufferedWriter = new BufferedWriter(fileWriter);
@@ -41,7 +41,7 @@ public class FileService {
         bufferedReader = new BufferedReader(fileReader);
         String line;
 
-        while ((line = bufferedReader.readLine()) != null){
+        while ((line = bufferedReader.readLine()) != null) {
             output.append(line).append("\n");
         }
 

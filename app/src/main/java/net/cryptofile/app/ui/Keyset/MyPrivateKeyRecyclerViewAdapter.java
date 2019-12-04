@@ -15,6 +15,7 @@ import net.cryptofile.app.data.model.Keyset;
 import java.util.List;
 
 /**
+ *
  */
 public class MyPrivateKeyRecyclerViewAdapter extends RecyclerView.Adapter<MyPrivateKeyRecyclerViewAdapter.ViewHolder> {
 

@@ -12,7 +12,7 @@
     <View
         android:id="@+id/view"
         android:layout_width="412dp"
-        android:layout_height="80dp"
+        android:layout_height="120dp"
         android:background="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,12 +25,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:singleLine="true"
+        android:text="Test"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textViewFileId"
@@ -38,32 +45,23 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewFileTitle"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:singleLine="true"
-        android:textSize="@dimen/nav_header_vertical_spacing"
+        android:text="UUID"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.047"
-        tools:ignore="MissingConstraints,SpUsage"
-        tools:layout_editor_absoluteX="-16dp" />
-
-    <TextView
-        android:id="@+id/textViewFileStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewFileId"
-        android:layout_alignParentEnd="true"
-        android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.136"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:ignore="MissingConstraints,SpUsage" />
 
     <TextView
         android:id="@+id/textViewFileType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewFileStatus"
+        android:layout_below="@id/textViewFileId"
         android:layout_alignParentEnd="true"
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,9 +74,10 @@
         android:id="@+id/copyKeyButton"
         android:layout_width="190dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="64dp"
         android:text="@string/copy_key_to_clipboard"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -102,8 +101,8 @@
         android:id="@+id/deleteFileButton"
         android:layout_width="190dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:text="Delete File"
+        android:layout_marginTop="48dp"
+        android:text="@string/delete_file"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

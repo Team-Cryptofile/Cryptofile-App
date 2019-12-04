@@ -28,10 +28,10 @@ public class CryptoService {
 
     static {
         try {
-            if (!(new File(keyLocation).exists())){
+            if (!(new File(keyLocation).exists())) {
                 keyStore = KeyStore.getInstance(type);
                 keyStore.load(null, null);
-                keyStore.store(new FileOutputStream(keyLocation),password);
+                keyStore.store(new FileOutputStream(keyLocation), password);
             }
 
             keyStore = KeyStore.getInstance(type);
@@ -64,11 +64,11 @@ public class CryptoService {
         System.out.println("Stored key: " + Base64.getEncoder().encodeToString(getKey(uuid).getEncoded()));
     }
 
-    public static SecretKey getKey(String uuid) throws  Exception {
+    public static SecretKey getKey(String uuid) throws Exception {
         return (SecretKey) keyStore.getKey(uuid, password);
     }
 
-    public static void saveKey(String uuidAndKey) throws Exception{
+    public static void saveKey(String uuidAndKey) throws Exception {
         String[] splittedString = uuidAndKey.split(":", 2);
         byte[] keyBytes = Base64.getDecoder().decode(splittedString[1].getBytes(StandardCharsets.UTF_8));
         SecretKey secretKey = new SecretKeySpec(keyBytes, 0, keyBytes.length, "AES");
