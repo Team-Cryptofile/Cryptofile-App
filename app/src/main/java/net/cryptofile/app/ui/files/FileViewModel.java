@@ -1,6 +1,10 @@
-package net.cryptofile.app.ui.home;
+package net.cryptofile.app.ui.files;
 
 import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -10,10 +14,6 @@ import net.cryptofile.app.data.FileService;
 import net.cryptofile.app.data.model.FileEntry;
 
 import java.util.List;
-
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 
 public class FileViewModel extends AndroidViewModel {

@@ -1,5 +1,6 @@
 package net.cryptofile.app.ui.fileupload;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -9,8 +10,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -29,15 +28,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 import javax.crypto.SecretKey;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class FileUploadActivity extends AppCompatActivity {
 
     private static final int REQUEST_GET_SINGLE_FILE= 1;
 
     File fileAsBytes = null;
-    TextView detectedFiletypeText;
+    TextInputEditText detectedFiletypeText;
     TextView fileLocationText;
     Button submitBtn;
     TextInputEditText titleInput;
@@ -98,7 +100,10 @@ public class FileUploadActivity extends AppCompatActivity {
                     if (path != null) {
                         InputStream inputStream = getContentResolver().openInputStream(selectedFile);
 
-                        detectedFiletypeText.setText(new Tika().detect(path));  // Detects filetype
+                        String ft = new Tika().detect(path); // Detects filetype
+                        if(!(ft.isEmpty() || ft.matches("application/octet-stream"))) {
+                            detectedFiletypeText.setText(ft.split("/")[1]);
+                        }
 
                         statusText.setText("Encrypting...");
                         progressBar.setVisibility(View.VISIBLE);
@@ -131,6 +136,7 @@ public class FileUploadActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     public void submitFile(File file, String title, String filetype) {
         new AsyncTask<Void, Void, Result>() {
 
@@ -159,10 +165,14 @@ public class FileUploadActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
 
                     try {
+                        PrintWriter writer = new PrintWriter(file);
+                        writer.print("");
+                        writer.close();
                         redirect();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 } else {
                     System.out.println("File not submitted");
 
@@ -182,7 +192,7 @@ public class FileUploadActivity extends AppCompatActivity {
     private void redirect() throws Exception {
         if (response instanceof Result.Success) {
             CryptoService.storeKey(key, returnedUuid);
-            FileService.addFile(returnedUuid, titleInput.getText().toString());
+            FileService.addFile(returnedUuid, titleInput.getText().toString(), detectedFiletypeText.getText().toString());
             Toast.makeText(this , "File successfully uploaded", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class));
         }else{

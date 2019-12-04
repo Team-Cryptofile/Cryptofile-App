@@ -45,6 +45,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="keys">Keys</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -56,5 +57,7 @@
     <string name="file_type_label">File type:</string>
     <string name="detected_filetype">No filetype detected</string>
     <string name="copy_key_to_clipboard">Copy key to clipboard</string>
+    <string name="generated_qr_code">Generated QR code</string>
+    <string name="file_extension">File extension:</string>
 
 </resources>

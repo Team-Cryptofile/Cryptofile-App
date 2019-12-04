@@ -12,12 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-
 import net.cryptofile.app.R;
 
 import java.util.Base64;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 
 public class PrivatekeyFragment extends Fragment {
@@ -61,5 +61,6 @@ public class PrivatekeyFragment extends Fragment {
 
         return view;
     }
+
 
 }

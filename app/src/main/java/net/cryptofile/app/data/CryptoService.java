@@ -1,7 +1,5 @@
 package net.cryptofile.app.data;
 
-import android.content.Context;
-import android.os.Environment;
 import android.security.keystore.KeyProperties;
 
 import java.io.ByteArrayOutputStream;
@@ -11,16 +9,16 @@ import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 public class CryptoService {
     private static KeyStore keyStore;
@@ -71,10 +69,10 @@ public class CryptoService {
     }
 
     public static void saveKey(String uuidAndKey) throws Exception{
-        String[] splittedString = uuidAndKey.split(":", 1);
-        byte[] keyBytes = Base64.getDecoder().decode(splittedString[1].getBytes());
-
-        keyStore.setKeyEntry(splittedString[0], keyBytes, null);
+        String[] splittedString = uuidAndKey.split(":", 2);
+        byte[] keyBytes = Base64.getDecoder().decode(splittedString[1].getBytes(StandardCharsets.UTF_8));
+        SecretKey secretKey = new SecretKeySpec(keyBytes, 0, keyBytes.length, "AES");
+        storeKey(secretKey, splittedString[0]);
     }
 
     public static ArrayList<String> getAllAliases() throws KeyStoreException {
@@ -87,18 +85,20 @@ public class CryptoService {
         byte[] iv = cipher.getIV();
         byte[] encryptedFileBytes = cipher.doFinal(fileBytes);
 
+        System.out.println("IV encrypt: " + new String(iv, StandardCharsets.UTF_8));
+
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         outputStream.write(iv);
-        outputStream.write(":::::".getBytes(StandardCharsets.UTF_8));
         outputStream.write(encryptedFileBytes);
 
         return outputStream.toByteArray();
     }
 
     public static byte[] decrypt(SecretKey key, byte[] encryptedBytes) throws Exception {
-        String[] split = new String(encryptedBytes, StandardCharsets.UTF_8).split(new String(":::::".getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8), 1);
-        byte[] iv = split[0].getBytes(StandardCharsets.UTF_8);
-        byte[] encryptedFileBytes = split[1].getBytes(StandardCharsets.UTF_8);
+        byte[] iv = Arrays.copyOf(encryptedBytes, 12);
+        byte[] encryptedFileBytes = Arrays.copyOfRange(encryptedBytes, 12, encryptedBytes.length);
+
+        System.out.println("IV decrypt: " + new String(iv, StandardCharsets.UTF_8));
 
         final Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
         final GCMParameterSpec spec = new GCMParameterSpec(128, iv);

@@ -1,12 +1,18 @@
 package net.cryptofile.app;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
 public class SettingsActivity extends AppCompatActivity {
+
+
+    private Button deleteAccountBtn;
+    private Button chooseFileLocationBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +27,29 @@ public class SettingsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         setTitle("Settings");
+
+
+
+
+    //button controls for settings page.
+    deleteAccountBtn = (Button) findViewById(R.id.deleteAccountButton);
+    chooseFileLocationBtn = (Button) findViewById(R.id.chooseSaveFolder);
+
+    deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    });
+
+    chooseFileLocationBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    });
+
+
 
 
 
