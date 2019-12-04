@@ -165,13 +165,13 @@ public class FileFragment extends Fragment {
     }
 
 
-    Bitmap encodeAsBitmap(String str) throws WriterException {
+    private Bitmap encodeAsBitmap(String str) throws WriterException {
         BitMatrix result;
 
-        int width = Resources.getSystem().getDisplayMetrics().widthPixels - 50;
-        System.out.println("Image width: " + width);
+        int dimensions = Resources.getSystem().getDisplayMetrics().widthPixels - 50;
+        System.out.println("Image dimensions: " + dimensions);
         try {
-            result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, width, width, null);
+            result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, dimensions, dimensions, null);
         } catch (IllegalArgumentException iae) {
             return null;
         }
@@ -185,7 +185,7 @@ public class FileFragment extends Fragment {
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        bitmap.setPixels(pixels, 0, width, 0, 0, w, h);
+        bitmap.setPixels(pixels, 0, dimensions, 0, 0, w, h);
         return bitmap;
     }
 

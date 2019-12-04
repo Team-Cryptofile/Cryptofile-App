@@ -40,7 +40,7 @@ public class FileListFragment extends Fragment {
         FileViewModel model = ViewModelProviders.of(Objects.requireNonNull(this.getActivity())).get(FileViewModel.class);
         try {
             model.getFileList().observe(this, fileList ->
-                    recyclerView.setAdapter(new MyFileRecyclerViewAdapter(fileList)));
+                    recyclerView.setAdapter(new FileRecyclerViewAdapter(fileList)));
         } catch (Exception e) {
             e.printStackTrace();
         }

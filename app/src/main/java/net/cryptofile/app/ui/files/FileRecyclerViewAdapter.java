@@ -20,13 +20,13 @@ import java.util.List;
 /**
  *
  */
-public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecyclerViewAdapter.ViewHolder> {
+public class FileRecyclerViewAdapter extends RecyclerView.Adapter<FileRecyclerViewAdapter.ViewHolder> {
 
     private final List<FileEntry> mValues;
 
     private FileViewModel model;
 
-    public MyFileRecyclerViewAdapter(List<FileEntry> items) {
+    public FileRecyclerViewAdapter(List<FileEntry> items) {
         mValues = items;
     }
 
