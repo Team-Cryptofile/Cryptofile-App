@@ -1,4 +1,4 @@
-package net.cryptofile.app.ui.login;
+package net.cryptofile.app.ui.authentication;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;

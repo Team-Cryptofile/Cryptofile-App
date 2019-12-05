@@ -1,4 +1,4 @@
-package net.cryptofile.app.ui.Keyset;
+package net.cryptofile.app.ui.key;
 
 
 import android.content.ClipData;
@@ -12,15 +12,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import net.cryptofile.app.R;
 
 import java.util.Base64;
 
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
-
-public class PrivatekeyFragment extends Fragment {
+public class KeyFragment extends Fragment {
 
     private TextView id;
     private TextView privKey;
@@ -30,19 +30,19 @@ public class PrivatekeyFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PrivatekeyViewModel model = ViewModelProviders.of(this.getActivity()).get(PrivatekeyViewModel.class);
+        KeyViewModel model = ViewModelProviders.of(this.getActivity()).get(KeyViewModel.class);
 
         model.getSelected().observe(this, privkey -> {
             try {
                 id.setText(model.selected.getValue().getId());
                 privKey.setText(Base64.getEncoder().encodeToString((model.selected.getValue().getKey().getEncoded())));
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
             copyButton.setOnClickListener(v -> {
                 ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText( "Cryptofile key", model.selected.getValue().getId() + ":" + Base64.getEncoder().encodeToString((model.selected.getValue().getKey().getEncoded())));
+                ClipData clip = ClipData.newPlainText("Cryptofile key", model.selected.getValue().getId() + ":" + Base64.getEncoder().encodeToString((model.selected.getValue().getKey().getEncoded())));
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(getContext(), "Key copied to clipboard!", Toast.LENGTH_SHORT).show();
             });

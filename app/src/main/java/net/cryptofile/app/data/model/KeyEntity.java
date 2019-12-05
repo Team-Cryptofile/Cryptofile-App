@@ -8,24 +8,23 @@ import java.util.List;
 import javax.crypto.SecretKey;
 
 
-public class Keyset {
+public class KeyEntity {
 
     String id = null;
     SecretKey key = null;
 
 
+    public static final List<KeyEntity> KEY_ENTITIES = new ArrayList<>();
 
-    public static final List<Keyset> KEYSETS = new ArrayList<>();
-
-    public Keyset(@NonNull String id, SecretKey key) {
+    public KeyEntity(@NonNull String id, SecretKey key) {
 
         this.id = id;
         this.key = key;
 
     }
 
-    private static void addItem(Keyset keyset) {
-        KEYSETS.add(keyset);
+    private static void addItem(KeyEntity keyEntity) {
+        KEY_ENTITIES.add(keyEntity);
     }
 
 

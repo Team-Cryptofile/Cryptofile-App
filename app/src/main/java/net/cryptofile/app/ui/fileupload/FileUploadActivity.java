@@ -11,6 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import net.cryptofile.app.MainActivity;
@@ -32,11 +34,9 @@ import java.io.PrintWriter;
 
 import javax.crypto.SecretKey;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class FileUploadActivity extends AppCompatActivity {
 
-    private static final int REQUEST_GET_SINGLE_FILE= 1;
+    private static final int REQUEST_GET_SINGLE_FILE = 1;
 
     File fileAsBytes = null;
     TextInputEditText detectedFiletypeText;
@@ -49,6 +49,9 @@ public class FileUploadActivity extends AppCompatActivity {
     MainRepository mainRepository;
     Result response;
     SecretKey key;
+    String filePath;
+    Uri selectedFile;
+    String TEMP_FILE_PATH;
 
     TextView statusText;
     ProgressBar progressBar;
@@ -58,16 +61,17 @@ public class FileUploadActivity extends AppCompatActivity {
         setContentView(R.layout.file_upload_activity);
 
         mainRepository = new MainRepository(new ServerDataSource());
+        TEMP_FILE_PATH = getCacheDir() + "/uploadfile.tmp";
 
         final Button selectFilebutton = findViewById(R.id.selectUploadFilebutton);
         titleInput = findViewById(R.id.textInputEditText);
         fileLocationText = findViewById(R.id.textViewFilelocation);
         detectedFiletypeText = findViewById(R.id.textViewDetectedFileType);
-        submitBtn = findViewById(R.id.uploadSubmitBtn);statusText = findViewById(R.id.uploadStatusText);
+        submitBtn = findViewById(R.id.uploadSubmitBtn);
+        statusText = findViewById(R.id.uploadStatusText);
         progressBar = findViewById(R.id.uploadProgressBar);
 
         progressBar.setVisibility(View.GONE);
-
 
 
         selectFilebutton.setOnClickListener(v -> {
@@ -93,46 +97,77 @@ public class FileUploadActivity extends AppCompatActivity {
         try {
             if (resultCode == RESULT_OK) {
                 if (requestCode == REQUEST_GET_SINGLE_FILE) {
-                    Uri selectedFile = data.getData();
+                    selectedFile = data.getData();
 
-                    final String path = selectedFile.getPath();
+                    filePath = selectedFile.getPath();
 
-                    if (path != null) {
-                        InputStream inputStream = getContentResolver().openInputStream(selectedFile);
-
-                        String ft = new Tika().detect(path); // Detects filetype
-                        if(!(ft.isEmpty() || ft.matches("application/octet-stream"))) {
-                            detectedFiletypeText.setText(ft.split("/")[1]);
-                        }
-
-                        statusText.setText("Encrypting...");
-                        progressBar.setVisibility(View.VISIBLE);
-
-                        key = CryptoService.generateKey();
-
-                        byte[] encryptedBytes = CryptoService.encrypt(key, IOUtils.toByteArray(inputStream));
-
-                        // TODO: 19.11.2019 Encrypt file
-                        // Write selected file to temporary file
-                        File tempFile = new File(this.getCacheDir() + "uploadfile.tmp");
-                        OutputStream outputStream = new FileOutputStream(tempFile);
-                        outputStream.write(encryptedBytes);
-                        inputStream.close();
-
-                        statusText.setText("Encrypted");
-                        progressBar.setVisibility(View.GONE);
-
-                        fileAsBytes = tempFile;
-                        fileLocationText.setText(path.substring(path.lastIndexOf("/")+1));
-                    }else {
+                    if (filePath != null) {
+                        encryptFile();
+                    } else {
                         System.out.println("Path is null!");
                     }
 
                 }
             }
-        } catch (Exception  e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @SuppressLint("StaticFieldLeak")
+    public void encryptFile() {
+        new AsyncTask<Void, Void, Void>() {
+            File tempFile;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                try {
+                    String ft = new Tika().detect(filePath); // Detects filetype
+                    if (!(ft.isEmpty() || ft.matches("application/octet-stream"))) {
+                        detectedFiletypeText.setText(ft.split("/")[1]);
+                    }
+
+                    statusText.setText("Encrypting...");
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    key = CryptoService.generateKey();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(selectedFile);
+                    byte[] encryptedBytes = CryptoService.encrypt(key, IOUtils.toByteArray(inputStream));
+
+                    // Write selected file to temporary file
+                    tempFile = new File(TEMP_FILE_PATH);
+                    OutputStream outputStream = new FileOutputStream(tempFile);
+                    outputStream.write(encryptedBytes);
+                    inputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                statusText.setText("Encrypted");
+                progressBar.setVisibility(View.GONE);
+
+                fileAsBytes = tempFile;
+                fileLocationText.setText(filePath.substring(filePath.lastIndexOf("/") + 1));
+
+            }
+        }.execute();
     }
 
 
@@ -193,9 +228,9 @@ public class FileUploadActivity extends AppCompatActivity {
         if (response instanceof Result.Success) {
             CryptoService.storeKey(key, returnedUuid);
             FileService.addFile(returnedUuid, titleInput.getText().toString(), detectedFiletypeText.getText().toString());
-            Toast.makeText(this , "File successfully uploaded", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "File successfully uploaded", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class));
-        }else{
+        } else {
             Toast.makeText(this, "Something went wrong, file failed to be uploaded!", Toast.LENGTH_LONG).show();
             submitBtn.setEnabled(true);
         }

@@ -1,8 +1,10 @@
 package net.cryptofile.app.ui.files;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import com.google.zxing.common.BitMatrix;
 
 import net.cryptofile.app.R;
 import net.cryptofile.app.data.CryptoService;
+import net.cryptofile.app.data.FileService;
 
 import java.util.Base64;
 
@@ -37,6 +40,7 @@ public class FileFragment extends Fragment {
     TextView title;
     TextView fileType;
     Button copyButton;
+    Button deleteButton;
     ImageView imageView;
     String stringToSend = null;
 
@@ -84,7 +88,7 @@ public class FileFragment extends Fragment {
                 id.setText(model.selected.getValue().getId());
                 title.setText(model.selected.getValue().getTitle());
                 fileType.setText(model.selected.getValue().getFileType());
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -101,7 +105,7 @@ public class FileFragment extends Fragment {
                 ClipData clip = null; //(model.selected.getValue().getKey().getEncoded())));
                 try {
 
-                    clip = ClipData.newPlainText( "Cryptofile key", stringToSend);
+                    clip = ClipData.newPlainText("Cryptofile key", stringToSend);
 
 
                 } catch (Exception e) {
@@ -109,6 +113,37 @@ public class FileFragment extends Fragment {
                 }
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(getContext(), "Key copied to clipboard!", Toast.LENGTH_SHORT).show();
+            });
+
+            deleteButton.setOnClickListener(view -> {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                try {
+                                    FileService.delete(model.selected.getValue().getId());
+                                    CryptoService.delete(model.selected.getValue().getId());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                getActivity().finish();
+                                startActivity(getActivity().getIntent());
+                                dialogInterface.dismiss();
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                dialogInterface.cancel();
+                        }
+                    }
+
+
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK);
+                builder.setMessage("Are you sure you want to delete this file?")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
             });
 
         });
@@ -124,18 +159,19 @@ public class FileFragment extends Fragment {
         title = view.findViewById(R.id.textViewFileTitle);
         fileType = view.findViewById(R.id.textViewFileType);
         copyButton = view.findViewById(R.id.copyKeyButton);
+        deleteButton = view.findViewById(R.id.deleteFileButton);
         imageView = view.findViewById(R.id.qrCode);
         return view;
     }
 
 
-    Bitmap encodeAsBitmap(String str) throws WriterException {
+    private Bitmap encodeAsBitmap(String str) throws WriterException {
         BitMatrix result;
 
-        int width = Resources.getSystem().getDisplayMetrics().widthPixels - 50;
-        System.out.println("Image width: " + width);
+        int dimensions = Resources.getSystem().getDisplayMetrics().widthPixels - 50;
+        System.out.println("Image dimensions: " + dimensions);
         try {
-            result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, width, width, null);
+            result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, dimensions, dimensions, null);
         } catch (IllegalArgumentException iae) {
             return null;
         }
@@ -149,7 +185,7 @@ public class FileFragment extends Fragment {
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        bitmap.setPixels(pixels, 0, width, 0, 0, w, h);
+        bitmap.setPixels(pixels, 0, dimensions, 0, 0, w, h);
         return bitmap;
     }
 

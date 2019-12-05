@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.fileupload.FileUploadActivity">
 
-
     <Button
         android:id="@+id/selectUploadFilebutton"
         android:layout_width="wrap_content"
@@ -41,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="124dp"
         android:text="@string/selected_file"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/selectUploadFilebutton"
         app:layout_constraintStart_toStartOf="@+id/selectUploadFilebutton"
         app:layout_constraintTop_toTopOf="@+id/selectUploadFilebutton" />
@@ -52,6 +52,7 @@
         android:layout_marginStart="44dp"
         android:layout_marginTop="24dp"
         android:text="@string/file_extension"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -97,6 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/uploadProgressBar"
         app:layout_constraintStart_toStartOf="@+id/uploadProgressBar"
         app:layout_constraintTop_toBottomOf="@+id/uploadProgressBar" />
@@ -107,6 +109,7 @@
         android:layout_height="wrap_content"
         android:text="@string/upload_file"
         android:textSize="18sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/textInputEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

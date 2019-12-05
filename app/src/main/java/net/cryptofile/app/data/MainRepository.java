@@ -9,7 +9,7 @@ public class MainRepository {
     private static volatile MainRepository instance;
 
     public MainRepository(ServerDataSource dataSource) {
-        this.dataSource = dataSource;
+        MainRepository.dataSource = dataSource;
     }
 
     public static MainRepository getInstance(ServerDataSource dataSource) {

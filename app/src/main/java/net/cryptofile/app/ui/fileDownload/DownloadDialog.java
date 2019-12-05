@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialogFragment;
+
 import net.cryptofile.app.R;
 import net.cryptofile.app.data.CryptoService;
 import net.cryptofile.app.data.FileService;
@@ -24,9 +27,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDialogFragment;
+import java.util.Objects;
 
 public class DownloadDialog extends AppCompatDialogFragment {
 
@@ -35,9 +36,9 @@ public class DownloadDialog extends AppCompatDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.blackText);
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_download_dialog, null);
 
         builder.setView(view)
@@ -56,13 +57,13 @@ public class DownloadDialog extends AppCompatDialogFragment {
     }
 
 
-    public void downloadFile(String uuidInput) {
+    private void downloadFile(String uuidInput) {
         boolean isOnlyUuid = uuidInput.matches("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
-        boolean isUuidWithKey= uuidInput.matches("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}:.+=$");
+        boolean isUuidWithKey = uuidInput.matches("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}:.+=$");
         Thread thread = new Thread(() -> {
             try {
                 String urlPath = "http://cryptofile.net:8080/get/";
-                if(isOnlyUuid) {    // This runs if UUID is valid but have no key
+                if (isOnlyUuid) {    // This runs if UUID is valid but have no key
                     URL url = new URL(urlPath + uuidInput);
 
                     // Grabbing file title from server
@@ -91,7 +92,7 @@ public class DownloadDialog extends AppCompatDialogFragment {
                     // Getting the file itself
                     URL url = new URL(urlPath + uuid);
                     InputStream in = url.openStream();
-                    Path filePath =  Paths.get(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), uuid + "." + filetype);
+                    Path filePath = Paths.get(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), uuid + "." + filetype);
 
                     byte[] decryptedBytes = CryptoService.decrypt(CryptoService.getKey(uuid), IOUtils.toByteArray(in));
                     ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(decryptedBytes);
@@ -114,7 +115,7 @@ public class DownloadDialog extends AppCompatDialogFragment {
 
         try {
             listener = (DownloadDialogListener) context;
-        }catch (ClassCastException e) {
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +
                     "must implement DownloadDialogListener");
         }
@@ -136,7 +137,7 @@ public class DownloadDialog extends AppCompatDialogFragment {
             BufferedReader in = new BufferedReader(new InputStreamReader(c.getInputStream()));
             String inputLine;
             StringBuffer content = new StringBuffer();
-            while((inputLine = in.readLine()) != null) {
+            while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
             }
             detailString = content.toString();

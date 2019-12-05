@@ -29,30 +29,23 @@ public class SettingsActivity extends AppCompatActivity {
         setTitle("Settings");
 
 
+        //button controls for settings page.
+        deleteAccountBtn = (Button) findViewById(R.id.deleteAccountButton);
+        chooseFileLocationBtn = (Button) findViewById(R.id.chooseSaveFolder);
 
+        deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-    //button controls for settings page.
-    deleteAccountBtn = (Button) findViewById(R.id.deleteAccountButton);
-    chooseFileLocationBtn = (Button) findViewById(R.id.chooseSaveFolder);
+            }
+        });
 
-    deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+        chooseFileLocationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        }
-    });
-
-    chooseFileLocationBtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-        }
-    });
-
-
-
-
-
+            }
+        });
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
